@@ -1,0 +1,23 @@
+{
+  "name": "mschop/noteephp",
+  "description": "html generation library",
+  "keywords": ["html", "template", "dom", "query", "api"],
+  "license": "MIT",
+  "require-dev": {
+    "humbug/humbug": "dev-master"
+  },
+  "authors": [
+    {
+      "name": "mschop",
+      "email": "mschopdev@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": { "NoTee\\": "src/" }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "test": "vendor/bin/humbug"
+  }
+}
