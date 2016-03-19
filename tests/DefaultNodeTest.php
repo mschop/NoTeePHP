@@ -66,4 +66,5 @@ class DefaultNodeTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('InvalidArgumentException');
         $node = new DefaultNode('a', ['a b' => 'c']);
     }
+
 }

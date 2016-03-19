@@ -3,7 +3,7 @@
 namespace NoTee;
 
 
-class Raw implements URLAttribute
+class Raw implements URLAttribute, HtmlNode
 {
 
     private $value;
