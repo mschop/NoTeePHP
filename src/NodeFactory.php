@@ -5,136 +5,136 @@ namespace NoTee;
 /**
  * Class NodeFactory
  * @package NoTee
- * @method static a
- * @method static abbr
- * @method static acronym
- * @method static address
- * @method static applet
- * @method static area
- * @method static article
- * @method static aside
- * @method static audio
- * @method static base
- * @method static basefont
- * @method static b
- * @method static bdo
- * @method static bgsound
- * @method static big
- * @method static blink
- * @method static blockquote
- * @method static body
- * @method static br
- * @method static button
- * @method static canvas
- * @method static caption
- * @method static center
- * @method static cite
- * @method static code
- * @method static col
- * @method static colgroup
- * @method static command
- * @method static datalist
- * @method static dd
- * @method static del
- * @method static details
- * @method static dfn
- * @method static div
- * @method static dl
- * @method static dt
- * @method static embed
- * @method static em
- * @method static fieldset
- * @method static figcaption
- * @method static figure
- * @method static font
- * @method static footer
- * @method static form
- * @method static frame
- * @method static frameset
- * @method static h1
- * @method static h2
- * @method static h3
- * @method static h4
- * @method static h5
- * @method static h6
- * @method static header
- * @method static head
- * @method static hgroup
- * @method static hr
- * @method static html
- * @method static iframe
- * @method static i
- * @method static img
- * @method static input
- * @method static ins
- * @method static isindex
- * @method static kbd
- * @method static keygen
- * @method static label
- * @method static legend
- * @method static li
- * @method static link
- * @method static listing
- * @method static map
- * @method static mark
- * @method static marquee
- * @method static math
- * @method static menu
- * @method static meta
- * @method static meter
- * @method static nav
- * @method static nextid
- * @method static nobr
- * @method static noembed
- * @method static noframes
- * @method static noscript
- * @method static object
- * @method static ol
- * @method static optgroup
- * @method static option
- * @method static output
- * @method static param
- * @method static plaintext
- * @method static p
- * @method static pre
- * @method static progress
- * @method static q
- * @method static rp
- * @method static rt
- * @method static ruby
- * @method static samp
- * @method static script
- * @method static section
- * @method static select
- * @method static small
- * @method static source
- * @method static spacer
- * @method static span
- * @method static s
- * @method static strike
- * @method static strong
- * @method static style
- * @method static sub
- * @method static sup
- * @method static summary
- * @method static svg
- * @method static table
- * @method static tbody
- * @method static td
- * @method static textarea
- * @method static tfoot
- * @method static thead
- * @method static th
- * @method static time
- * @method static title
- * @method static tr
- * @method static tt
- * @method static ul
- * @method static u
- * @method static _var
- * @method static video
- * @method static wbr
- * @method static xmp
+ * @method static DefaultNode a
+ * @method static DefaultNode abbr
+ * @method static DefaultNode acronym
+ * @method static DefaultNode address
+ * @method static DefaultNode applet
+ * @method static DefaultNode area
+ * @method static DefaultNode article
+ * @method static DefaultNode aside
+ * @method static DefaultNode audio
+ * @method static DefaultNode base
+ * @method static DefaultNode basefont
+ * @method static DefaultNode b
+ * @method static DefaultNode bdo
+ * @method static DefaultNode bgsound
+ * @method static DefaultNode big
+ * @method static DefaultNode blink
+ * @method static DefaultNode blockquote
+ * @method static DefaultNode body
+ * @method static DefaultNode br
+ * @method static DefaultNode button
+ * @method static DefaultNode canvas
+ * @method static DefaultNode caption
+ * @method static DefaultNode center
+ * @method static DefaultNode cite
+ * @method static DefaultNode code
+ * @method static DefaultNode col
+ * @method static DefaultNode colgroup
+ * @method static DefaultNode command
+ * @method static DefaultNode datalist
+ * @method static DefaultNode dd
+ * @method static DefaultNode del
+ * @method static DefaultNode details
+ * @method static DefaultNode dfn
+ * @method static DefaultNode div
+ * @method static DefaultNode dl
+ * @method static DefaultNode dt
+ * @method static DefaultNode embed
+ * @method static DefaultNode em
+ * @method static DefaultNode fieldset
+ * @method static DefaultNode figcaption
+ * @method static DefaultNode figure
+ * @method static DefaultNode font
+ * @method static DefaultNode footer
+ * @method static DefaultNode form
+ * @method static DefaultNode frame
+ * @method static DefaultNode frameset
+ * @method static DefaultNode h1
+ * @method static DefaultNode h2
+ * @method static DefaultNode h3
+ * @method static DefaultNode h4
+ * @method static DefaultNode h5
+ * @method static DefaultNode h6
+ * @method static DefaultNode header
+ * @method static DefaultNode head
+ * @method static DefaultNode hgroup
+ * @method static DefaultNode hr
+ * @method static DefaultNode html
+ * @method static DefaultNode iframe
+ * @method static DefaultNode i
+ * @method static DefaultNode img
+ * @method static DefaultNode input
+ * @method static DefaultNode ins
+ * @method static DefaultNode isindex
+ * @method static DefaultNode kbd
+ * @method static DefaultNode keygen
+ * @method static DefaultNode label
+ * @method static DefaultNode legend
+ * @method static DefaultNode li
+ * @method static DefaultNode link
+ * @method static DefaultNode listing
+ * @method static DefaultNode map
+ * @method static DefaultNode mark
+ * @method static DefaultNode marquee
+ * @method static DefaultNode math
+ * @method static DefaultNode menu
+ * @method static DefaultNode meta
+ * @method static DefaultNode meter
+ * @method static DefaultNode nav
+ * @method static DefaultNode nextid
+ * @method static DefaultNode nobr
+ * @method static DefaultNode noembed
+ * @method static DefaultNode noframes
+ * @method static DefaultNode noscript
+ * @method static DefaultNode object
+ * @method static DefaultNode ol
+ * @method static DefaultNode optgroup
+ * @method static DefaultNode option
+ * @method static DefaultNode output
+ * @method static DefaultNode param
+ * @method static DefaultNode plaintext
+ * @method static DefaultNode p
+ * @method static DefaultNode pre
+ * @method static DefaultNode progress
+ * @method static DefaultNode q
+ * @method static DefaultNode rp
+ * @method static DefaultNode rt
+ * @method static DefaultNode ruby
+ * @method static DefaultNode samp
+ * @method static DefaultNode script
+ * @method static DefaultNode section
+ * @method static DefaultNode select
+ * @method static DefaultNode small
+ * @method static DefaultNode source
+ * @method static DefaultNode spacer
+ * @method static DefaultNode span
+ * @method static DefaultNode s
+ * @method static DefaultNode strike
+ * @method static DefaultNode strong
+ * @method static DefaultNode style
+ * @method static DefaultNode sub
+ * @method static DefaultNode sup
+ * @method static DefaultNode summary
+ * @method static DefaultNode svg
+ * @method static DefaultNode table
+ * @method static DefaultNode tbody
+ * @method static DefaultNode td
+ * @method static DefaultNode textarea
+ * @method static DefaultNode tfoot
+ * @method static DefaultNode thead
+ * @method static DefaultNode th
+ * @method static DefaultNode time
+ * @method static DefaultNode title
+ * @method static DefaultNode tr
+ * @method static DefaultNode tt
+ * @method static DefaultNode ul
+ * @method static DefaultNode u
+ * @method static DefaultNode _var
+ * @method static DefaultNode video
+ * @method static DefaultNode wbr
+ * @method static DefaultNode xmp
  */
 class NodeFactory
 {

@@ -67,4 +67,10 @@ class DefaultNodeTest extends \PHPUnit_Framework_TestCase
         $node = new DefaultNode('a', ['a b' => 'c']);
     }
 
+    public function test_escapesAttributes()
+    {
+        $node = new DefaultNode('div', ['class' => '"classname']);
+        $this->assertEquals('<div class="&quot;classname" />', $node->toString());
+    }
+
 }
