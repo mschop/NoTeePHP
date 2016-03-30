@@ -172,8 +172,8 @@ class NodeFactory
 
     private static function removePrefix($name)
     {
-        if(substr($name, 1, 1) === '_') {
-            return substr($name, 2, strlen($name) - 1);
+        if(substr($name, 0, 1) === '_') {
+            return substr($name, 1, strlen($name) - 1);
         }
         return $name;
     }
@@ -186,5 +186,10 @@ class NodeFactory
     public static function raw($text)
     {
         return new Raw($text);
+    }
+
+    public static function rawAttr($raw)
+    {
+        return new RawAttribute($raw);
     }
 }

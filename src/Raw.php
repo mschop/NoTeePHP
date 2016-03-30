@@ -6,7 +6,7 @@ namespace NoTee;
 use NoTee\Exceptions\InvalidOperationException;
 use NoTee\Exceptions\PathOutdatedException;
 
-class Raw implements URLAttribute, Node
+class Raw implements Node
 {
 
     private $raw;
