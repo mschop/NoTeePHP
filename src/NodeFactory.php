@@ -159,7 +159,7 @@ class NodeFactory
     {
         $result = [];
         foreach($arguments as $argument) {
-            if($argument instanceof Node) {
+            if($argument instanceof Node || is_string($argument)) {
                 $result[] = $argument;
             } else {
                 foreach($argument as $node) {

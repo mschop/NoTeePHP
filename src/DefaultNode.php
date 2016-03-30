@@ -38,6 +38,9 @@ class DefaultNode implements Fertile, Node
         static::validateAttributes($attributes);
         $this->tagName = $tagName;
         $this->attributes = $attributes;
+        $children = array_map(function($child){
+            return is_string($child) ? new TextNode($child) : $child;
+        }, $children);
         $this->children = $children;
     }
 
