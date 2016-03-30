@@ -4,9 +4,55 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f93ab458e7c84aa31e8c28f0b976e09b",
-    "content-hash": "49322ab91bc50e9980042e6459b1a923",
-    "packages": [],
+    "hash": "957e888e8cc9076008d1dbd9d3e9a791",
+    "content-hash": "99893bf67e19741172a2d02641c474b3",
+    "packages": [
+        {
+            "name": "zxqfox/css-selector-parser",
+            "version": "0.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zxqfox/php-css-selector-parser.git",
+                "reference": "3330f029ce777ffd061e13a51a72d84b519e42c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zxqfox/php-css-selector-parser/zipball/3330f029ce777ffd061e13a51a72d84b519e42c6",
+                "reference": "3330f029ce777ffd061e13a51a72d84b519e42c6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/php-invoker": "dev-master",
+                "phpunit/phpunit": "4.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CSSSelectorParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexej Yaroshevich",
+                    "email": "alex@qfox.ru"
+                }
+            ],
+            "description": "Simple CSS selector parser. PHP port of https://github.com/mdevils/node-css-selector-parser",
+            "keywords": [
+                "CSS selector",
+                "css",
+                "css selector parser"
+            ],
+            "time": "2014-10-27 13:57:57"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",

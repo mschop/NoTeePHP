@@ -194,4 +194,25 @@ class DefaultNode implements Fertile, Node
         }
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTagName()
+    {
+        return $this->tagName;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    public function find($query)
+    {
+        return new Processor($this, Selector::select($this, $query));
+    }
+
 }

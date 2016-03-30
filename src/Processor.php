@@ -20,11 +20,6 @@ class Processor implements ModifiableNode
         $this->root = $root;
     }
 
-    public function getAllPaths()
-    {
-        return $this->allPaths;
-    }
-
     private function execute($method, $params)
     {
         $pathAmount = count($this->allPaths);
@@ -83,11 +78,6 @@ class Processor implements ModifiableNode
     public function setText($text)
     {
         $this->execute('setText', [$text]);
-    }
-
-    public function setRoot(Node $root)
-    {
-        $this->root = $root;
     }
 
     public function getRoot()

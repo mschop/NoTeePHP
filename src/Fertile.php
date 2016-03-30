@@ -5,6 +5,10 @@ namespace NoTee;
 
 interface Fertile
 {
+    /**
+     * @return array
+     */
+    public function getChildren();
 
     /**
      * @param Node $oldChild
