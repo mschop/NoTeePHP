@@ -1,7 +1,5 @@
 <?php
 
-require_once(__DIR__ . '/vendor/autoload.php');
-
 function _a()
 {
     return call_user_func_array(['\\NoTee\\NodeFactory', __FUNCTION__], func_get_args());
