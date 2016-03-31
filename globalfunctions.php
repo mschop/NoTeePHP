@@ -232,32 +232,32 @@ function _frameset()
     return call_user_func_array(['\\NoTee\\NodeFactory', __FUNCTION__], func_get_args());
 }
 
-function h1()
+function _h1()
 {
     return call_user_func_array(['\\NoTee\\NodeFactory', __FUNCTION__], func_get_args());
 }
 
-function h2()
+function _h2()
 {
     return call_user_func_array(['\\NoTee\\NodeFactory', __FUNCTION__], func_get_args());
 }
 
-function h3()
+function _h3()
 {
     return call_user_func_array(['\\NoTee\\NodeFactory', __FUNCTION__], func_get_args());
 }
 
-function h4()
+function _h4()
 {
     return call_user_func_array(['\\NoTee\\NodeFactory', __FUNCTION__], func_get_args());
 }
 
-function h5()
+function _h5()
 {
     return call_user_func_array(['\\NoTee\\NodeFactory', __FUNCTION__], func_get_args());
 }
 
-function h6()
+function _h6()
 {
     return call_user_func_array(['\\NoTee\\NodeFactory', __FUNCTION__], func_get_args());
 }
