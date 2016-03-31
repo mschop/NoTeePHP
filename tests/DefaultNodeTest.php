@@ -50,7 +50,7 @@ class DefaultNodeTest extends \PHPUnit_Framework_TestCase
 
     public function test_toString_shouldNotEscapeRawUrl()
     {
-        $raw = new Raw('"#');
+        $raw = new RawAttribute('"#');
         $node = new DefaultNode('a', ['href' => $raw]);
         $this->assertEquals('<a href=""#" />', $node->toString());
     }

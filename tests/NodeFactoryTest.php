@@ -20,4 +20,29 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
         $expected = '<div><span class="class1 class2">this library is for writing <abbr title="Hypertext Markup Language">html</abbr></span></div>';
         $this->assertEquals($expected, $node->toString());
     }
+
+    public function test()
+    {
+        $node = N::div(
+            N::a(
+                N::text('hello world')
+            )
+        );
+        $this->assertEquals('<div><a>hello world</a></div>', $node->toString());
+
+
+        $node = N::div(
+            [N::a(), N::abbr()],
+            N::span()
+        );
+        $this->assertEquals('<div><a /><abbr /><span /></div>', $node->toString());
+
+        $node = N::div(
+            ['class' => 'hello'],
+            [N::a(), N::abbr()],
+            N::span('test')
+        );
+        $this->assertEquals('<div class="hello"><a /><abbr /><span>test</span></div>', $node->toString());
+
+    }
 }

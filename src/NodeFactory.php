@@ -138,9 +138,44 @@ namespace NoTee;
  */
 class NodeFactory
 {
+
     public static function __callStatic($name, $arguments)
     {
-        return new DefaultNode($name, array_shift($arguments), $arguments);
+        $name = static::removePrefix($name);
+
+        if(
+            count($arguments) === 0
+            || !is_array($arguments[0])
+            || count($arguments[0]) === 0
+            || reset($arguments[0]) instanceof Node
+        ) {
+            return new DefaultNode($name, [], static::flatten($arguments));
+        }
+
+        return new DefaultNode($name, array_shift($arguments), static::flatten($arguments));
+    }
+
+    private static function flatten($arguments)
+    {
+        $result = [];
+        foreach($arguments as $argument) {
+            if($argument instanceof Node || is_string($argument)) {
+                $result[] = $argument;
+            } else {
+                foreach($argument as $node) {
+                    $result[] = $node;
+                }
+            }
+        }
+        return $result;
+    }
+
+    private static function removePrefix($name)
+    {
+        if(substr($name, 0, 1) === '_') {
+            return substr($name, 1, strlen($name) - 1);
+        }
+        return $name;
     }
 
     public static function text($text)
@@ -151,5 +186,10 @@ class NodeFactory
     public static function raw($text)
     {
         return new Raw($text);
+    }
+
+    public static function rawAttr($raw)
+    {
+        return new RawAttribute($raw);
     }
 }
