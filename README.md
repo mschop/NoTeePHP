@@ -39,6 +39,13 @@ without globalfunctions.php:
 $node = NoTee\NodeFactory::p();
 ```
 
+or a little shorter:
+
+```
+use NoTee\NodeFactory as N;
+$node = N::p();
+```
+
 If you prefer using short notation, you should use globalfunctions.php.
 
 ## Basic Usage
