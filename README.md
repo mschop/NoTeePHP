@@ -14,7 +14,7 @@ Advantages of NoTeePHP compared to template engines:
 Further great things about NoTeePHP:
 
 - immutable node tree (reuse every node in unlimited places)
-- jquery like api for changing your nodes (e.g. middleware adding xsrf-fields to all forms)
+- api for changing your nodes (e.g. middleware adding xsrf-fields to all forms)
 
 ## Installation
 
