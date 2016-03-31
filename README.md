@@ -62,7 +62,7 @@ This is a tiny example:
             'html'
         ),
         _ul(
-            li('item 0'),
+            _li('item 0'),
             getItems()
         )
     );
