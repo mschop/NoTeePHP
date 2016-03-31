@@ -1,5 +1,7 @@
 # NoTeePHP
+
 [![Circle CI](https://circleci.com/gh/mschop/NoTeePHP/tree/master.svg?style=svg)](https://circleci.com/gh/mschop/NoTeePHP/tree/master)
+
 PHP HTML generation library.
 
 ## What is NoTeePHP
