@@ -188,10 +188,22 @@ class DefaultNode implements Fertile, Node
             if(!in_array($class, $allClasses)) {
                 $allClasses[] = $class;
             }
-            $this->attributes['class'] = implode(' ', $allClasses);
+            $this->attributes['class'] = trim(implode(' ', $allClasses));
         } else {
-            $this->attributes['class'] = $class;
+            $this->attributes['class'] = trim($class);
         }
+    }
+
+    protected function removeClass($class)
+    {
+        if(!isset($this->attributes['class'])) {
+            return;
+        }
+
+        $allClass = explode(' ', $this->attributes['class']);
+        $this->attributes['class'] = trim(implode(' ', array_filter($allClass, function($existingClass) use ($class) {
+            return $existingClass !== $class;
+        })));
     }
 
     /**
