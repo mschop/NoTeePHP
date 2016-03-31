@@ -70,6 +70,12 @@ class Processor implements ModifiableNode
         return $this;
     }
 
+    public function removeClass($class)
+    {
+        $this->execute('removeClass', [$class]);
+        return $this;
+    }
+
     public function setRaw($raw)
     {
         $this->execute('setRaw', [$raw]);
