@@ -1,4 +1,9 @@
-<phpunit bootstrap="vendor/autoload.php">
+<phpunit
+        bootstrap="vendor/autoload.php"
+        checkForUnintentionallyCoveredCode="true"
+        beStrictAboutTestsThatDoNotTestAnything="true"
+        beStrictAboutOutputDuringTests="true"
+        beStrictAboutChangesToGlobalState="true">
     <testsuites>
         <testsuite name="unit_tests">
             <directory>tests</directory>
