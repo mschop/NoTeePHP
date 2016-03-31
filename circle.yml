@@ -5,7 +5,9 @@ machine:
     COVERALLS_REPO_TOKEN: 9FupbCG39dJvgUFNFxFE3EQOrgZUNuGvQ
 test:
   override:
-    - vendor/bin/humbug
+    - phpunit -c phpunit.xml
 dependencies:
-  pre:
+  override:
+    - mkdir -p build/logs
+    - composer install --dev --no-interaction
     - sed -i 's/^;//' ~/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini
