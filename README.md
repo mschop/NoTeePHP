@@ -10,7 +10,6 @@ Advantages of NoTeePHP compared to template engines:
 - less error-prone (never again have enclosing tag errors)
 - easy (templates needs be compiled)
 - fast (cache components like the footer of you page in your object cache)
-- fewer code due to minimal syntax
 
 Further great things about NoTeePHP:
 
