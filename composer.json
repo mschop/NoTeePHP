@@ -8,7 +8,7 @@
   },
   "require-dev": {
     "humbug/humbug": "dev-master",
-    "satooshi/php-coveralls": "~1.0"
+    "satooshi/php-coveralls": "~2.0"
   },
   "authors": [
     {

@@ -1,6 +1,7 @@
 # NoTeePHP
 
 [![Circle CI](https://circleci.com/gh/mschop/NoTeePHP/tree/master.svg?style=svg)](https://circleci.com/gh/mschop/NoTeePHP/tree/master)
+[![Coverage Status](https://coveralls.io/repos/github/mschop/NoTeePHP/badge.svg?branch=master)](https://coveralls.io/github/mschop/NoTeePHP?branch=master)
 
 PHP HTML generation library.
 
