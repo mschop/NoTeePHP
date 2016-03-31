@@ -40,6 +40,7 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
         $node = N::div(
             ['class' => 'hello'],
             [N::a(), N::abbr()],
+            null,
             N::span('test')
         );
         $this->assertEquals('<div class="hello"><a /><abbr /><span>test</span></div>', $node->toString());
