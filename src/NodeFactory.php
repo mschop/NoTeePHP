@@ -174,10 +174,7 @@ class NodeFactory
 
     private static function removePrefix($name)
     {
-        if(substr($name, 0, 1) === '_') {
-            return substr($name, 1, strlen($name) - 1);
-        }
-        return $name;
+        return str_replace('_', '', $name);
     }
 
     public static function text($text)
