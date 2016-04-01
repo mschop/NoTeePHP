@@ -32,9 +32,6 @@ class DefaultNode implements Fertile, Node
 
     public function __construct($tagName, array $attributes = [], array $children = [])
     {
-        if(!static::isValidTagName($tagName)) {
-            throw new \InvalidArgumentException('Invalid tagName');
-        }
         static::validateAttributes($attributes);
         $this->tagName = $tagName;
         $this->attributes = $attributes;
@@ -88,12 +85,6 @@ class DefaultNode implements Fertile, Node
         foreach($attributes as $key => $value) {
             static::validateAttribute($key, $value);
         }
-    }
-
-    private static function isValidTagName($tagName)
-    {
-        $regex = '/^[0-9a-z-_]*$/i';
-        return preg_match($regex, $tagName) ? true : false;
     }
 
     private static function isValidAttributeName($attributeName)
