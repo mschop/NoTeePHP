@@ -62,7 +62,6 @@ class DefaultNode implements Fertile, Node
     {
         $allAttributes = [];
         foreach($this->attributes as $name => $value) {
-            $this->isValidAttributeName($name);
             $escapedAttribute = $this->escapeAttribute($name, $value);
             $allAttributes[] = $name . '="' . $escapedAttribute . '"';
         }
