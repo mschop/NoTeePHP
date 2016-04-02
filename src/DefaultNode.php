@@ -47,9 +47,8 @@ class DefaultNode implements Fertile, Node
 
     public function toString()
     {
-        $childAmount = count($this->children);
-        $attributeString = count($this->attributes) > 0 ? ' ' . $this->getAttributeString() : '';
-        if($childAmount) {
+        $attributeString = !empty($this->attributes) ? ' ' . $this->getAttributeString() : '';
+        if(isset($this->children[0])) {
             $result = '';
             /** @var Node $child */
             foreach($this->children as $child) {
