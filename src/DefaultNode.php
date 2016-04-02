@@ -7,6 +7,7 @@ use NoTee\Exceptions\PathOutdatedException;
 
 class DefaultNode implements Fertile, Node
 {
+    public static $validateAttributeNames = true;
 
     protected $tagName;
     protected $attributes;
@@ -94,7 +95,7 @@ class DefaultNode implements Fertile, Node
 
     private static function validateAttribute($key, $value)
     {
-        if(!static::isValidAttributeName($key)){
+        if(static::$validateAttributeNames && !static::isValidAttributeName($key)){
             throw new \InvalidArgumentException("invalid attribute name $key");
         }
         if(in_array($key, static::$urlAttributes)) {
