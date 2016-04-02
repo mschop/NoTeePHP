@@ -3,17 +3,18 @@
 namespace NoTee;
 
 use NoTee\NodeFactory as N;
+require_once(__DIR__ . '/../globalfunctions.php');
 
 class NodeFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function test_complexStructure()
     {
-        $node = N::div(
+        $node = _div(
             [],
-            N::span(
+            _span(
                 ['class' => 'class1 class2'],
-                N::text('this library is for writing '),
-                N::abbr(['title' => 'Hypertext Markup Language'], N::text('html'))
+                _text('this library is for writing '),
+                _abbr(['title' => 'Hypertext Markup Language'], _text('html'))
             )
         );
 
@@ -23,25 +24,25 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function test()
     {
-        $node = N::div(
-            N::a(
-                N::text('hello world')
+        $node = _div(
+            _a(
+                _text('hello world')
             )
         );
         $this->assertEquals('<div><a>hello world</a></div>', $node->toString());
 
 
-        $node = N::div(
-            [N::a(), N::abbr()],
-            N::span()
+        $node = _div(
+            [_a(), _abbr()],
+            _span()
         );
         $this->assertEquals('<div><a /><abbr /><span /></div>', $node->toString());
 
-        $node = N::div(
+        $node = _div(
             ['class' => 'hello'],
-            [N::a(), N::abbr()],
+            [_a(), _abbr()],
             null,
-            N::span('test')
+            _span('test')
         );
         $this->assertEquals('<div class="hello"><a /><abbr /><span>test</span></div>', $node->toString());
 

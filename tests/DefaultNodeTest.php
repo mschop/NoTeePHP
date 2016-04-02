@@ -55,12 +55,6 @@ class DefaultNodeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<a href=""#" />', $node->toString());
     }
 
-    public function test_construct_invalidTagName_throwsException()
-    {
-        $this->setExpectedException('InvalidArgumentException');
-        $node = new DefaultNode('a b');
-    }
-
     public function test_construct_invalidAttributeName_throwsException()
     {
         $this->setExpectedException('InvalidArgumentException');

@@ -2,6 +2,8 @@
 
 namespace NoTee;
 
+require_once(__DIR__ . '/../globalfunctions.php');
+
 use NoTee\NodeFactory as N;
 
 class SelectorTest extends \PHPUnit_Framework_TestCase
@@ -9,16 +11,16 @@ class SelectorTest extends \PHPUnit_Framework_TestCase
 
     public function test_selectors()
     {
-        $div = N::div([]);
-        $a1 = N::a(['class' => 'a b']);
-        $a2 = N::a([], $a1);
-        $p = N::p([]);
-        $p2 = N::p(['data-something' => 'somewhere']);
-        $p3 = N::p([], $p);
-        $subSpan = N::span([]);
-        $span = N::span([], $subSpan);
+        $div = _div([]);
+        $a1 = _a(['class' => 'a b']);
+        $a2 = _a([], $a1);
+        $p = _p([]);
+        $p2 = _p(['data-something' => 'somewhere']);
+        $p3 = _p([], $p);
+        $subSpan = _span([]);
+        $span = _span([], $subSpan);
 
-        $root = N::div(
+        $root = _div(
             [],
             $p3,
             $div,
