@@ -15,20 +15,20 @@ class DefaultNode implements Fertile, Node
     protected $children;
 
     protected static $urlAttributes = [
-        'action',
-        'archive',
-        'cite',
-        'classid',
-        'codebase',
-        'data',
-        'formaction',
-        'href',
-        'icon',
-        'longdesc',
-        'manifest',
-        'poster',
-        'src',
-        'usemap',
+        'action' => true,
+        'archive' => true,
+        'cite' => true,
+        'classid' => true,
+        'codebase' => true,
+        'data' => true,
+        'formaction' => true,
+        'href' => true,
+        'icon' => true,
+        'longdesc' => true,
+        'manifest' => true,
+        'poster' => true,
+        'src' => true,
+        'usemap' => true,
     ];
 
     public function __construct($tagName, array $attributes = [], array $children = [])
@@ -71,7 +71,7 @@ class DefaultNode implements Fertile, Node
 
     private function escapeAttribute($name, $value)
     {
-        if(in_array($name, static::$urlAttributes)) {
+        if(array_key_exists($name, static::$urlAttributes)) {
             return $value->toString();
         }
         return htmlspecialchars($value);
@@ -98,7 +98,7 @@ class DefaultNode implements Fertile, Node
         if(static::$validateAttributeNames && !static::isValidAttributeName($key)){
             throw new \InvalidArgumentException("invalid attribute name $key");
         }
-        if(in_array($key, static::$urlAttributes)) {
+        if(array_key_exists($key, static::$urlAttributes)) {
             if(!$value instanceof URLAttribute) {
                 throw new \InvalidArgumentException("attribute $key has to be instance of URLAttribute");
             }
