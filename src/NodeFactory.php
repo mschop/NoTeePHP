@@ -136,12 +136,16 @@ class NodeFactory
     const WBR = 'wbr';
     const XMP = 'xmp';
 
-    public static function create($name, $arguments)
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return DefaultNode
+     */
+    public static function create($name, array $arguments)
     {
         if(
-            count($arguments) === 0
+            !isset($arguments[0])
             || !is_array($arguments[0])
-            || count($arguments[0]) === 0
             || reset($arguments[0]) instanceof Node
         ) {
             return new DefaultNode($name, [], static::flatten($arguments));
@@ -177,6 +181,11 @@ class NodeFactory
         return new Raw($text);
     }
 
+    /**
+     * @param $raw
+     * @return RawAttribute
+     * @todo this should not belong to node factory. separate!!!
+     */
     public static function rawAttr($raw)
     {
         return new RawAttribute($raw);
