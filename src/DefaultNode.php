@@ -7,6 +7,7 @@ use NoTee\Exceptions\PathOutdatedException;
 
 class DefaultNode implements Fertile, Node
 {
+    public static $validateAttributes = true;
     public static $validateAttributeNames = true;
 
     protected $tagName;
@@ -82,8 +83,10 @@ class DefaultNode implements Fertile, Node
 
     private static function validateAttributes($attributes)
     {
-        foreach($attributes as $key => $value) {
-            static::validateAttribute($key, $value);
+        if(static::$validateAttributes) {
+            foreach($attributes as $key => $value) {
+                static::validateAttribute($key, $value);
+            }
         }
     }
 
