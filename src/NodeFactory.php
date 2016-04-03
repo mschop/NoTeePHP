@@ -158,14 +158,10 @@ class NodeFactory
     {
         $result = [];
         foreach($arguments as $argument) {
-            if($argument === null) {
-                // ignore null
-            } elseif($argument instanceof Node || is_string($argument)) {
+            if(is_array($argument)) {
+                $result = array_merge($result, $argument);
+            } elseif($argument !== null) {
                 $result[] = $argument;
-            } else {
-                foreach($argument as $node) {
-                    $result[] = $node;
-                }
             }
         }
         return $result;
