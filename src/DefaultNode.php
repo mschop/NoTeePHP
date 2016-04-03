@@ -34,7 +34,9 @@ class DefaultNode implements Fertile, Node
 
     public function __construct($tagName, array $attributes = [], array $children = [])
     {
-        static::validateAttributes($attributes);
+        if(static::$validateAttributes) {
+            static::validateAttributes($attributes);
+        }
         $this->tagName = $tagName;
         $this->attributes = $attributes;
         foreach($children as &$child) {
@@ -84,10 +86,8 @@ class DefaultNode implements Fertile, Node
 
     private static function validateAttributes($attributes)
     {
-        if(static::$validateAttributes) {
-            foreach($attributes as $key => $value) {
-                static::validateAttribute($key, $value);
-            }
+        foreach($attributes as $key => $value) {
+            static::validateAttribute($key, $value);
         }
     }
 
