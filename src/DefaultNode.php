@@ -64,16 +64,16 @@ class DefaultNode implements Fertile, Node
         $attributeString = '';
         $first = true;
         foreach($this->attributes as $name => $value) {
-            $escapedAttribute = $this->escapeAttribute($name, $value);
+            $escapedAttribute = $this->escapeAttribute($value);
             $attributeString .= ($first ? '' : ' ') . $name . '="' . $escapedAttribute . '"';
             $first = false;
         }
         return $attributeString;
     }
 
-    private function escapeAttribute($name, $value)
+    private function escapeAttribute($value)
     {
-        if(array_key_exists($name, static::$urlAttributes)) {
+        if(is_object($value)) {
             return $value->toString();
         }
         return htmlspecialchars($value);
