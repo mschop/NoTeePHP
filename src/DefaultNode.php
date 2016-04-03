@@ -61,12 +61,14 @@ class DefaultNode implements Fertile, Node
 
     public function getAttributeString()
     {
-        $allAttributes = [];
+        $attributeString = '';
+        $first = true;
         foreach($this->attributes as $name => $value) {
             $escapedAttribute = $this->escapeAttribute($name, $value);
-            $allAttributes[] = $name . '="' . $escapedAttribute . '"';
+            $attributeString .= ($first ? '' : ' ') . $name . '="' . $escapedAttribute . '"';
+            $first = false;
         }
-        return implode(' ', $allAttributes);
+        return $attributeString;
     }
 
     private function escapeAttribute($name, $value)
