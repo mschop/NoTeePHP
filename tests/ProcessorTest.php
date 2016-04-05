@@ -8,12 +8,12 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 {
     public function test_addClass_doneRight_correctResult()
     {
-        $root1 = N::div(
+        $root1 = _div(
             ['class' => 'a b c'],
-            N::div(
+            _div(
                 ['class' => 'class1 class2']
             ),
-            N::div(['class' => 'classA classB'])
+            _div(['class' => 'classA classB'])
         );
 
         $processor = new Processor($root1, [
@@ -36,8 +36,8 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_onTextNode_throwsException()
     {
-        $text = N::text('mytext');
-        $root = N::div(
+        $text = _text('mytext');
+        $root = _div(
             [],
             $text
         );
@@ -51,8 +51,8 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_onRawNode_throwsException()
     {
-        $raw = N::raw('mytext');
-        $root = N::div(
+        $raw = _raw('mytext');
+        $root = _div(
             [],
             $raw
         );
@@ -66,9 +66,9 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_setRaw_wrongNode_throwsException()
     {
-        $raw = N::raw('mytext');
-        $wrong = N::raw('other text');
-        $root = N::div(
+        $raw = _raw('mytext');
+        $wrong = _raw('other text');
+        $root = _div(
             [],
             $raw
         );
@@ -82,9 +82,9 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_setText_wrongNode_throwsException()
     {
-        $text = N::text('mytext');
-        $wrong = N::text('other text');
-        $root = N::div(
+        $text = _text('mytext');
+        $wrong = _text('other text');
+        $root = _div(
             [],
             $text
         );
@@ -98,9 +98,9 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_wrongObject_throwsException()
     {
-        $rightObject = N::div([]);
-        $wrongObject = N::div([]);
-        $root = N::div([], $rightObject);
+        $rightObject = _div([]);
+        $wrongObject = _div([]);
+        $root = _div([], $rightObject);
         $processor = new Processor($root, [
             [new PathStep(null, $root), new PathStep(0, $wrongObject)]
         ]);
@@ -110,11 +110,11 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_nested()
     {
-        $root = N::div(
+        $root = _div(
             [],
-            N::div(
+            _div(
                 [],
-                N::div([])
+                _div([])
             )
         );
 

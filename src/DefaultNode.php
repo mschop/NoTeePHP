@@ -7,6 +7,8 @@ use NoTee\Exceptions\PathOutdatedException;
 
 class DefaultNode implements Fertile, Node
 {
+    public static $validateAttributes = true;
+    public static $validateAttributeNames = true;
 
     protected $tagName;
     protected $attributes;
@@ -14,41 +16,41 @@ class DefaultNode implements Fertile, Node
     protected $children;
 
     protected static $urlAttributes = [
-        'action',
-        'archive',
-        'cite',
-        'classid',
-        'codebase',
-        'data',
-        'formaction',
-        'href',
-        'icon',
-        'longdesc',
-        'manifest',
-        'poster',
-        'src',
-        'usemap',
+        'action' => true,
+        'archive' => true,
+        'cite' => true,
+        'classid' => true,
+        'codebase' => true,
+        'data' => true,
+        'formaction' => true,
+        'href' => true,
+        'icon' => true,
+        'longdesc' => true,
+        'manifest' => true,
+        'poster' => true,
+        'src' => true,
+        'usemap' => true,
     ];
 
     public function __construct($tagName, array $attributes = [], array $children = [])
     {
-        if(!static::isValidTagName($tagName)) {
-            throw new \InvalidArgumentException('Invalid tagName');
+        if(static::$validateAttributes) {
+            static::validateAttributes($attributes);
         }
-        static::validateAttributes($attributes);
         $this->tagName = $tagName;
         $this->attributes = $attributes;
-        $children = array_map(function($child){
-            return is_string($child) ? new TextNode($child) : $child;
-        }, $children);
+        foreach($children as &$child) {
+            if(is_string($child)) {
+                $child = new TextNode($child);
+            }
+        }
         $this->children = $children;
     }
 
     public function toString()
     {
-        $childAmount = count($this->children);
-        $attributeString = count($this->attributes) > 0 ? ' ' . $this->getAttributeString() : '';
-        if($childAmount) {
+        $attributeString = !empty($this->attributes) ? ' ' . $this->getAttributeString() : '';
+        if(isset($this->children[0])) {
             $result = '';
             /** @var Node $child */
             foreach($this->children as $child) {
@@ -61,18 +63,19 @@ class DefaultNode implements Fertile, Node
 
     public function getAttributeString()
     {
-        $allAttributes = [];
+        $attributeString = '';
+        $first = true;
         foreach($this->attributes as $name => $value) {
-            $this->isValidAttributeName($name);
-            $escapedAttribute = $this->escapeAttribute($name, $value);
-            $allAttributes[] = $name . '="' . $escapedAttribute . '"';
+            $escapedAttribute = $this->escapeAttribute($value);
+            $attributeString .= ($first ? '' : ' ') . $name . '="' . $escapedAttribute . '"';
+            $first = false;
         }
-        return implode(' ', $allAttributes);
+        return $attributeString;
     }
 
-    private function escapeAttribute($name, $value)
+    private function escapeAttribute($value)
     {
-        if(in_array($name, static::$urlAttributes)) {
+        if(is_object($value)) {
             return $value->toString();
         }
         return htmlspecialchars($value);
@@ -88,12 +91,6 @@ class DefaultNode implements Fertile, Node
         }
     }
 
-    private static function isValidTagName($tagName)
-    {
-        $regex = '/^[0-9a-z-_]*$/i';
-        return preg_match($regex, $tagName) ? true : false;
-    }
-
     private static function isValidAttributeName($attributeName)
     {
         $regex = '/^[0-9a-z-_]*$/i';
@@ -102,10 +99,10 @@ class DefaultNode implements Fertile, Node
 
     private static function validateAttribute($key, $value)
     {
-        if(!static::isValidAttributeName($key)){
+        if(static::$validateAttributeNames && !static::isValidAttributeName($key)){
             throw new \InvalidArgumentException("invalid attribute name $key");
         }
-        if(in_array($key, static::$urlAttributes)) {
+        if(array_key_exists($key, static::$urlAttributes)) {
             if(!$value instanceof URLAttribute) {
                 throw new \InvalidArgumentException("attribute $key has to be instance of URLAttribute");
             }
@@ -179,7 +176,6 @@ class DefaultNode implements Fertile, Node
     /** HELPER METHODS */
 
     /**
-     * @todo trim whitespace
      * @param $class
      */
     protected function addClass($class) {
