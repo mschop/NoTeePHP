@@ -16,7 +16,7 @@ class Raw implements Node
         $this->raw = $value;
     }
 
-    public function toString()
+    public function __toString()
     {
         return $this->raw;
     }

@@ -4,8 +4,6 @@ namespace NoTee;
 
 require_once(__DIR__ . '/../globalfunctions.php');
 
-use NoTee\NodeFactory as N;
-
 class SelectorTest extends \PHPUnit_Framework_TestCase
 {
 

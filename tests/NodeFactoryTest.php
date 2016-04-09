@@ -2,7 +2,6 @@
 
 namespace NoTee;
 
-use NoTee\NodeFactory as N;
 require_once(__DIR__ . '/../globalfunctions.php');
 
 class NodeFactoryTest extends \PHPUnit_Framework_TestCase
@@ -19,7 +18,7 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = '<div><span class="class1 class2">this library is for writing <abbr title="Hypertext Markup Language">html</abbr></span></div>';
-        $this->assertEquals($expected, $node->toString());
+        $this->assertEquals($expected, $node->__toString());
     }
 
     public function test()
@@ -29,14 +28,14 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
                 _text('hello world')
             )
         );
-        $this->assertEquals('<div><a>hello world</a></div>', $node->toString());
+        $this->assertEquals('<div><a>hello world</a></div>', $node->__toString());
 
 
         $node = _div(
             [_a(), _abbr()],
             _span()
         );
-        $this->assertEquals('<div><a /><abbr /><span /></div>', $node->toString());
+        $this->assertEquals('<div><a /><abbr /><span /></div>', $node->__toString());
 
         $node = _div(
             ['class' => 'hello'],
@@ -44,7 +43,20 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
             null,
             _span('test')
         );
-        $this->assertEquals('<div class="hello"><a /><abbr /><span>test</span></div>', $node->toString());
+        $this->assertEquals('<div class="hello"><a /><abbr /><span>test</span></div>', $node->__toString());
 
     }
+
+    public function test_construct_hrefAsString_throwsException()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        _a(['href' => 'http://some.url.de']);
+    }
+
+    public function test_construct_invalidAttributeName_throwsException()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        _a(['href' => ['a b' => 'c']]);
+    }
+
 }

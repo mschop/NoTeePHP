@@ -2,7 +2,7 @@
 
 namespace NoTee;
 
-
+require_once(__DIR__ . '/../globalfunctions.php');
 
 class ModificationTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,7 +11,7 @@ class ModificationTest extends \PHPUnit_Framework_TestCase
     {
         $root = _div(['class' => ' a b c ']);
         $modified = $root->find('div')->removeClass('b')->getRoot();
-        $this->assertEquals('<div class="a c" />', $modified->toString());
+        $this->assertEquals('<div class="a c" />', $modified->__toString());
     }
 
 }

@@ -2,7 +2,7 @@
 
 namespace NoTee;
 
-use NoTee\NodeFactory as N;
+require_once(__DIR__ . '/../globalfunctions.php');
 
 class ProcessorTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,17 +21,17 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         ]);
         /** @var DefaultNode $root2 */
         $root2 = $processor->addClass('d')->getRoot();
-        $this->assertEquals('<div class="a b c"><div class="class1 class2" /><div class="classA classB" /></div>', $root1->toString());
-        $this->assertEquals('<div class="a b c d"><div class="class1 class2" /><div class="classA classB" /></div>', $root2->toString());
+        $this->assertEquals('<div class="a b c"><div class="class1 class2" /><div class="classA classB" /></div>', $root1->__toString());
+        $this->assertEquals('<div class="a b c d"><div class="class1 class2" /><div class="classA classB" /></div>', $root2->__toString());
         $root3 = $processor->addClass('SomeClass')->getRoot();
-        $this->assertEquals('<div class="a b c d SomeClass"><div class="class1 class2" /><div class="classA classB" /></div>', $root3->toString());
+        $this->assertEquals('<div class="a b c d SomeClass"><div class="class1 class2" /><div class="classA classB" /></div>', $root3->__toString());
 
 
         $processor = new Processor($root1, [
             [new PathStep(null, $root1), new PathStep(0, $root1->getChildren()[0])]
         ]);
         $root4 = $processor->addClass('class3')->addClass('class4')->getRoot();
-        $this->assertEquals('<div class="a b c"><div class="class1 class2 class3 class4" /><div class="classA classB" /></div>', $root4->toString());
+        $this->assertEquals('<div class="a b c"><div class="class1 class2 class3 class4" /><div class="classA classB" /></div>', $root4->__toString());
     }
 
     public function test_addClass_onTextNode_throwsException()
@@ -128,7 +128,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $newRoot = $processor->addClass('test')->getRoot();
-        $this->assertEquals('<div><div class="test"><div class="test" /></div></div>', $newRoot->toString());
+        $this->assertEquals('<div><div class="test"><div class="test" /></div></div>', $newRoot->__toString());
     }
 
 }

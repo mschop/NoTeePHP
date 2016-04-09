@@ -11,6 +11,6 @@ class GlobalFunctionsTest extends \PHPUnit_Framework_TestCase
         $node = _div(
             _a(['href' => _rawAttr('http://google.de')], _text('google.de'))
         );
-        $this->assertEquals('<div><a href="http://google.de">google.de</a></div>', $node->toString());
+        $this->assertEquals('<div><a href="http://google.de">google.de</a></div>', $node->__toString());
     }
 }
