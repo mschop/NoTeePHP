@@ -16,7 +16,7 @@ class TextNode implements Node
         $this->text = htmlentities($text);
     }
 
-    public function toString()
+    public function __toString()
     {
         return $this->text;
     }

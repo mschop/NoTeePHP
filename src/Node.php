@@ -8,7 +8,7 @@ interface Node
     /**
      * @return string
      */
-    public function toString();
+    public function __toString();
 
     /**
      * @param array-of-ReplacementMapStep $path

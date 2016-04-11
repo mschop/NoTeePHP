@@ -15,28 +15,8 @@ class DefaultNode implements Fertile, Node
     /** @var array-of-HtmlNode */
     protected $children;
 
-    protected static $urlAttributes = [
-        'action' => true,
-        'archive' => true,
-        'cite' => true,
-        'classid' => true,
-        'codebase' => true,
-        'data' => true,
-        'formaction' => true,
-        'href' => true,
-        'icon' => true,
-        'longdesc' => true,
-        'manifest' => true,
-        'poster' => true,
-        'src' => true,
-        'usemap' => true,
-    ];
-
     public function __construct($tagName, array $attributes = [], array $children = [])
     {
-        if(static::$validateAttributes) {
-            static::validateAttributes($attributes);
-        }
         $this->tagName = $tagName;
         $this->attributes = $attributes;
         foreach($children as &$child) {
@@ -47,14 +27,14 @@ class DefaultNode implements Fertile, Node
         $this->children = $children;
     }
 
-    public function toString()
+    public function __toString()
     {
         $attributeString = !empty($this->attributes) ? ' ' . $this->getAttributeString() : '';
         if(isset($this->children[0])) {
             $result = '';
             /** @var Node $child */
             foreach($this->children as $child) {
-                $result .= $child->toString();
+                $result .= $child;
             }
             return '<' . $this->tagName . $attributeString . '>' . $result . '</' . $this->tagName . '>';
         }
@@ -80,35 +60,6 @@ class DefaultNode implements Fertile, Node
         }
         return htmlspecialchars($value);
     }
-
-
-    /** VALIDATION */
-
-    private static function validateAttributes($attributes)
-    {
-        foreach($attributes as $key => $value) {
-            static::validateAttribute($key, $value);
-        }
-    }
-
-    private static function isValidAttributeName($attributeName)
-    {
-        $regex = '/^[0-9a-z-_]*$/i';
-        return preg_match($regex, $attributeName) ? true : false;
-    }
-
-    private static function validateAttribute($key, $value)
-    {
-        if(static::$validateAttributeNames && !static::isValidAttributeName($key)){
-            throw new \InvalidArgumentException("invalid attribute name $key");
-        }
-        if(array_key_exists($key, static::$urlAttributes)) {
-            if(!$value instanceof URLAttribute) {
-                throw new \InvalidArgumentException("attribute $key has to be instance of URLAttribute");
-            }
-        }
-    }
-
 
 
     /** CHILD OPERATIONS */
