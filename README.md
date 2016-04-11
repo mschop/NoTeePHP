@@ -7,18 +7,20 @@ PHP HTML generation library.
 
 ## What is NoTeePHP
 
-NoTeePHP is a replacement for template engines. With NoTeePHP you can create HTML without writing on line of HTML.
+NoTeePHP is a replacement for template engines that focuses on security and correctness. Instead of simply concatenating
+string, NoTeePHP creates an object tree that represents an html structure.
+
 Advantages of NoTeePHP compared to template engines:
 
-- more secure (e.g. proper escaping by default / only double-quotes for attributes)
-- less error-prone (never again have enclosing tag errors)
-- easy (templates needs be compiled)
-- fast (cache components like the footer of you page in your object cache)
+- more secure
+- less error-prone
+- easier setup (no compile step)
+- debuggable
 
 Further great things about NoTeePHP:
 
 - immutable node tree (reuse every node in unlimited places)
-- api for changing your nodes (e.g. middleware adding xsrf-fields to all forms)
+- jquery inspired api for changing your node structure
 
 ## Setup
 
@@ -99,7 +101,25 @@ This would produce the following output:
     </div>
 
 
-## Full Documentation
+## Security
 
-I will add a full API-Documentation later. The project has no releases until now.
-If you have any questions right now, you can send me a mail to mschopdev@gmail.com.
+Template engines are prone to XSS attacks. For preventing XSS, a developer has to use the right escaping strategy
+for the context he is using an information. See https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 for more
+details on this topic.
+
+Most often the frontend developers and designers have no clue about security and therefore do not use proper escaping.
+Previously escaping an information does not help because you don't know, where in the template a variable could be
+used. Using the right escaping is for depends on, which quoting style you use for attributes. Not using any
+quotes at all is perfectly valid html. All these aspects get addressed by NoTeePHP. NoTeePHP does proper escaping by
+default or forces the user to do so.
+
+## Less error-prone
+
+Syntax errors can cause hard to find bugs in your application. With NoTeePHP you will not face such problems.
+Never again have enclosing tag errors or missing quotes. Always get well formatted HTML.
+
+## Debugging
+
+Template engines compiles the templates to plain PHP. This PHP is most often hard to read and therefore hard to debug.
+With NoTeePHP you don't have such compile step. This simplifies setup, increases security and enables easy debugging
+by default.
