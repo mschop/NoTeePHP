@@ -153,9 +153,6 @@ class NodeFactory
         'usemap' => true,
     ];
 
-    /** @var  NodeFactory */
-    public static $globalFactory;
-
     private $useAttributeValidation;
     private $useAttributeNameValidation;
 

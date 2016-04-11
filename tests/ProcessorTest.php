@@ -2,18 +2,17 @@
 
 namespace NoTee;
 
-require_once(__DIR__ . '/../globalfunctions.php');
-
 class ProcessorTest extends \PHPUnit_Framework_TestCase
 {
     public function test_addClass_doneRight_correctResult()
     {
-        $root1 = _div(
+        $nf = new NodeFactory();
+        $root1 = $nf->div(
             ['class' => 'a b c'],
-            _div(
+            $nf->div(
                 ['class' => 'class1 class2']
             ),
-            _div(['class' => 'classA classB'])
+            $nf->div(['class' => 'classA classB'])
         );
 
         $processor = new Processor($root1, [
@@ -36,8 +35,9 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_onTextNode_throwsException()
     {
-        $text = _text('mytext');
-        $root = _div(
+        $nf = new NodeFactory();
+        $text = $nf->text('mytext');
+        $root = $nf->div(
             [],
             $text
         );
@@ -51,8 +51,9 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_onRawNode_throwsException()
     {
-        $raw = _raw('mytext');
-        $root = _div(
+        $nf = new NodeFactory();
+        $raw = $nf->raw('mytext');
+        $root = $nf->div(
             [],
             $raw
         );
@@ -66,9 +67,10 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_setRaw_wrongNode_throwsException()
     {
-        $raw = _raw('mytext');
-        $wrong = _raw('other text');
-        $root = _div(
+        $nf = new NodeFactory();
+        $raw = $nf->raw('mytext');
+        $wrong = $nf->raw('other text');
+        $root = $nf->div(
             [],
             $raw
         );
@@ -82,9 +84,10 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_setText_wrongNode_throwsException()
     {
-        $text = _text('mytext');
-        $wrong = _text('other text');
-        $root = _div(
+        $nf = new NodeFactory();
+        $text = $nf->text('mytext');
+        $wrong = $nf->text('other text');
+        $root = $nf->div(
             [],
             $text
         );
@@ -98,9 +101,10 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_wrongObject_throwsException()
     {
-        $rightObject = _div([]);
-        $wrongObject = _div([]);
-        $root = _div([], $rightObject);
+        $nf = new NodeFactory();
+        $rightObject = $nf->div([]);
+        $wrongObject = $nf->div([]);
+        $root = $nf->div([], $rightObject);
         $processor = new Processor($root, [
             [new PathStep(null, $root), new PathStep(0, $wrongObject)]
         ]);
@@ -110,11 +114,12 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_nested()
     {
-        $root = _div(
+        $nf = new NodeFactory();
+        $root = $nf->div(
             [],
-            _div(
+            $nf->div(
                 [],
-                _div([])
+                $nf->div([])
             )
         );
 

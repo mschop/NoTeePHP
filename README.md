@@ -20,7 +20,7 @@ Further great things about NoTeePHP:
 - immutable node tree (reuse every node in unlimited places)
 - api for changing your nodes (e.g. middleware adding xsrf-fields to all forms)
 
-## Installation
+## Setup
 
 Install NoTeePHP with composer.
 
@@ -28,46 +28,31 @@ Install NoTeePHP with composer.
 composer install mschop/noteephp
 ```
 
-There are two different notations, depending on whether you include globalfunctions.php or not.
-The following notations are equivalent:
-
-with globalfunctions.php:
-
-```
-$node = _p();
-```
-
-without globalfunctions.php:
-
-```
-$f = new NoTee\NodeFactory();
-$f->p();
-```
-
-
-If you prefer using short notation, you should use globalfunctions.php.
+That's it.
 
 ## Basic Usage
 
 This is a tiny example:
 
-    function getItems()
+    $nf = new NodeFactory();
+
+    function getItems use ($nf)()
     {
         $result = [];
         for($x = 1; $x < 10; $x++) {
-            $result[] = _li('item ' . $x);
+            $result[] = $nf->li('item ' . $x);
         }
         return $result;
     }
     
-    $root = _div(
+    $root = $nf->div(
         ['class' => 'a b c'],
-        _abbr(
+        $nf->abbr(
             ['title' => 'hypertext markup language'],
             'html'
         ),
-        _ul(
-            _li('item 0'),
+        $nf->ul(
+            $nf->li('item 0'),
             getItems()
         )
     );
