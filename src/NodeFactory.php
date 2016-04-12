@@ -303,7 +303,7 @@ class NodeFactory
     public function head() { return $this->create(NodeFactory::HEAD, func_get_args()); }
     public function hgroup() { return $this->create(NodeFactory::HGROUP, func_get_args()); }
     public function hr() { return $this->create(NodeFactory::HR, func_get_args()); }
-    public function NodeFactory() { return $this->create(NodeFactory::NodeFactory, func_get_args()); }
+    public function html() { return $this->create(NodeFactory::HTML, func_get_args()); }
     public function iframe() { return $this->create(NodeFactory::IFRAME, func_get_args()); }
     public function i() { return $this->create(NodeFactory::I, func_get_args()); }
     public function img() { return $this->create(NodeFactory::IMG, func_get_args()); }
