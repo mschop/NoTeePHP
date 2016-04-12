@@ -7,7 +7,7 @@ class SelectorTest extends \PHPUnit_Framework_TestCase
 
     public function test_selectors()
     {
-        $nf = new NodeFactory();
+        $nf = new NodeFactory('utf-8');
         
         $div = $nf->div([]);
         $a1 = $nf->a(['class' => 'a b']);

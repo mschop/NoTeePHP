@@ -6,7 +6,7 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function test_complexStructure()
     {
-        $h = new NodeFactory();
+        $h = new NodeFactory('utf-8');
         $node = $h->div(
             [],
             $h->span(
@@ -22,7 +22,7 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function test()
     {
-        $h = new NodeFactory();
+        $h = new NodeFactory('utf-8');
         $node = $h->div(
             $h->a(
                 'hello world'
@@ -49,14 +49,14 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function test_construct_hrefAsString_throwsException()
     {
-        $nf = new NodeFactory();
+        $nf = new NodeFactory('utf-8');
         $this->setExpectedException('InvalidArgumentException');
         $nf->a(['href' => 'http://some.url.de']);
     }
 
     public function test_construct_invalidAttributeName_throwsException()
     {
-        $nf = new NodeFactory();
+        $nf = new NodeFactory('utf-8');
         $this->setExpectedException('InvalidArgumentException');
         $nf->a(['href' => ['a b' => 'c']]);
     }

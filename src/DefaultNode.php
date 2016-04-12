@@ -11,17 +11,19 @@ class DefaultNode implements Fertile, Node
     public static $validateAttributeNames = true;
 
     protected $tagName;
+    protected $escaper;
     protected $attributes;
     /** @var array-of-HtmlNode */
     protected $children;
 
-    public function __construct($tagName, array $attributes = [], array $children = [])
+    public function __construct($tagName, Escaper $escaper, array $attributes = [], array $children = [])
     {
         $this->tagName = $tagName;
+        $this->escaper = $escaper;
         $this->attributes = $attributes;
         foreach($children as &$child) {
             if(is_string($child)) {
-                $child = new TextNode($child);
+                $child = new TextNode($child, $this->escaper);
             }
         }
         $this->children = $children;
@@ -58,7 +60,7 @@ class DefaultNode implements Fertile, Node
         if(is_object($value)) {
             return $value->toString();
         }
-        return htmlspecialchars($value);
+        return $this->escaper->escapeAttribute($value);
     }
 
 

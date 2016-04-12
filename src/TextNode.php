@@ -11,9 +11,9 @@ class TextNode implements Node
 
     private $text;
 
-    public function __construct($text)
+    public function __construct($text, Escaper $escaper)
     {
-        $this->text = htmlentities($text);
+        $this->text = $escaper->escapeHtml($text);
     }
 
     public function __toString()
