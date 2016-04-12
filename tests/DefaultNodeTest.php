@@ -60,4 +60,10 @@ class DefaultNodeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<div class="&quot;classname" />', (string)$node);
     }
 
+    public function test_scriptTagNotSelfClosing()
+    {
+        $node = new DefaultNode('script', $this->getEscaper(), ['src' => new RawAttribute('file.js')]);
+        $this->assertEquals('<script src="file.js"></script>', (string)$node);
+    }
+
 }

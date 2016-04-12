@@ -32,7 +32,7 @@ class DefaultNode implements Fertile, Node
     public function __toString()
     {
         $attributeString = !empty($this->attributes) ? ' ' . $this->getAttributeString() : '';
-        if(isset($this->children[0])) {
+        if(isset($this->children[0]) || $this->tagName === 'script') {
             $result = '';
             /** @var Node $child */
             foreach($this->children as $child) {
