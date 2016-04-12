@@ -6,7 +6,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 {
     public function test_addClass_doneRight_correctResult()
     {
-        $nf = new NodeFactory();
+        $nf = new NodeFactory('utf-8');
         $root1 = $nf->div(
             ['class' => 'a b c'],
             $nf->div(
@@ -35,7 +35,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_onTextNode_throwsException()
     {
-        $nf = new NodeFactory();
+        $nf = new NodeFactory('utf-8');
         $text = $nf->text('mytext');
         $root = $nf->div(
             [],
@@ -51,7 +51,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_onRawNode_throwsException()
     {
-        $nf = new NodeFactory();
+        $nf = new NodeFactory('utf-8');
         $raw = $nf->raw('mytext');
         $root = $nf->div(
             [],
@@ -67,7 +67,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_setRaw_wrongNode_throwsException()
     {
-        $nf = new NodeFactory();
+        $nf = new NodeFactory('utf-8');
         $raw = $nf->raw('mytext');
         $wrong = $nf->raw('other text');
         $root = $nf->div(
@@ -84,7 +84,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_setText_wrongNode_throwsException()
     {
-        $nf = new NodeFactory();
+        $nf = new NodeFactory('utf-8');
         $text = $nf->text('mytext');
         $wrong = $nf->text('other text');
         $root = $nf->div(
@@ -101,7 +101,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_wrongObject_throwsException()
     {
-        $nf = new NodeFactory();
+        $nf = new NodeFactory('utf-8');
         $rightObject = $nf->div([]);
         $wrongObject = $nf->div([]);
         $root = $nf->div([], $rightObject);
@@ -114,7 +114,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_nested()
     {
-        $nf = new NodeFactory();
+        $nf = new NodeFactory('utf-8');
         $root = $nf->div(
             [],
             $nf->div(

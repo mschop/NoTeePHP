@@ -153,35 +153,43 @@ class NodeFactory
         'usemap' => true,
     ];
 
+    private $escaper;
     private $useAttributeValidation;
     private $useAttributeNameValidation;
 
     /**
      * NodeFactory constructor.
-     * @param $useAttributeValidation
-     * @param $useAttributeNameValidation
+     * @param string $encoding
+     * @param bool $useAttributeValidation
+     * @param bool $useAttributeNameValidation
      */
-    public function __construct($useAttributeValidation = true, $useAttributeNameValidation = true)
+    public function __construct($encoding, $useAttributeValidation = true, $useAttributeNameValidation = true)
     {
+        $this->escaper = new EscaperForNoTeeContext($encoding);
         $this->useAttributeValidation = $useAttributeValidation;
         $this->useAttributeNameValidation = $useAttributeNameValidation;
     }
 
-    public function create($name, $arguments)
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return DefaultNode
+     */
+    public function create($name, array $arguments)
     {
         if(
             !isset($arguments[0])
             || !is_array($arguments[0])
             || reset($arguments[0]) instanceof Node
         ) {
-            return new DefaultNode($name, [], static::flatten($arguments));
+            return new DefaultNode($name, $this->escaper, [], static::flatten($arguments));
         }
 
         $attributes = array_shift($arguments);
         if($this->useAttributeValidation) {
             static::validateAttributes($attributes);
         }
-        return new DefaultNode($name, $attributes, static::flatten($arguments));
+        return new DefaultNode($name, $this->escaper, $attributes, static::flatten($arguments));
     }
 
     /**
@@ -375,16 +383,16 @@ class NodeFactory
      * @param string $text
      * @return TextNode
      */
-    public static function text($text)
+    public function text($text)
     {
-        return new TextNode($text);
+        return new TextNode($text, $this->escaper);
     }
 
     /**
      * @param string $text
      * @return Raw
      */
-    public static function raw($text)
+    public function raw($text)
     {
         return new Raw($text);
     }
