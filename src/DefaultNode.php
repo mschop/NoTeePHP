@@ -5,7 +5,7 @@ namespace NoTee;
 
 use NoTee\Exceptions\PathOutdatedException;
 
-class DefaultNode implements Fertile, Node
+class DefaultNode implements Node
 {
     public static $validateAttributes = true;
     public static $validateAttributeNames = true;

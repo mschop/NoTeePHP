@@ -8,7 +8,7 @@ class Selector
 {
 
     /**
-     * @param Fertile $node
+     * @param DefaultNode $node
      * @param $selector
      * @return array--of-array-of-PathStep
      */

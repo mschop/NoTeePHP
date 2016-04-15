@@ -3,7 +3,7 @@
 namespace NoTee;
 
 
-class Processor implements ModifiableNode
+class Processor
 {
     /** @var  Node */
     private $root;
@@ -15,7 +15,6 @@ class Processor implements ModifiableNode
      */
     public function __construct(Node $root, array $allPaths)
     {
-//        $this->allPaths = static::orderPaths($allPaths);
         $this->allPaths = $allPaths;
         $this->root = $root;
     }
@@ -90,24 +89,5 @@ class Processor implements ModifiableNode
     {
         return $this->root;
     }
-
-
-    /**
-     * @param array-of-array-of-PathStep $paths
-     * @return array-of-Path
-     */
-//    private static function orderPaths(array $paths)
-//    {
-//        usort($paths, function(array $path1, array $path2){
-//            $amount1 = count($path1);
-//            $amount2 = count($path2);
-//            if($amount1 < $amount2) {
-//                return 1;
-//            } else {
-//                return $amount1 === $amount2 ? 0 : -1;
-//            }
-//        });
-//        return $paths;
-//    }
 
 }
