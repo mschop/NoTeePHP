@@ -13,4 +13,18 @@ class ModificationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<div class="a c" />', $modified->__toString());
     }
 
+    public function test_toggleClass()
+    {
+        $nf = new NodeFactory('utf-8');
+        $root = $nf->div(
+            $nf->div(
+                ['class' => 'toggle'],
+                $nf->div()
+            )
+        );
+        $this->assertEquals('<div><div class="toggle"><div /></div></div>', (string)$root);
+        $toggledRoot = $root->find('div')->toggleClass('toggle')->getRoot();
+        $this->assertEquals('<div class="toggle"><div><div class="toggle" /></div></div>', (string)$toggledRoot);
+    }
+
 }

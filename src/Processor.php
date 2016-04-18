@@ -63,31 +63,44 @@ class Processor
         return $path;
     }
 
-    public function addClass($class)
+    public function setText($text)
     {
-        $this->execute('addClass', [$class]);
-        return $this;
-    }
-
-    public function removeClass($class)
-    {
-        $this->execute('removeClass', [$class]);
+        $this->execute('setText', [$text]);
         return $this;
     }
 
     public function setRaw($raw)
     {
         $this->execute('setRaw', [$raw]);
-    }
-
-    public function setText($text)
-    {
-        $this->execute('setText', [$text]);
+        return $this;
     }
 
     public function getRoot()
     {
         return $this->root;
+    }
+
+    public function addClass($class)
+    {
+        $this->execute('addClass', [$class]);
+        return $this;
+    }
+
+    /**
+     * @param string $class
+     * @return Processor
+     */
+    public function removeClass($class)
+    {
+        $this->execute('removeClass', [$class]);
+        return $this;
+    }
+
+
+    public function toggleClass($class)
+    {
+        $this->execute('toggleClass', [$class]);
+        return $this;
     }
 
 }
