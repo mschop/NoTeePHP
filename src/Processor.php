@@ -96,10 +96,23 @@ class Processor
         return $this;
     }
 
-
+    /**
+     * @param string $class
+     * @return Processor
+     */
     public function toggleClass($class)
     {
         $this->execute('toggleClass', [$class]);
+        return $this;
+    }
+
+    /**
+     * @param Node $child
+     * @return Processor
+     */
+    public function append(Node $child)
+    {
+        $this->execute('append', [$child]);
         return $this;
     }
 

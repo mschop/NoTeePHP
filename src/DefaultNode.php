@@ -197,5 +197,10 @@ class DefaultNode implements Node
         }
     }
 
+    protected function append($node)
+    {
+        $this->children[] = $node;
+    }
+
 
 }
