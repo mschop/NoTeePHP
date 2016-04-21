@@ -197,10 +197,15 @@ class DefaultNode implements Node
         }
     }
 
-    protected function append($node)
+    protected function append(Node $node)
     {
         $this->children[] = $node;
     }
 
+    protected function setAttr($name, $value)
+    {
+
+        $this->attributes[$name] = $value;
+    }
 
 }

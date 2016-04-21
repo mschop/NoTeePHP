@@ -80,6 +80,28 @@ class Processor
         return $this->root;
     }
 
+
+    /*
+     * SINGLE NODE OPERATIONS AND GETTER
+     */
+
+    /**
+     * @param string $name
+     * @return string|null
+     */
+    public function getAttr($name)
+    {
+        /** @var PathStep $firstSelected */
+        $firstPath = reset($this->allPaths);
+        $firstSelected = end($firstPath);
+        return $firstSelected->getNode()->getAttributes()[$name] ?: null;
+    }
+
+
+    /*
+     * MULTIPLE NODE OPERATIONS
+     */
+
     public function addClass($class)
     {
         $this->execute('addClass', [$class]);
@@ -113,6 +135,16 @@ class Processor
     public function append(Node $child)
     {
         $this->execute('append', [$child]);
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     */
+    public function setAttr($name, $value)
+    {
+        $this->execute('setAttr', [$name, $value]);
         return $this;
     }
 

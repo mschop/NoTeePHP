@@ -4,15 +4,27 @@ namespace NoTee;
 
 class NodeFactoryTest extends \PHPUnit_Framework_TestCase
 {
+
+    /** @var  NodeFactory */
+    private $nf;
+
+    /**
+     * @before
+     */
+    public function before()
+    {
+        $this->nf = new NodeFactory('utf-8', new AttributeValidator(true, true));
+    }
+
     public function test_complexStructure()
     {
-        $h = new NodeFactory('utf-8');
-        $node = $h->div(
+
+        $node = $this->nf->div(
             [],
-            $h->span(
+            $this->nf->span(
                 ['class' => 'class1 class2'],
                 'this library is for writing ',
-                $h->abbr(['title' => 'Hypertext Markup Language'], 'html')
+                $this->nf->abbr(['title' => 'Hypertext Markup Language'], 'html')
             )
         );
 
@@ -22,26 +34,25 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function test()
     {
-        $h = new NodeFactory('utf-8');
-        $node = $h->div(
-            $h->a(
+        $node = $this->nf->div(
+            $this->nf->a(
                 'hello world'
             )
         );
         $this->assertEquals('<div><a>hello world</a></div>', $node->__toString());
 
 
-        $node = $h->div(
-            [$h->a(), $h->abbr()],
-            $h->span()
+        $node = $this->nf->div(
+            [$this->nf->a(), $this->nf->abbr()],
+            $this->nf->span()
         );
         $this->assertEquals('<div><a /><abbr /><span /></div>', $node->__toString());
 
-        $node = $h->div(
+        $node = $this->nf->div(
             ['class' => 'hello'],
-            [$h->a(), $h->abbr()],
+            [$this->nf->a(), $this->nf->abbr()],
             null,
-            $h->span('test')
+            $this->nf->span('test')
         );
         $this->assertEquals('<div class="hello"><a /><abbr /><span>test</span></div>', $node->__toString());
 
@@ -49,16 +60,14 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function test_construct_hrefAsString_throwsException()
     {
-        $nf = new NodeFactory('utf-8');
         $this->setExpectedException('InvalidArgumentException');
-        $nf->a(['href' => 'http://some.url.de']);
+        $this->nf->a(['href' => 'http://some.url.de']);
     }
 
     public function test_construct_invalidAttributeName_throwsException()
     {
-        $nf = new NodeFactory('utf-8');
         $this->setExpectedException('InvalidArgumentException');
-        $nf->a(['href' => ['a b' => 'c']]);
+        $this->nf->a(['href' => ['a b' => 'c']]);
     }
 
 }
