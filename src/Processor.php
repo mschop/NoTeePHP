@@ -106,6 +106,21 @@ class Processor
     }
 
     /**
+     * @return Processor
+     */
+    public function children() {
+        $newPaths = [];
+        foreach($this->allPaths as $path) {
+            /** @var PathStep $lastPathStep */
+            $lastPathStep = end($path);
+            foreach($lastPathStep->getNode()->getChildren() as $key => $child) {
+                $newPaths[] = array_merge($path, [new PathStep($key, $child)]);
+            }
+        }
+        return new Processor($this->root, $newPaths);
+    }
+
+    /**
      * @param string $name
      * @return string|null
      */
