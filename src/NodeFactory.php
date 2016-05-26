@@ -178,7 +178,7 @@ class NodeFactory
     {
         foreach($attributes as $key => $value) {
             if(!$this->attributeValidator->isValid($key, $value)) {
-                throw new \InvalidArgumentException('invalid attribute name ' . $key);
+                throw new \InvalidArgumentException('invalid attribute (key or value) ' . $key);
             }
         }
     }
