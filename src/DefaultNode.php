@@ -63,30 +63,6 @@ class DefaultNode implements Node
         return $this->escaper->escapeAttribute($value);
     }
 
-
-    /** CHILD OPERATIONS */
-
-    /**
-     * @param Node $oldChild
-     * @param Node $newChild
-     * @return DefaultNode|Node
-     */
-    public function replaceChild(Node $oldChild, Node $newChild)
-    {
-        // TODO: Implement deleteChildAt() method.
-    }
-
-    public function deleteChildAt(Node $child)
-    {
-        // TODO: Implement deleteChildAt() method.
-    }
-
-    public function insertChildAt($index, Node $child)
-    {
-        // TODO: Implement insertChildAt() method.
-    }
-
-
     /**
      * @return array-of-INode
      */
@@ -172,18 +148,16 @@ class DefaultNode implements Node
 
     protected function removeClass($class)
     {
-        if(!isset($this->attributes['class'])) {
-            return;
-        }
-
-        $allClass = explode(' ', $this->attributes['class']);
-        $reducedClass = array_filter($allClass, function($existingClass) use ($class) {
-            return $existingClass !== $class;
-        });
-        if(count($reducedClass) === 0) {
-            unset($this->attributes['class']);
-        } else {
-            $this->attributes['class'] = trim(implode(' ', $reducedClass));
+        if(isset($this->attributes['class'])) {
+            $allClass = explode(' ', $this->attributes['class']);
+            $reducedClass = array_filter($allClass, function($existingClass) use ($class) {
+                return $existingClass !== $class;
+            });
+            if(count($reducedClass) === 0) {
+                unset($this->attributes['class']);
+            } else {
+                $this->attributes['class'] = trim(implode(' ', $reducedClass));
+            }
         }
     }
 
