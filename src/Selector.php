@@ -198,25 +198,26 @@ class Selector
                 return false;
             }
 
-            if ($expectedAttribute['operator'] === '~=') {
-                throw new \Exception('Not Implemented');
-            }
-
-            if ($expectedAttribute['operator'] === '|=') {
-                throw new \Exception('Not Implemented');
-            }
-
-            if ($expectedAttribute['operator'] === '^=') {
-                throw new \Exception('Not Implemented');
-            }
-
-            if ($expectedAttribute['operator'] === '$=') {
-                throw new \Exception('Not Implemented');
-            }
-
-            if ($expectedAttribute['operator'] === '*=') {
-                throw new \Exception('Not Implemented');
-            }
+            // TODO implement operators
+//            if ($expectedAttribute['operator'] === '~=') {
+//                throw new \Exception('Not Implemented');
+//            }
+//
+//            if ($expectedAttribute['operator'] === '|=') {
+//                throw new \Exception('Not Implemented');
+//            }
+//
+//            if ($expectedAttribute['operator'] === '^=') {
+//                throw new \Exception('Not Implemented');
+//            }
+//
+//            if ($expectedAttribute['operator'] === '$=') {
+//                throw new \Exception('Not Implemented');
+//            }
+//
+//            if ($expectedAttribute['operator'] === '*=') {
+//                throw new \Exception('Not Implemented');
+//            }
         }
         return true;
     }

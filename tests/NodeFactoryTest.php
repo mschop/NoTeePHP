@@ -64,10 +64,22 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->nf->a(['href' => 'http://some.url.de']);
     }
 
-    public function test_construct_invalidAttributeName_throwsException()
+    public function test_invalidAttributeValue_throwsException()
     {
         $this->setExpectedException('InvalidArgumentException');
-        $this->nf->a(['href' => ['a b' => 'c']]);
+        $this->nf->a(['href' => 'invalid url']);
+    }
+
+    public function test_invalidAttributeName_throwsException()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        $this->nf->a(['_invalid>attribute<name' => new URL('google.de', [])]);
+    }
+
+    public function test_invalidEncoding_throwsException()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        new NodeFactory('utf--8', new AttributeValidator(true, true));
     }
 
 }
