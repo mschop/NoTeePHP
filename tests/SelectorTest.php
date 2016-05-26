@@ -82,6 +82,9 @@ class SelectorTest extends \PHPUnit_Framework_TestCase
         $results = Selector::select($root, '[data-something=somewhere]');
         $this->assertCount(1, $results);
         $this->assertEquals($p2, $results[0][1]->getNode());
+
+        $result = Selector::select($root, '[data-something=sometimes]');
+        $this->assertCount(0, $result);
     }
 
 }
