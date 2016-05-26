@@ -63,31 +63,89 @@ class Processor
         return $path;
     }
 
-    public function addClass($class)
+    public function setText($text)
     {
-        $this->execute('addClass', [$class]);
-        return $this;
-    }
-
-    public function removeClass($class)
-    {
-        $this->execute('removeClass', [$class]);
+        $this->execute('setText', [$text]);
         return $this;
     }
 
     public function setRaw($raw)
     {
         $this->execute('setRaw', [$raw]);
-    }
-
-    public function setText($text)
-    {
-        $this->execute('setText', [$text]);
+        return $this;
     }
 
     public function getRoot()
     {
         return $this->root;
+    }
+
+
+    /*
+     * SINGLE NODE OPERATIONS AND GETTER
+     */
+
+    /**
+     * @param string $name
+     * @return string|null
+     */
+    public function getAttr($name)
+    {
+        /** @var PathStep $firstSelected */
+        $firstPath = reset($this->allPaths);
+        $firstSelected = end($firstPath);
+        return $firstSelected->getNode()->getAttributes()[$name] ?: null;
+    }
+
+
+    /*
+     * MULTIPLE NODE OPERATIONS
+     */
+
+    public function addClass($class)
+    {
+        $this->execute('addClass', [$class]);
+        return $this;
+    }
+
+    /**
+     * @param string $class
+     * @return Processor
+     */
+    public function removeClass($class)
+    {
+        $this->execute('removeClass', [$class]);
+        return $this;
+    }
+
+    /**
+     * @param string $class
+     * @return Processor
+     */
+    public function toggleClass($class)
+    {
+        $this->execute('toggleClass', [$class]);
+        return $this;
+    }
+
+    /**
+     * @param Node $child
+     * @return Processor
+     */
+    public function append(Node $child)
+    {
+        $this->execute('append', [$child]);
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     */
+    public function setAttr($name, $value)
+    {
+        $this->execute('setAttr', [$name, $value]);
+        return $this;
     }
 
 }

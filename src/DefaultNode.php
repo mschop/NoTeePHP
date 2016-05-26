@@ -126,35 +126,6 @@ class DefaultNode implements Node
     }
 
 
-    /** HELPER METHODS */
-
-    /**
-     * @param $class
-     */
-    protected function addClass($class) {
-        if(isset($this->attributes['class'])) {
-            $allClasses = explode(' ', $this->attributes['class']);
-            if(!in_array($class, $allClasses)) {
-                $allClasses[] = $class;
-            }
-            $this->attributes['class'] = trim(implode(' ', $allClasses));
-        } else {
-            $this->attributes['class'] = trim($class);
-        }
-    }
-
-    protected function removeClass($class)
-    {
-        if(!isset($this->attributes['class'])) {
-            return;
-        }
-
-        $allClass = explode(' ', $this->attributes['class']);
-        $this->attributes['class'] = trim(implode(' ', array_filter($allClass, function($existingClass) use ($class) {
-            return $existingClass !== $class;
-        })));
-    }
-
     /**
      * @return mixed
      */
@@ -174,6 +145,67 @@ class DefaultNode implements Node
     public function find($query)
     {
         return new Processor($this, Selector::select($this, $query));
+    }
+
+
+
+
+    /*
+     * JQUERY LIKE METHODS
+     */
+
+    /**
+     * @param $class
+     */
+    protected function addClass($class) {
+        $class = $this->escapeAttribute($class);
+        if(isset($this->attributes['class'])) {
+            $allClasses = explode(' ', $this->attributes['class']);
+            if(!in_array($class, $allClasses)) {
+                $allClasses[] = $class;
+            }
+            $this->attributes['class'] = trim(implode(' ', $allClasses));
+        } else {
+            $this->attributes['class'] = trim($class);
+        }
+    }
+
+    protected function removeClass($class)
+    {
+        if(!isset($this->attributes['class'])) {
+            return;
+        }
+
+        $allClass = explode(' ', $this->attributes['class']);
+        $reducedClass = array_filter($allClass, function($existingClass) use ($class) {
+            return $existingClass !== $class;
+        });
+        if(count($reducedClass) === 0) {
+            unset($this->attributes['class']);
+        } else {
+            $this->attributes['class'] = trim(implode(' ', $reducedClass));
+        }
+    }
+
+    protected function toggleClass($class)
+    {
+        $cleanedClass = trim($this->escapeAttribute($class));
+        if(isset($this->attributes['class']) && in_array($cleanedClass, explode(' ', $this->attributes['class']))) {
+            $this->removeClass($class);
+        } else {
+            $this->addClass($class);
+        }
+    }
+
+    protected function append(Node $node)
+    {
+        $this->children[] = $node;
+    }
+
+    protected function setAttr($name, $value)
+    {
+
+        $this->attributes[$name] = $value;
     }
 
 }

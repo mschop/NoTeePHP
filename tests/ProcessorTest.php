@@ -4,15 +4,26 @@ namespace NoTee;
 
 class ProcessorTest extends \PHPUnit_Framework_TestCase
 {
+
+    /** @var  NodeFactory */
+    private $nf;
+
+    /**
+     * @before
+     */
+    public function before()
+    {
+        $this->nf = new NodeFactory('utf-8', new AttributeValidator(true, true));
+    }
+
     public function test_addClass_doneRight_correctResult()
     {
-        $nf = new NodeFactory('utf-8');
-        $root1 = $nf->div(
+        $root1 = $this->nf->div(
             ['class' => 'a b c'],
-            $nf->div(
+            $this->nf->div(
                 ['class' => 'class1 class2']
             ),
-            $nf->div(['class' => 'classA classB'])
+            $this->nf->div(['class' => 'classA classB'])
         );
 
         $processor = new Processor($root1, [
@@ -35,9 +46,8 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_onTextNode_throwsException()
     {
-        $nf = new NodeFactory('utf-8');
-        $text = $nf->text('mytext');
-        $root = $nf->div(
+        $text = $this->nf->text('mytext');
+        $root = $this->nf->div(
             [],
             $text
         );
@@ -51,9 +61,8 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_onRawNode_throwsException()
     {
-        $nf = new NodeFactory('utf-8');
-        $raw = $nf->raw('mytext');
-        $root = $nf->div(
+        $raw = $this->nf->raw('mytext');
+        $root = $this->nf->div(
             [],
             $raw
         );
@@ -67,10 +76,9 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_setRaw_wrongNode_throwsException()
     {
-        $nf = new NodeFactory('utf-8');
-        $raw = $nf->raw('mytext');
-        $wrong = $nf->raw('other text');
-        $root = $nf->div(
+        $raw = $this->nf->raw('mytext');
+        $wrong = $this->nf->raw('other text');
+        $root = $this->nf->div(
             [],
             $raw
         );
@@ -84,10 +92,9 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_setText_wrongNode_throwsException()
     {
-        $nf = new NodeFactory('utf-8');
-        $text = $nf->text('mytext');
-        $wrong = $nf->text('other text');
-        $root = $nf->div(
+        $text = $this->nf->text('mytext');
+        $wrong = $this->nf->text('other text');
+        $root = $this->nf->div(
             [],
             $text
         );
@@ -101,10 +108,9 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_wrongObject_throwsException()
     {
-        $nf = new NodeFactory('utf-8');
-        $rightObject = $nf->div([]);
-        $wrongObject = $nf->div([]);
-        $root = $nf->div([], $rightObject);
+        $rightObject = $this->nf->div([]);
+        $wrongObject = $this->nf->div([]);
+        $root = $this->nf->div([], $rightObject);
         $processor = new Processor($root, [
             [new PathStep(null, $root), new PathStep(0, $wrongObject)]
         ]);
@@ -114,12 +120,11 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function test_addClass_nested()
     {
-        $nf = new NodeFactory('utf-8');
-        $root = $nf->div(
+        $root = $this->nf->div(
             [],
-            $nf->div(
+            $this->nf->div(
                 [],
-                $nf->div([])
+                $this->nf->div([])
             )
         );
 

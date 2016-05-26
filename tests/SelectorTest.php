@@ -5,20 +5,29 @@ namespace NoTee;
 class SelectorTest extends \PHPUnit_Framework_TestCase
 {
 
+    /** @var  NodeFactory */
+    private $nf;
+
+    /**
+     * @before
+     */
+    public function before()
+    {
+        $this->nf = new NodeFactory('utf-8', new AttributeValidator(true, true));
+    }
+    
     public function test_selectors()
     {
-        $nf = new NodeFactory('utf-8');
-        
-        $div = $nf->div([]);
-        $a1 = $nf->a(['class' => 'a b']);
-        $a2 = $nf->a([], $a1);
-        $p = $nf->p([]);
-        $p2 = $nf->p(['data-something' => 'somewhere']);
-        $p3 = $nf->p([], $p);
-        $subSpan = $nf->span([]);
-        $span = $nf->span([], $subSpan);
+        $div = $this->nf->div([]);
+        $a1 = $this->nf->a(['class' => 'a b']);
+        $a2 = $this->nf->a([], $a1);
+        $p = $this->nf->p([]);
+        $p2 = $this->nf->p(['data-something' => 'somewhere']);
+        $p3 = $this->nf->p([], $p);
+        $subSpan = $this->nf->span([]);
+        $span = $this->nf->span([], $subSpan);
 
-        $root = $nf->div(
+        $root = $this->nf->div(
             [],
             $p3,
             $div,

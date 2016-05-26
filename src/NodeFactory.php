@@ -136,38 +136,18 @@ class NodeFactory
     const WBR = 'wbr';
     const XMP = 'xmp';
 
-    protected static $urlAttributes = [
-        'action' => true,
-        'archive' => true,
-        'cite' => true,
-        'classid' => true,
-        'codebase' => true,
-        'data' => true,
-        'formaction' => true,
-        'href' => true,
-        'icon' => true,
-        'longdesc' => true,
-        'manifest' => true,
-        'poster' => true,
-        'src' => true,
-        'usemap' => true,
-    ];
-
     private $escaper;
-    private $useAttributeValidation;
-    private $useAttributeNameValidation;
+    private $attributeValidator;
 
     /**
      * NodeFactory constructor.
      * @param string $encoding
-     * @param bool $useAttributeValidation
-     * @param bool $useAttributeNameValidation
+     * @param AttributeValidator $attributeValidator
      */
-    public function __construct($encoding, $useAttributeValidation = true, $useAttributeNameValidation = true)
+    public function __construct($encoding, AttributeValidator $attributeValidator)
     {
         $this->escaper = new EscaperForNoTeeContext($encoding);
-        $this->useAttributeValidation = $useAttributeValidation;
-        $this->useAttributeNameValidation = $useAttributeNameValidation;
+        $this->attributeValidator = $attributeValidator;
     }
 
     /**
@@ -186,9 +166,7 @@ class NodeFactory
         }
 
         $attributes = array_shift($arguments);
-        if($this->useAttributeValidation) {
-            static::validateAttributes($attributes);
-        }
+        $this->validateAttributes($attributes);
         return new DefaultNode($name, $this->escaper, $attributes, static::flatten($arguments));
     }
 
@@ -199,35 +177,10 @@ class NodeFactory
     private function validateAttributes(array $attributes)
     {
         foreach($attributes as $key => $value) {
-            static::validateAttribute($key, $value);
-        }
-    }
-
-    /**
-     * @param string $key
-     * @param string $value
-     * @throws \InvalidArgumentException
-     */
-    private function validateAttribute($key, $value)
-    {
-        if($this->useAttributeNameValidation && !static::isValidAttributeName($key)){
-            throw new \InvalidArgumentException("invalid attribute name $key");
-        }
-        if(array_key_exists($key, static::$urlAttributes)) {
-            if(!$value instanceof URLAttribute) {
-                throw new \InvalidArgumentException("attribute $key has to be instance of URLAttribute");
+            if(!$this->attributeValidator->isValid($key, $value)) {
+                throw new \InvalidArgumentException('invalid attribute name ' . $key);
             }
         }
-    }
-
-    /**
-     * @param string $attributeName
-     * @return bool
-     */
-    private function isValidAttributeName($attributeName)
-    {
-        $regex = '/^[0-9a-z-_]*$/i';
-        return preg_match($regex, $attributeName) ? true : false;
     }
 
     /**
