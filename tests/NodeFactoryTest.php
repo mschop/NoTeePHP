@@ -76,4 +76,10 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->nf->a(['_invalid>attribute<name' => new URL('google.de', [])]);
     }
 
+    public function test_invalidEncoding_throwsException()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        new NodeFactory('utf--8', new AttributeValidator(true, true));
+    }
+
 }
