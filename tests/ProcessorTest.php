@@ -168,6 +168,16 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<div>replacement</div>', (string)$root);
     }
 
+    public function test_setText()
+    {
+        $root = $this->nf->div(
+            'original'
+        );
+        $processor = new Processor($root, [[new PathStep(0, $root), new PathStep(0, $root->getChildren()[0])]]);
+        $root = $processor->setText('replacement')->getRoot();
+        $this->assertEquals('<div>replacement</div>', (string)$root);
+    }
+
     public function test_invalidPathIndex_throwsException()
     {
         $root = $this->nf->div(
