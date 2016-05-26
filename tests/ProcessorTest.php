@@ -141,4 +141,21 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<div><div class="test"><div class="test" /></div></div>', $newRoot->__toString());
     }
 
+    public function test_children()
+    {
+        $root = $this->nf->div(
+            $this->nf->div(
+                $this->nf->div(),
+                $this->nf->span('mscho')
+            )
+        );
+
+        $processor = new Processor($root, [
+            [new PathStep(0, $root), new PathStep(0, $root->getChildren()[0])],
+        ]);
+
+        $newRoot = $processor->children()->addClass('class')->getRoot();
+        $this->assertEquals('<div><div><div class="class" /><span class="class">mscho</span></div></div>', (string)$newRoot);
+    }
+
 }

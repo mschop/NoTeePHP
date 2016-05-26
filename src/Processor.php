@@ -82,49 +82,16 @@ class Processor
 
 
     /*
-     * SINGLE NODE OPERATIONS AND GETTER
+     * JQUERY-Like methods
      */
 
     /**
-     * @param string $name
-     * @return string|null
+     * @param string $class
+     * @return $this
      */
-    public function getAttr($name)
-    {
-        /** @var PathStep $firstSelected */
-        $firstPath = reset($this->allPaths);
-        $firstSelected = end($firstPath);
-        return $firstSelected->getNode()->getAttributes()[$name] ?: null;
-    }
-
-
-    /*
-     * MULTIPLE NODE OPERATIONS
-     */
-
     public function addClass($class)
     {
         $this->execute('addClass', [$class]);
-        return $this;
-    }
-
-    /**
-     * @param string $class
-     * @return Processor
-     */
-    public function removeClass($class)
-    {
-        $this->execute('removeClass', [$class]);
-        return $this;
-    }
-
-    /**
-     * @param string $class
-     * @return Processor
-     */
-    public function toggleClass($class)
-    {
-        $this->execute('toggleClass', [$class]);
         return $this;
     }
 
@@ -139,12 +106,60 @@ class Processor
     }
 
     /**
+     * @return Processor
+     */
+    public function children() {
+        $newPaths = [];
+        foreach($this->allPaths as $path) {
+            /** @var PathStep $lastPathStep */
+            $lastPathStep = end($path);
+            foreach($lastPathStep->getNode()->getChildren() as $key => $child) {
+                $newPaths[] = array_merge($path, [new PathStep($key, $child)]);
+            }
+        }
+        return new Processor($this->root, $newPaths);
+    }
+
+    /**
+     * @param string $name
+     * @return string|null
+     */
+    public function getAttr($name)
+    {
+        /** @var PathStep $firstSelected */
+        $firstPath = reset($this->allPaths);
+        $firstSelected = end($firstPath);
+        return $firstSelected->getNode()->getAttributes()[$name] ?: null;
+    }
+
+    /**
+     * @param string $class
+     * @return Processor
+     */
+    public function removeClass($class)
+    {
+        $this->execute('removeClass', [$class]);
+        return $this;
+    }
+
+    /**
      * @param string $name
      * @param string $value
+     * @return Processor
      */
     public function setAttr($name, $value)
     {
         $this->execute('setAttr', [$name, $value]);
+        return $this;
+    }
+
+    /**
+     * @param string $class
+     * @return Processor
+     */
+    public function toggleClass($class)
+    {
+        $this->execute('toggleClass', [$class]);
         return $this;
     }
 
