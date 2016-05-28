@@ -182,4 +182,16 @@ class DefaultNode implements Node
         $this->attributes[$name] = $value;
     }
 
+    protected function insertAfter(ReplacementMapStep $mapStep, Node $newChild)
+    {
+        $newChildArray = [];
+        foreach($this->children as $index => $child) {
+            $newChildArray[] = $child;
+            if($child === $mapStep->getOldNode()) {
+                $newChildArray[] = $newChild;
+            }
+        }
+        $this->children = $newChildArray;
+    }
+
 }
