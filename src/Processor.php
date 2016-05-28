@@ -19,11 +19,21 @@ class Processor
         $this->root = $root;
     }
 
-    private function execute($method, $params)
+    /**
+     * @param $method
+     * @param $params
+     * @param bool $cutLast Some methods to not change the selected item, but a parent item.
+     */
+    private function execute($method, $params, $cutLast = false)
     {
         $pathAmount = count($this->allPaths);
         for($x = 0; $x < $pathAmount; $x++) {
             $replacementMap = static::generateReplacementMap($this->allPaths[$x]);
+            if($cutLast) {
+                /** @var ReplacementMapStep $last */
+                $last = array_pop($replacementMap);
+                array_unshift($params, $last);
+            }
             $this->root = $this->root->_executeOnPath($replacementMap, $method, $params);
             $this->updatePaths($replacementMap);
         }
@@ -130,6 +140,12 @@ class Processor
         $firstPath = reset($this->allPaths);
         $firstSelected = end($firstPath);
         return $firstSelected->getNode()->getAttributes()[$name] ?: null;
+    }
+
+    public function insertAfter(Node $node)
+    {
+        $this->execute('insertAfter', [$node], true);
+        return $this;
     }
 
     /**

@@ -189,5 +189,23 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('NoTee\Exceptions\PathOutdatedException');
         $processor->addClass('test');
     }
+    
+    public function test_insertAfter()
+    {
+        $root = $this->nf->div(
+            $this->nf->div(
+                $this->nf->div(),
+                $this->nf->span('mscho')
+            )
+        );
+
+        $processor = new Processor($root, [
+            [new PathStep(0, $root), new PathStep(0, $root->getChildren()[0])]
+        ]);
+
+        $newRoot = $processor->insertAfter($this->nf->div('test'))->getRoot();
+        $this->assertEquals('<div><div><div /><span>mscho</span></div><div>test</div></div>', (string)$newRoot);
+    }
+
 
 }
