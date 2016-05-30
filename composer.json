@@ -7,7 +7,6 @@
     "mschop/css-selector-parser": "~1.0"
   },
   "require-dev": {
-    "humbug/humbug": "dev-master",
     "satooshi/php-coveralls": "~2.0"
   },
   "authors": [

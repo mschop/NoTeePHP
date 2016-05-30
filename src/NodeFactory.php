@@ -138,16 +138,18 @@ class NodeFactory
 
     private $escaper;
     private $attributeValidator;
+    private $debug;
 
     /**
      * NodeFactory constructor.
      * @param string $encoding
      * @param AttributeValidator $attributeValidator
      */
-    public function __construct($encoding, AttributeValidator $attributeValidator)
+    public function __construct($encoding, AttributeValidator $attributeValidator, $debug = false)
     {
         $this->escaper = new EscaperForNoTeeContext($encoding);
         $this->attributeValidator = $attributeValidator;
+        $this->debug = $debug;
     }
 
     /**
@@ -157,17 +159,31 @@ class NodeFactory
      */
     public function create($name, array $arguments)
     {
+        $debugAttributes = [];
+        if($this->debug) {
+            $debugAttributes = [
+                'data-source' => $this->generateDebugSource()
+            ];
+        }
+
         if(
             !isset($arguments[0])
             || !is_array($arguments[0])
             || reset($arguments[0]) instanceof Node
         ) {
-            return new DefaultNode($name, $this->escaper, [], static::flatten($arguments));
+            return new DefaultNode($name, $this->escaper, $debugAttributes, static::flatten($arguments));
         }
 
         $attributes = array_shift($arguments);
         $this->validateAttributes($attributes);
-        return new DefaultNode($name, $this->escaper, $attributes, static::flatten($arguments));
+        return new DefaultNode($name, $this->escaper, array_merge($attributes, $debugAttributes), static::flatten($arguments));
+    }
+
+    private function generateDebugSource()
+    {
+        $trace = debug_backtrace();
+        $callee = $trace[2];
+        return $callee['file'] . ':' . $callee['line'];
     }
 
     /**

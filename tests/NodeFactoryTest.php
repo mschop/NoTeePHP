@@ -82,4 +82,11 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
         new NodeFactory('utf--8', new AttributeValidator(true, true));
     }
 
+    public function test_debugMode()
+    {
+        $nf = new NodeFactory('utf-8', new AttributeValidator(true, true), true);
+        $root = $nf->span();
+        $this->assertEquals('<span data-source="' . __FILE__ . ':' . '88" />', (string)$root);
+    }
+
 }
