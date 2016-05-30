@@ -185,11 +185,23 @@ class DefaultNode implements Node
     protected function insertAfter(ReplacementMapStep $mapStep, Node $newChild)
     {
         $newChildArray = [];
-        foreach($this->children as $index => $child) {
+        foreach($this->children as $child) {
             $newChildArray[] = $child;
             if($child === $mapStep->getOldNode()) {
                 $newChildArray[] = $newChild;
             }
+        }
+        $this->children = $newChildArray;
+    }
+
+    protected function insertBefore(ReplacementMapStep $mapStep, Node $newChild)
+    {
+        $newChildArray = [];
+        foreach($this->children as $child) {
+            if($child === $mapStep->getOldNode()) {
+                $newChildArray[] = $newChild;
+            }
+            $newChildArray[] = $child;
         }
         $this->children = $newChildArray;
     }

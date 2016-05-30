@@ -2,6 +2,8 @@
 
 namespace NoTee;
 
+use Satooshi\Component\File\Path;
+
 class ProcessorTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -190,22 +192,61 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $processor->addClass('test');
     }
     
-    public function test_insertAfter()
+    public function test_insertAfter_and_insertBefore()
     {
+        $td = $this->nf->td(
+            'test'
+        );
+        $tr = $this->nf->tr(
+            $td
+        );
+        $table = $this->nf->table(
+            $tr
+        );
+
         $root = $this->nf->div(
             $this->nf->div(
                 $this->nf->div(),
                 $this->nf->span('mscho')
-            )
+            ),
+            $table
         );
+        $pathSteps = [
+            [new PathStep(0, $root), new PathStep(0, $root->getChildren()[0])],
+            [
+                new PathStep(0, $root),
+                new PathStep(0, $root->getChildren()[0]),
+                new PathStep(0, $root->getChildren()[0]->getChildren()[0])
+            ],
+            [
+                new PathStep(0, $root),
+                new PathStep(1, $table),
+                new PathStep(0, $tr),
+                new PathStep(0, $td)
+            ]
+        ];
+        $node = $this->nf->div('test');
 
+        $processor = new Processor($root, $pathSteps);
+        $newRoot = $processor->insertAfter($node)->getRoot();
+        $this->assertEquals('<div><div><div /><div>test</div><span>mscho</span></div><div>test</div><table><tr><td>test</td><div>test</div></tr></table></div>', (string)$newRoot);
+
+        $processor = new Processor($root, $pathSteps);
+        $newRoot = $processor->insertBefore($node)->getRoot();
+        $this->assertEquals('<div><div>test</div><div><div>test</div><div /><span>mscho</span></div><table><tr><div>test</div><td>test</td></tr></table></div>', (string)$newRoot);
+
+        $newRoot = $processor->addClass('test')->getRoot();
+        $this->assertEquals('<div><div>test</div><div class="test"><div>test</div><div class="test" /><span>mscho</span></div><table><tr><div>test</div><td class="test">test</td></tr></table></div>', (string)$newRoot);
+
+        $root = $this->nf->div(
+            $this->nf->div()
+        );
         $processor = new Processor($root, [
             [new PathStep(0, $root), new PathStep(0, $root->getChildren()[0])]
         ]);
-
-        $newRoot = $processor->insertAfter($this->nf->div('test'))->getRoot();
-        $this->assertEquals('<div><div><div /><span>mscho</span></div><div>test</div></div>', (string)$newRoot);
+        $node = $this->nf->table();
+        $newRoot = $processor->insertAfter($node)->insertAfter($node)->insertBefore($node)->getRoot();
+        $this->assertEquals('<div><table /><div /><table /><table /></div>', (string)$newRoot);
     }
-
 
 }

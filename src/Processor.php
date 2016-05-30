@@ -22,19 +22,23 @@ class Processor
     /**
      * @param $method
      * @param $params
-     * @param bool $cutLast Some methods to not change the selected item, but a parent item.
+     * @param bool $cutLast Some methods to not change the selected item, but the parent item.
      */
     private function execute($method, $params, $cutLast = false)
     {
         $pathAmount = count($this->allPaths);
         for($x = 0; $x < $pathAmount; $x++) {
+            $paramsCopy = $params;
             $replacementMap = static::generateReplacementMap($this->allPaths[$x]);
             if($cutLast) {
                 /** @var ReplacementMapStep $last */
                 $last = array_pop($replacementMap);
-                array_unshift($params, $last);
+                array_unshift($paramsCopy, $last);
             }
-            $this->root = $this->root->_executeOnPath($replacementMap, $method, $params);
+            $this->root = $this->root->_executeOnPath($replacementMap, $method, $paramsCopy);
+            if($cutLast) {
+                $this->updatePathIndexes($replacementMap, $last);
+            }
             $this->updatePaths($replacementMap);
         }
     }
@@ -55,6 +59,40 @@ class Processor
         $pathAmount = count($this->allPaths);
         for($x = 0; $x < $pathAmount; $x++) {
             $this->allPaths[$x] = static::updatePath($this->allPaths[$x], $replacementMap);
+        }
+    }
+
+    private function updatePathIndexes(array $replacementMap)
+    {
+        $replacementDepth = count($replacementMap);
+
+        foreach($this->allPaths as &$path) {
+            $isMatching = true;
+            for($x = 0; $x < $replacementDepth; $x++) {
+                if(count($path) > $replacementDepth && isset($path[$x])) {
+                    /** @var PathStep $pathStep */
+                    $pathStep = $path[$x];
+                    /** @var ReplacementMapStep $replacementMapStep */
+                    $replacementMapStep = $replacementMap[$x];
+                    if($pathStep->getNode() !== $replacementMapStep->getOldNode()) {
+                        $isMatching = false;
+                    }
+                } else {
+                    $isMatching = false;
+                }
+            }
+            if($isMatching) {
+                /** @var DefaultNode $node */
+                $node = $replacementMap[$replacementDepth - 1]->getNewNode();
+                /** @var PathStep $pathStep */
+                $pathStep = $path[$replacementDepth];
+
+                foreach($node->getChildren() as $index => $child) {
+                    if($child === $pathStep->getNode()) {
+                        $path[$replacementDepth] = new PathStep($index, $pathStep->getNode());
+                    }
+                }
+            }
         }
     }
 
@@ -85,6 +123,9 @@ class Processor
         return $this;
     }
 
+    /**
+     * @return DefaultNode
+     */
     public function getRoot()
     {
         return $this->root;
@@ -142,9 +183,20 @@ class Processor
         return $firstSelected->getNode()->getAttributes()[$name] ?: null;
     }
 
+    /**
+     * Inserts $node after the selected nodes
+     * @param Node $node
+     * @return $this
+     */
     public function insertAfter(Node $node)
     {
         $this->execute('insertAfter', [$node], true);
+        return $this;
+    }
+
+    public function insertBefore(Node $node)
+    {
+        $this->execute('insertBefore', [$node], true);
         return $this;
     }
 
