@@ -206,4 +206,16 @@ class DefaultNode implements Node
         $this->children = $newChildArray;
     }
 
+    protected function insertChildAt($insertAt, Node $newChild)
+    {
+        $newChildArray = [];
+        foreach($this->children as $index => $child) {
+            if($index === $insertAt) {
+                $newChildArray[] = $newChild;
+            }
+            $newChildArray[] = $child;
+        }
+        $this->children = $newChildArray;
+    }
+
 }

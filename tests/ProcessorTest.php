@@ -3,6 +3,7 @@
 namespace NoTee;
 
 use Satooshi\Component\File\Path;
+use Symfony\Component\Process\Process;
 
 class ProcessorTest extends \PHPUnit_Framework_TestCase
 {
@@ -247,6 +248,23 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $node = $this->nf->table();
         $newRoot = $processor->insertAfter($node)->insertAfter($node)->insertBefore($node)->getRoot();
         $this->assertEquals('<div><table /><div /><table /><table /></div>', (string)$newRoot);
+    }
+
+    public function test_insertChildAt()
+    {
+        $root = $this->nf->div(
+            $this->nf->div(1),
+            $this->nf->div(3)
+        );
+
+        $processor = new Processor($root, [
+            [new PathStep(0, $root)]
+        ]);
+
+        $node = $this->nf->div(2);
+        $processor->insertChildAt(0, $node)->insertChildAt(2, $node);
+        $newRoot = $processor->getRoot();
+        $this->assertEquals('<div><div>2</div><div>1</div><div>2</div><div>3</div></div>', (string)$newRoot);
     }
 
 }
