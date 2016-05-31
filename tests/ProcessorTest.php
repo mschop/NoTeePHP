@@ -267,4 +267,17 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<div><div>2</div><div>1</div><div>2</div><div>3</div></div>', (string)$newRoot);
     }
 
+    public function test_prepend()
+    {
+        $node = $this->nf->div(2);
+        $root = $this->nf->div(
+            $this->nf->div(1)
+        );
+        $processor = new Processor($root, [[new PathStep(0, $root)]]);
+
+        $processor->prepend($node);
+        $newRoot = $processor->getRoot();
+        $this->assertEquals('<div><div>2</div><div>1</div></div>', (string)$newRoot);
+    }
+
 }

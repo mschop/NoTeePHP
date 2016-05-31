@@ -192,16 +192,30 @@ class Processor
         return $this;
     }
 
+    /**
+     * @param Node $node
+     * @return $this
+     */
     public function insertBefore(Node $node)
     {
         $this->execute('insertBefore', [$node], true);
         return $this;
     }
 
+    /**
+     * @param $index
+     * @param Node $node
+     * @return $this
+     */
     public function insertChildAt($index, Node $node)
     {
         $this->execute('insertChildAt', [$index, $node]);
         return $this;
+    }
+
+    public function prepend(Node $node)
+    {
+        $this->execute('prepend', [$node]);
     }
 
     /**
