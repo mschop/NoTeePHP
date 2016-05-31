@@ -36,9 +36,7 @@ class Processor
                 array_unshift($paramsCopy, $last);
             }
             $this->root = $this->root->_executeOnPath($replacementMap, $method, $paramsCopy);
-            if($cutLast) {
-                $this->updatePathIndexes($replacementMap, $last);
-            }
+            $this->updatePathIndexes($replacementMap);
             $this->updatePaths($replacementMap);
         }
     }
@@ -197,6 +195,12 @@ class Processor
     public function insertBefore(Node $node)
     {
         $this->execute('insertBefore', [$node], true);
+        return $this;
+    }
+
+    public function insertChildAt($index, Node $node)
+    {
+        $this->execute('insertChildAt', [$index, $node]);
         return $this;
     }
 
