@@ -218,4 +218,9 @@ class DefaultNode implements Node
         $this->children = $newChildArray;
     }
 
+    protected function prepend(Node $newChild)
+    {
+        array_unshift($this->children, $newChild);
+    }
+
 }
