@@ -213,15 +213,32 @@ class Processor
         return $this;
     }
 
+    /**
+     * @param Node $node
+     * @return $this
+     */
     public function prepend(Node $node)
     {
         $this->execute('prepend', [$node]);
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function remove()
     {
         $this->execute('remove', [], true);
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @return $this
+     */
+    public function removeAttr($name)
+    {
+        $this->execute('removeAttr', [$name]);
         return $this;
     }
 

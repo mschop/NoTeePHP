@@ -296,4 +296,17 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<div><span>text</span></div>', (string)$newRoot);
     }
 
+    public function test_removeAttr()
+    {
+        $root = $this->nf->div(
+            ['class' => 'test', 'data-awe' => 'some', 'data-still' => 'there'],
+            'yo'
+        );
+        $processor = new Processor($root, [
+            [new PathStep(0, $root)]
+        ]);
+        $newRoot = $processor->removeAttr('class')->removeAttr('data-awe')->getRoot();
+        $this->assertEquals('<div data-still="there">yo</div>', (string)$newRoot);
+    }
+
 }

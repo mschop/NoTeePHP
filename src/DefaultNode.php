@@ -235,4 +235,9 @@ class DefaultNode implements Node
         $this->children = $newChildArray;
     }
 
+    protected function removeAttr($name)
+    {
+        unset($this->attributes[$name]);
+    }
+
 }
