@@ -223,4 +223,16 @@ class DefaultNode implements Node
         array_unshift($this->children, $newChild);
     }
 
+    protected function remove(ReplacementMapStep $mapStep)
+    {
+        $newChildArray = [];
+        $removedChild = $mapStep->getOldNode();
+        foreach($this->children as $child) {
+            if($child !== $removedChild) {
+                $newChildArray[] = $child;
+            }
+        }
+        $this->children = $newChildArray;
+    }
+
 }

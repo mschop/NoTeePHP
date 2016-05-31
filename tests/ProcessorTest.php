@@ -275,9 +275,25 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         );
         $processor = new Processor($root, [[new PathStep(0, $root)]]);
 
-        $processor->prepend($node);
-        $newRoot = $processor->getRoot();
+        $newRoot = $processor->prepend($node)->getRoot();
         $this->assertEquals('<div><div>2</div><div>1</div></div>', (string)$newRoot);
+    }
+
+    public function test_remove()
+    {
+        $root = $this->nf->div(
+            $this->nf->span('text'),
+            $this->nf->div(
+                'test'
+            )
+        );
+
+        $processor = new Processor($root, [
+            [new PathStep(0, $root), new PathStep(1, $root->getChildren()[1])]
+        ]);
+
+        $newRoot = $processor->remove()->getRoot();
+        $this->assertEquals('<div><span>text</span></div>', (string)$newRoot);
     }
 
 }

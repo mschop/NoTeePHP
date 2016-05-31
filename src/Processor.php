@@ -216,6 +216,13 @@ class Processor
     public function prepend(Node $node)
     {
         $this->execute('prepend', [$node]);
+        return $this;
+    }
+
+    public function remove()
+    {
+        $this->execute('remove', [], true);
+        return $this;
     }
 
     /**
