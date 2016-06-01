@@ -253,6 +253,16 @@ class Processor
     }
 
     /**
+     * @param Node $node
+     * @return $this
+     */
+    public function replaceWith(Node $node)
+    {
+        $this->execute('replaceWith', [$node], true);
+        return $this;
+    }
+
+    /**
      * @param string $name
      * @param string $value
      * @return Processor

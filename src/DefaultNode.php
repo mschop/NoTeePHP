@@ -146,21 +146,6 @@ class DefaultNode implements Node
         }
     }
 
-    protected function removeClass($class)
-    {
-        if(isset($this->attributes['class'])) {
-            $allClass = explode(' ', $this->attributes['class']);
-            $reducedClass = array_filter($allClass, function($existingClass) use ($class) {
-                return $existingClass !== $class;
-            });
-            if(count($reducedClass) === 0) {
-                unset($this->attributes['class']);
-            } else {
-                $this->attributes['class'] = trim(implode(' ', $reducedClass));
-            }
-        }
-    }
-
     protected function toggleClass($class)
     {
         $cleanedClass = trim($this->escapeAttribute($class));
@@ -238,6 +223,26 @@ class DefaultNode implements Node
     protected function removeAttr($name)
     {
         unset($this->attributes[$name]);
+    }
+
+    protected function removeClass($class)
+    {
+        if(isset($this->attributes['class'])) {
+            $allClass = explode(' ', $this->attributes['class']);
+            $reducedClass = array_filter($allClass, function($existingClass) use ($class) {
+                return $existingClass !== $class;
+            });
+            if(count($reducedClass) === 0) {
+                unset($this->attributes['class']);
+            } else {
+                $this->attributes['class'] = trim(implode(' ', $reducedClass));
+            }
+        }
+    }
+
+    protected function replaceWith(ReplacementMapStep $lastStep, $node)
+    {
+        $this->children[$lastStep->getIndex()] = $node;
     }
 
 }
