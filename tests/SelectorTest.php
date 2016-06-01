@@ -19,7 +19,7 @@ class SelectorTest extends \PHPUnit_Framework_TestCase
     public function test_selectors()
     {
         $div = $this->nf->div([]);
-        $a1 = $this->nf->a(['class' => 'a b']);
+        $a1 = $this->nf->a(['class' => 'a b', 'id' => 'someid']);
         $a2 = $this->nf->a([], $a1);
         $p = $this->nf->p([]);
         $p2 = $this->nf->p(['data-something' => 'somewhere']);
@@ -85,6 +85,9 @@ class SelectorTest extends \PHPUnit_Framework_TestCase
 
         $result = Selector::select($root, '[data-something=sometimes]');
         $this->assertCount(0, $result);
+
+        $result = Selector::select($root, '#someid');
+        $this->assertCount(1, $result);
     }
 
 }

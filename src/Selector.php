@@ -181,6 +181,10 @@ class Selector
             return false;
         }
 
+        if(isset($rule['id']) && !static::hasMatchingId($node, $rule['id'])) {
+            return false;
+        }
+
         return true;
     }
 
@@ -230,6 +234,11 @@ class Selector
             return false;
         }
         return count(array_intersect(explode(' ', $attributes['class']), $classNames)) === count($classNames);
+    }
+
+    private static function hasMatchingId(DefaultNode $node, $id)
+    {
+        return isset($node->getAttributes()['id']) && $node->getAttributes()['id'] === $id;
     }
 
 }
