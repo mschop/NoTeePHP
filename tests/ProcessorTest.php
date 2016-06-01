@@ -309,4 +309,24 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<div data-still="there">yo</div>', (string)$newRoot);
     }
 
+    public function test_replaceWith()
+    {
+        $root = $this->nf->div(
+            $this->nf->span('1'),
+            $this->nf->div(
+                'hallo'
+            ),
+            $this->nf->span('2')
+        );
+
+        $processor = new Processor($root, [
+            [new PathStep(0, $root), new PathStep(1, $root->getChildren()[1])]
+        ]);
+
+        $node = $this->nf->div('welt');
+
+        $newRoot = $processor->replaceWith($node)->getRoot();
+        $this->assertEquals('<div><span>1</span><div>welt</div><span>2</span></div>', (string)$newRoot);
+    }
+
 }
