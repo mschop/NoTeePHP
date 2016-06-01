@@ -52,14 +52,6 @@ class Processor
         }, $path);
     }
 
-    protected function updatePaths(array $replacementMap)
-    {
-        $pathAmount = count($this->allPaths);
-        for($x = 0; $x < $pathAmount; $x++) {
-            $this->allPaths[$x] = static::updatePath($this->allPaths[$x], $replacementMap);
-        }
-    }
-
     protected function updatePathIndexes(array $replacementMap)
     {
         $replacementDepth = count($replacementMap);
@@ -91,6 +83,14 @@ class Processor
                     }
                 }
             }
+        }
+    }
+
+    protected function updatePaths(array $replacementMap)
+    {
+        $pathAmount = count($this->allPaths);
+        for($x = 0; $x < $pathAmount; $x++) {
+            $this->allPaths[$x] = static::updatePath($this->allPaths[$x], $replacementMap);
         }
     }
 
