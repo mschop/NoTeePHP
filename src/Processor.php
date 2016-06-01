@@ -6,8 +6,8 @@ namespace NoTee;
 class Processor
 {
     /** @var  Node */
-    private $root;
-    private $allPaths;
+    protected $root;
+    protected $allPaths;
 
     /**
      * @param Node $root
@@ -24,7 +24,7 @@ class Processor
      * @param $params
      * @param bool $cutLast Some methods to not change the selected item, but the parent item.
      */
-    private function execute($method, $params, $cutLast = false)
+    protected function execute($method, $params, $cutLast = false)
     {
         $pathAmount = count($this->allPaths);
         for($x = 0; $x < $pathAmount; $x++) {
@@ -45,14 +45,14 @@ class Processor
      * @param array $path
      * @return array-of-ReplacementMapStep
      */
-    private static function generateReplacementMap(array $path)
+    protected static function generateReplacementMap(array $path)
     {
         return array_map(function(PathStep $step){
             return new ReplacementMapStep($step->getIndex(), $step->getNode(), clone $step->getNode());
         }, $path);
     }
 
-    private function updatePaths(array $replacementMap)
+    protected function updatePaths(array $replacementMap)
     {
         $pathAmount = count($this->allPaths);
         for($x = 0; $x < $pathAmount; $x++) {
@@ -60,7 +60,7 @@ class Processor
         }
     }
 
-    private function updatePathIndexes(array $replacementMap)
+    protected function updatePathIndexes(array $replacementMap)
     {
         $replacementDepth = count($replacementMap);
 
@@ -94,7 +94,7 @@ class Processor
         }
     }
 
-    private static function updatePath($path, $replacementMap)
+    protected static function updatePath($path, $replacementMap)
     {
         $x = 0;
         while(
