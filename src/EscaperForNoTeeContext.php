@@ -3,7 +3,6 @@
 namespace NoTee;
 
 
-use Zend\Escaper\Escaper as ZendEscaper;
 
 /**
  * Class SecureContextEscaper
