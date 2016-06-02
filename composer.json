@@ -3,9 +3,6 @@
   "description": "html generation library",
   "keywords": ["html", "template", "dom", "query", "api"],
   "license": "MIT",
-  "require": {
-    "mschop/css-selector-parser": "~1.0"
-  },
   "require-dev": {
     "satooshi/php-coveralls": "~2.0"
   },

@@ -89,4 +89,13 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<span data-source="' . __FILE__ . ':' . '88" />', (string)$root);
     }
 
+    public function test_textAndRaw()
+    {
+        $nf = new NodeFactory('utf-8', new AttributeValidator(true, true), true);
+        $node = $nf->text('test>');
+        $this->assertEquals('test&gt;', (string)$node);
+        $node = $nf->raw('test>');
+        $this->assertEquals('test>', (string)$node);
+    }
+
 }

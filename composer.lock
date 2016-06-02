@@ -4,55 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "23809ab6a5242988efb79fcdb12a5dfe",
-    "content-hash": "0498105cacbcf87e6a1b9820c9f7c224",
-    "packages": [
-        {
-            "name": "mschop/css-selector-parser",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mschop/php-css-selector-parser.git",
-                "reference": "29e6f17e4e74350be057612a313f9c5aa9fdc0f6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mschop/php-css-selector-parser/zipball/29e6f17e4e74350be057612a313f9c5aa9fdc0f6",
-                "reference": "29e6f17e4e74350be057612a313f9c5aa9fdc0f6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/php-invoker": "dev-master",
-                "phpunit/phpunit": "4.3.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "CSSSelectorParser\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Martin Schophaus",
-                    "email": "mschopdev@gmail.com"
-                }
-            ],
-            "description": "Simple CSS selector parser. PHP port of https://github.com/mdevils/node-css-selector-parser",
-            "keywords": [
-                "CSS selector",
-                "css",
-                "css selector parser"
-            ],
-            "time": "2016-03-31 16:51:03"
-        }
-    ],
+    "hash": "83e73dade4e55cb6ffa080c291e6cd31",
+    "content-hash": "31f3d8041a36c7214164998e8315657e",
+    "packages": [],
     "packages-dev": [
         {
             "name": "guzzlehttp/guzzle",

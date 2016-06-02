@@ -20,7 +20,6 @@ Advantages of NoTeePHP compared to template engines:
 Further great things about NoTeePHP:
 
 - immutable node tree (reuse every node in unlimited places)
-- jquery inspired api for changing your node structure
 
 ## Setup
 
@@ -77,29 +76,6 @@ This would produce the following result:
             <li>item 8</li>
         </ul>
     </div>
-
-You can modify the node tree, by either using the find method or creating an instance of Processor:
-
-    $root = $root->find('li')->addClass('item')->getRoot();
-    echo($root);
-   
-This would produce the following output:
-
-    <div class="a b c">
-        <abbr title="hypertext markup language">html</abbr>
-        <ul>
-            <li class="item">item 0</li>
-            <li class="item">item 1</li>
-            <li class="item">item 2</li>
-            <li class="item">item 3</li>
-            <li class="item">item 4</li>
-            <li class="item">item 5</li>
-            <li class="item">item 6</li>
-            <li class="item">item 7</li>
-            <li class="item">item 8</li>
-        </ul>
-    </div>
-
 
 ## Security
 
