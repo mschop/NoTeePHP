@@ -88,25 +88,24 @@ class Processor
 
     protected function updatePaths(array $replacementMap)
     {
-        $pathAmount = count($this->allPaths);
-        for($x = 0; $x < $pathAmount; $x++) {
-            $this->allPaths[$x] = static::updatePath($this->allPaths[$x], $replacementMap);
-        }
-    }
+        $replacementDepth = count($replacementMap);
 
-    protected static function updatePath($path, $replacementMap)
-    {
-        $x = 0;
-        while(
-            isset($path[$x])
-            && isset($replacementMap[$x])
-            && $path[$x]->getIndex() === $replacementMap[$x]->getIndex()
-            && $path[$x]->getNode() === $replacementMap[$x]->getOldNode()
-        ) {
-            $path[$x] = new PathStep($replacementMap[$x]->getIndex(), $replacementMap[$x]->getNewNode());
-            $x++;
+        /**
+         * @var int $index
+         * @var array $path
+         */
+        foreach($this->allPaths as $index => &$path) {
+            for($x = 0; $x < $replacementDepth; $x++) {
+                /** @var ReplacementMapStep $replacementMapStep */
+                $replacementMapStep = $replacementMap[$x];
+                if(
+                    isset($path[$x])
+                    && $replacementMapStep->getOldNode() === $path[$x]->getNode()
+                ) {
+                    $path[$x] = new PathStep($replacementMapStep->getIndex(), $replacementMapStep->getNewNode());
+                }
+            }
         }
-        return $path;
     }
 
     public function setText($text)
