@@ -359,11 +359,11 @@ class NodeFactory
 
     /**
      * @param string $text
-     * @return Raw
+     * @return RawNode
      */
     public function raw($text)
     {
-        return new Raw($text);
+        return new RawNode($text);
     }
 
 }

@@ -57,7 +57,7 @@ class DefaultNode implements Node
     private function escapeAttribute($value)
     {
         if(is_object($value)) {
-            return $value->toString();
+            return (string)$value;
         }
         return $this->escaper->escapeAttribute($value);
     }

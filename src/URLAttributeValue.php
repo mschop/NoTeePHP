@@ -3,7 +3,7 @@
 namespace NoTee;
 
 
-class URL implements URLAttribute
+class URLAttributeValue implements AttributeValue
 {
 
     private $url;
@@ -13,7 +13,7 @@ class URL implements URLAttribute
         $this->url = $base . '?' . http_build_query($parameter);
     }
 
-    public function toString()
+    public function __toString()
     {
         return $this->url;
     }
