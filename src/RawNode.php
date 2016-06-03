@@ -1,11 +1,14 @@
 <?php
 
-
 namespace NoTee;
 
 
-class RawAttribute implements URLAttribute
+use NoTee\Exceptions\InvalidOperationException;
+use NoTee\Exceptions\PathOutdatedException;
+
+class RawNode implements Node
 {
+
     private $raw;
 
     public function __construct($value)
@@ -13,8 +16,9 @@ class RawAttribute implements URLAttribute
         $this->raw = $value;
     }
 
-    public function toString()
+    public function __toString()
     {
         return $this->raw;
     }
+
 }

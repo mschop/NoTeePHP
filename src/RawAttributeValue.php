@@ -1,14 +1,11 @@
 <?php
 
+
 namespace NoTee;
 
 
-use NoTee\Exceptions\InvalidOperationException;
-use NoTee\Exceptions\PathOutdatedException;
-
-class Raw implements Node
+class RawAttributeValue implements AttributeValue
 {
-
     private $raw;
 
     public function __construct($value)
@@ -20,5 +17,4 @@ class Raw implements Node
     {
         return $this->raw;
     }
-
 }
