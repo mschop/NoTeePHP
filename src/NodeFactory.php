@@ -5,137 +5,6 @@ namespace NoTee;
 class NodeFactory
 {
 
-    const A = 'a';
-    const ABBR = 'abbr';
-    const ACRONYM = 'acronym';
-    const ADDRESS = 'address';
-    const APPLET = 'applet';
-    const AREA = 'area';
-    const ARTICLE = 'article';
-    const ASIDE = 'aside';
-    const AUDIO = 'audio';
-    const BASE = 'base';
-    const BASEFONT = 'basefont';
-    const B = 'b';
-    const BDO = 'bdo';
-    const BGSOUND = 'bgsound';
-    const BIG = 'big';
-    const BLINK = 'blink';
-    const BLOCKQUOTE = 'blockquote';
-    const BODY = 'body';
-    const BR = 'br';
-    const BUTTON = 'button';
-    const CANVAS = 'canvas';
-    const CAPTION = 'caption';
-    const CENTER = 'center';
-    const CITE = 'cite';
-    const CODE = 'code';
-    const COL = 'col';
-    const COLGROUP = 'colgroup';
-    const COMMAND = 'command';
-    const DATALIST = 'datalist';
-    const DD = 'dd';
-    const DEL = 'del';
-    const DETAILS = 'details';
-    const DFN = 'dfn';
-    const DIV = 'div';
-    const DL = 'dl';
-    const DT = 'dt';
-    const EMBED = 'embed';
-    const EM = 'em';
-    const FIELDSET = 'fieldset';
-    const FIGCAPTION = 'figcaption';
-    const FIGURE = 'figure';
-    const FONT = 'font';
-    const FOOTER = 'footer';
-    const FORM = 'form';
-    const FRAME = 'frame';
-    const FRAMESET = 'frameset';
-    const H1 = 'h1';
-    const H2 = 'h2';
-    const H3 = 'h3';
-    const H4 = 'h4';
-    const H5 = 'h5';
-    const H6 = 'h6';
-    const HEADER = 'header';
-    const HEAD = 'head';
-    const HGROUP = 'hgroup';
-    const HR = 'hr';
-    const HTML = 'html';
-    const IFRAME = 'iframe';
-    const I = 'i';
-    const IMG = 'img';
-    const INPUT = 'input';
-    const INS = 'ins';
-    const ISINDEX = 'isindex';
-    const KBD = 'kbd';
-    const KEYGEN = 'keygen';
-    const LABEL = 'label';
-    const LEGEND = 'legend';
-    const LI = 'li';
-    const LINK = 'link';
-    const LISTING = 'listing';
-    const MAP = 'map';
-    const MARK = 'mark';
-    const MARQUEE = 'marquee';
-    const MATH = 'math';
-    const MENU = 'menu';
-    const META = 'meta';
-    const METER = 'meter';
-    const NAV = 'nav';
-    const NEXTID = 'nextid';
-    const NOBR = 'nobr';
-    const NOEMBED = 'noembed';
-    const NOFRAMES = 'noframes';
-    const NOSCRIPT = 'noscript';
-    const OBJECT = 'object';
-    const OL = 'ol';
-    const OPTGROUP = 'optgroup';
-    const OPTION = 'option';
-    const OUTPUT = 'output';
-    const PARAM = 'param';
-    const PLAINTEXT = 'plaintext';
-    const P = 'p';
-    const PRE = 'pre';
-    const PROGRESS = 'progress';
-    const Q = 'q';
-    const RP = 'rp';
-    const RT = 'rt';
-    const RUBY = 'ruby';
-    const SAMP = 'samp';
-    const SCRIPT = 'script';
-    const SECTION = 'section';
-    const SELECT = 'select';
-    const SMALL = 'small';
-    const SOURCE = 'source';
-    const SPACER = 'spacer';
-    const SPAN = 'span';
-    const S = 's';
-    const STRIKE = 'strike';
-    const STRONG = 'strong';
-    const STYLE = 'style';
-    const SUB = 'sub';
-    const SUP = 'sup';
-    const SUMMARY = 'summary';
-    const SVG = 'svg';
-    const TABLE = 'table';
-    const TBODY = 'tbody';
-    const TD = 'td';
-    const TEXTAREA = 'textarea';
-    const TFOOT = 'tfoot';
-    const THEAD = 'thead';
-    const TH = 'th';
-    const TIME = 'time';
-    const TITLE = 'title';
-    const TR = 'tr';
-    const TT = 'tt';
-    const UL = 'ul';
-    const U = 'u';
-    const _VAR = 'var';
-    const VIDEO = 'video';
-    const WBR = 'wbr';
-    const XMP = 'xmp';
-
     private $escaper;
     private $attributeValidator;
     private $debug;
@@ -216,136 +85,136 @@ class NodeFactory
         return $result;
     }
 
-    public function a() { return $this->create(NodeFactory::A, func_get_args()); }
-    public function abbr() { return $this->create(NodeFactory::ABBR, func_get_args()); }
-    public function acronym() { return $this->create(NodeFactory::ACRONYM, func_get_args()); }
-    public function address() { return $this->create(NodeFactory::ADDRESS, func_get_args()); }
-    public function applet() { return $this->create(NodeFactory::APPLET, func_get_args()); }
-    public function area() { return $this->create(NodeFactory::AREA, func_get_args()); }
-    public function article() { return $this->create(NodeFactory::ARTICLE, func_get_args()); }
-    public function aside() { return $this->create(NodeFactory::ASIDE, func_get_args()); }
-    public function audio() { return $this->create(NodeFactory::AUDIO, func_get_args()); }
-    public function base() { return $this->create(NodeFactory::BASE, func_get_args()); }
-    public function basefont() { return $this->create(NodeFactory::BASEFONT, func_get_args()); }
-    public function b() { return $this->create(NodeFactory::B, func_get_args()); }
-    public function bdo() { return $this->create(NodeFactory::BDO, func_get_args()); }
-    public function bgsound() { return $this->create(NodeFactory::BGSOUND, func_get_args()); }
-    public function big() { return $this->create(NodeFactory::BIG, func_get_args()); }
-    public function blink() { return $this->create(NodeFactory::BLINK, func_get_args()); }
-    public function blockquote() { return $this->create(NodeFactory::BLOCKQUOTE, func_get_args()); }
-    public function body() { return $this->create(NodeFactory::BODY, func_get_args()); }
-    public function br() { return $this->create(NodeFactory::BR, func_get_args()); }
-    public function button() { return $this->create(NodeFactory::BUTTON, func_get_args()); }
-    public function canvas() { return $this->create(NodeFactory::CANVAS, func_get_args()); }
-    public function caption() { return $this->create(NodeFactory::CAPTION, func_get_args()); }
-    public function center() { return $this->create(NodeFactory::CENTER, func_get_args()); }
-    public function cite() { return $this->create(NodeFactory::CITE, func_get_args()); }
-    public function code() { return $this->create(NodeFactory::CODE, func_get_args()); }
-    public function col() { return $this->create(NodeFactory::COL, func_get_args()); }
-    public function colgroup() { return $this->create(NodeFactory::COLGROUP, func_get_args()); }
-    public function command() { return $this->create(NodeFactory::COMMAND, func_get_args()); }
-    public function datalist() { return $this->create(NodeFactory::DATALIST, func_get_args()); }
-    public function dd() { return $this->create(NodeFactory::DD, func_get_args()); }
-    public function del() { return $this->create(NodeFactory::DEL, func_get_args()); }
-    public function details() { return $this->create(NodeFactory::DETAILS, func_get_args()); }
-    public function dfn() { return $this->create(NodeFactory::DFN, func_get_args()); }
-    public function div() { return $this->create(NodeFactory::DIV, func_get_args()); }
-    public function dl() { return $this->create(NodeFactory::DL, func_get_args()); }
-    public function dt() { return $this->create(NodeFactory::DT, func_get_args()); }
-    public function embed() { return $this->create(NodeFactory::EMBED, func_get_args()); }
-    public function em() { return $this->create(NodeFactory::EM, func_get_args()); }
-    public function fieldset() { return $this->create(NodeFactory::FIELDSET, func_get_args()); }
-    public function figcaption() { return $this->create(NodeFactory::FIGCAPTION, func_get_args()); }
-    public function figure() { return $this->create(NodeFactory::FIGURE, func_get_args()); }
-    public function font() { return $this->create(NodeFactory::FONT, func_get_args()); }
-    public function footer() { return $this->create(NodeFactory::FOOTER, func_get_args()); }
-    public function form() { return $this->create(NodeFactory::FORM, func_get_args()); }
-    public function frame() { return $this->create(NodeFactory::FRAME, func_get_args()); }
-    public function frameset() { return $this->create(NodeFactory::FRAMESET, func_get_args()); }
-    public function h1() { return $this->create(NodeFactory::H1, func_get_args()); }
-    public function h2() { return $this->create(NodeFactory::H2, func_get_args()); }
-    public function h3() { return $this->create(NodeFactory::H3, func_get_args()); }
-    public function h4() { return $this->create(NodeFactory::H4, func_get_args()); }
-    public function h5() { return $this->create(NodeFactory::H5, func_get_args()); }
-    public function h6() { return $this->create(NodeFactory::H6, func_get_args()); }
-    public function header() { return $this->create(NodeFactory::HEADER, func_get_args()); }
-    public function head() { return $this->create(NodeFactory::HEAD, func_get_args()); }
-    public function hgroup() { return $this->create(NodeFactory::HGROUP, func_get_args()); }
-    public function hr() { return $this->create(NodeFactory::HR, func_get_args()); }
-    public function html() { return $this->create(NodeFactory::HTML, func_get_args()); }
-    public function iframe() { return $this->create(NodeFactory::IFRAME, func_get_args()); }
-    public function i() { return $this->create(NodeFactory::I, func_get_args()); }
-    public function img() { return $this->create(NodeFactory::IMG, func_get_args()); }
-    public function input() { return $this->create(NodeFactory::INPUT, func_get_args()); }
-    public function ins() { return $this->create(NodeFactory::INS, func_get_args()); }
-    public function isindex() { return $this->create(NodeFactory::ISINDEX, func_get_args()); }
-    public function kbd() { return $this->create(NodeFactory::KBD, func_get_args()); }
-    public function keygen() { return $this->create(NodeFactory::KEYGEN, func_get_args()); }
-    public function label() { return $this->create(NodeFactory::LABEL, func_get_args()); }
-    public function legend() { return $this->create(NodeFactory::LEGEND, func_get_args()); }
-    public function li() { return $this->create(NodeFactory::LI, func_get_args()); }
-    public function link() { return $this->create(NodeFactory::LINK, func_get_args()); }
-    public function listing() { return $this->create(NodeFactory::LISTING, func_get_args()); }
-    public function map() { return $this->create(NodeFactory::MAP, func_get_args()); }
-    public function mark() { return $this->create(NodeFactory::MARK, func_get_args()); }
-    public function marquee() { return $this->create(NodeFactory::MARQUEE, func_get_args()); }
-    public function math() { return $this->create(NodeFactory::MATH, func_get_args()); }
-    public function menu() { return $this->create(NodeFactory::MENU, func_get_args()); }
-    public function meta() { return $this->create(NodeFactory::META, func_get_args()); }
-    public function meter() { return $this->create(NodeFactory::METER, func_get_args()); }
-    public function nav() { return $this->create(NodeFactory::NAV, func_get_args()); }
-    public function nextid() { return $this->create(NodeFactory::NEXTID, func_get_args()); }
-    public function nobr() { return $this->create(NodeFactory::NOBR, func_get_args()); }
-    public function noembed() { return $this->create(NodeFactory::NOEMBED, func_get_args()); }
-    public function noframes() { return $this->create(NodeFactory::NOFRAMES, func_get_args()); }
-    public function noscript() { return $this->create(NodeFactory::NOSCRIPT, func_get_args()); }
-    public function object() { return $this->create(NodeFactory::OBJECT, func_get_args()); }
-    public function ol() { return $this->create(NodeFactory::UOL, func_get_args()); }
-    public function optgroup() { return $this->create(NodeFactory::OPTGROUP, func_get_args()); }
-    public function option() { return $this->create(NodeFactory::OPTION, func_get_args()); }
-    public function output() { return $this->create(NodeFactory::OUTPUT, func_get_args()); }
-    public function param() { return $this->create(NodeFactory::PARAM, func_get_args()); }
-    public function plaintext() { return $this->create(NodeFactory::PLAINTEXT, func_get_args()); }
-    public function p() { return $this->create(NodeFactory::P, func_get_args()); }
-    public function pre() { return $this->create(NodeFactory::PRE, func_get_args()); }
-    public function progress() { return $this->create(NodeFactory::PROGRESS, func_get_args()); }
-    public function q() { return $this->create(NodeFactory::Q, func_get_args()); }
-    public function rp() { return $this->create(NodeFactory::RP, func_get_args()); }
-    public function rt() { return $this->create(NodeFactory::RT, func_get_args()); }
-    public function ruby() { return $this->create(NodeFactory::RUBY, func_get_args()); }
-    public function samp() { return $this->create(NodeFactory::SAMP, func_get_args()); }
-    public function script() { return $this->create(NodeFactory::SCRIPT, func_get_args()); }
-    public function section() { return $this->create(NodeFactory::SECTION, func_get_args()); }
-    public function select() { return $this->create(NodeFactory::SELECT, func_get_args()); }
-    public function small() { return $this->create(NodeFactory::SMALL, func_get_args()); }
-    public function source() { return $this->create(NodeFactory::SOURCE, func_get_args()); }
-    public function spacer() { return $this->create(NodeFactory::SPACER, func_get_args()); }
-    public function span() { return $this->create(NodeFactory::SPAN, func_get_args()); }
-    public function s() { return $this->create(NodeFactory::S, func_get_args()); }
-    public function strike() { return $this->create(NodeFactory::STRIKE, func_get_args()); }
-    public function strong() { return $this->create(NodeFactory::STRONG, func_get_args()); }
-    public function style() { return $this->create(NodeFactory::STYLE, func_get_args()); }
-    public function sub() { return $this->create(NodeFactory::SUB, func_get_args()); }
-    public function sup() { return $this->create(NodeFactory::SUP, func_get_args()); }
-    public function summary() { return $this->create(NodeFactory::SUMMARY, func_get_args()); }
-    public function svg() { return $this->create(NodeFactory::SVG, func_get_args()); }
-    public function table() { return $this->create(NodeFactory::TABLE, func_get_args()); }
-    public function tbody() { return $this->create(NodeFactory::TBODY, func_get_args()); }
-    public function td() { return $this->create(NodeFactory::TD, func_get_args()); }
-    public function textarea() { return $this->create(NodeFactory::TEXTAREA, func_get_args()); }
-    public function tfoot() { return $this->create(NodeFactory::TFOOT, func_get_args()); }
-    public function thead() { return $this->create(NodeFactory::THEAD, func_get_args()); }
-    public function th() { return $this->create(NodeFactory::TH, func_get_args()); }
-    public function time() { return $this->create(NodeFactory::TIME, func_get_args()); }
-    public function title() { return $this->create(NodeFactory::TITLE, func_get_args()); }
-    public function tr() { return $this->create(NodeFactory::TR, func_get_args()); }
-    public function tt() { return $this->create(NodeFactory::TT, func_get_args()); }
-    public function ul() { return $this->create(NodeFactory::UL, func_get_args()); }
-    public function u() { return $this->create(NodeFactory::U, func_get_args()); }
-    public function _var() { return $this->create(NodeFactory::_VAR, func_get_args()); }
-    public function video() { return $this->create(NodeFactory::VIDEO, func_get_args()); }
-    public function wbr() { return $this->create(NodeFactory::WBR, func_get_args()); }
-    public function xmp() { return $this->create(NodeFactory::XMP, func_get_args()); }
+    public function a() { return $this->create('a', func_get_args()); }
+    public function abbr() { return $this->create('abbr', func_get_args()); }
+    public function acronym() { return $this->create('acronym', func_get_args()); }
+    public function address() { return $this->create('address', func_get_args()); }
+    public function applet() { return $this->create('applet', func_get_args()); }
+    public function area() { return $this->create('area', func_get_args()); }
+    public function article() { return $this->create('article', func_get_args()); }
+    public function aside() { return $this->create('aside', func_get_args()); }
+    public function audio() { return $this->create('audio', func_get_args()); }
+    public function base() { return $this->create('base', func_get_args()); }
+    public function basefont() { return $this->create('basefont', func_get_args()); }
+    public function b() { return $this->create('b', func_get_args()); }
+    public function bdo() { return $this->create('bdo', func_get_args()); }
+    public function bgsound() { return $this->create('bgsound', func_get_args()); }
+    public function big() { return $this->create('big', func_get_args()); }
+    public function blink() { return $this->create('blink', func_get_args()); }
+    public function blockquote() { return $this->create('blockquote', func_get_args()); }
+    public function body() { return $this->create('body', func_get_args()); }
+    public function br() { return $this->create('br', func_get_args()); }
+    public function button() { return $this->create('button', func_get_args()); }
+    public function canvas() { return $this->create('canvas', func_get_args()); }
+    public function caption() { return $this->create('caption', func_get_args()); }
+    public function center() { return $this->create('center', func_get_args()); }
+    public function cite() { return $this->create('cite', func_get_args()); }
+    public function code() { return $this->create('code', func_get_args()); }
+    public function col() { return $this->create('col', func_get_args()); }
+    public function colgroup() { return $this->create('colgroup', func_get_args()); }
+    public function command() { return $this->create('command', func_get_args()); }
+    public function datalist() { return $this->create('datalist', func_get_args()); }
+    public function dd() { return $this->create('dd', func_get_args()); }
+    public function del() { return $this->create('del', func_get_args()); }
+    public function details() { return $this->create('details', func_get_args()); }
+    public function dfn() { return $this->create('dfn', func_get_args()); }
+    public function div() { return $this->create('div', func_get_args()); }
+    public function dl() { return $this->create('dl', func_get_args()); }
+    public function dt() { return $this->create('dt', func_get_args()); }
+    public function embed() { return $this->create('embed', func_get_args()); }
+    public function em() { return $this->create('em', func_get_args()); }
+    public function fieldset() { return $this->create('fieldset', func_get_args()); }
+    public function figcaption() { return $this->create('figcaption', func_get_args()); }
+    public function figure() { return $this->create('figure', func_get_args()); }
+    public function font() { return $this->create('font', func_get_args()); }
+    public function footer() { return $this->create('footer', func_get_args()); }
+    public function form() { return $this->create('form', func_get_args()); }
+    public function frame() { return $this->create('frame', func_get_args()); }
+    public function frameset() { return $this->create('frameset', func_get_args()); }
+    public function h1() { return $this->create('h1', func_get_args()); }
+    public function h2() { return $this->create('h2', func_get_args()); }
+    public function h3() { return $this->create('h3', func_get_args()); }
+    public function h4() { return $this->create('h4', func_get_args()); }
+    public function h5() { return $this->create('h5', func_get_args()); }
+    public function h6() { return $this->create('h6', func_get_args()); }
+    public function header() { return $this->create('header', func_get_args()); }
+    public function head() { return $this->create('head', func_get_args()); }
+    public function hgroup() { return $this->create('hgroup', func_get_args()); }
+    public function hr() { return $this->create('hr', func_get_args()); }
+    public function html() { return $this->create('html', func_get_args()); }
+    public function iframe() { return $this->create('iframe', func_get_args()); }
+    public function i() { return $this->create('i', func_get_args()); }
+    public function img() { return $this->create('img', func_get_args()); }
+    public function input() { return $this->create('input', func_get_args()); }
+    public function ins() { return $this->create('ins', func_get_args()); }
+    public function isindex() { return $this->create('isindex', func_get_args()); }
+    public function kbd() { return $this->create('kbd', func_get_args()); }
+    public function keygen() { return $this->create('keygen', func_get_args()); }
+    public function label() { return $this->create('label', func_get_args()); }
+    public function legend() { return $this->create('legend', func_get_args()); }
+    public function li() { return $this->create('li', func_get_args()); }
+    public function link() { return $this->create('link', func_get_args()); }
+    public function listing() { return $this->create('listing', func_get_args()); }
+    public function map() { return $this->create('map', func_get_args()); }
+    public function mark() { return $this->create('mark', func_get_args()); }
+    public function marquee() { return $this->create('marquee', func_get_args()); }
+    public function math() { return $this->create('math', func_get_args()); }
+    public function menu() { return $this->create('menu', func_get_args()); }
+    public function meta() { return $this->create('meta', func_get_args()); }
+    public function meter() { return $this->create('meter', func_get_args()); }
+    public function nav() { return $this->create('nav', func_get_args()); }
+    public function nextid() { return $this->create('nextid', func_get_args()); }
+    public function nobr() { return $this->create('nobr', func_get_args()); }
+    public function noembed() { return $this->create('noembed', func_get_args()); }
+    public function noframes() { return $this->create('noframes', func_get_args()); }
+    public function noscript() { return $this->create('noscript', func_get_args()); }
+    public function object() { return $this->create('object', func_get_args()); }
+    public function ol() { return $this->create('uol', func_get_args()); }
+    public function optgroup() { return $this->create('optgroup', func_get_args()); }
+    public function option() { return $this->create('option', func_get_args()); }
+    public function output() { return $this->create('output', func_get_args()); }
+    public function param() { return $this->create('param', func_get_args()); }
+    public function plaintext() { return $this->create('plaintext', func_get_args()); }
+    public function p() { return $this->create('p', func_get_args()); }
+    public function pre() { return $this->create('pre', func_get_args()); }
+    public function progress() { return $this->create('progress', func_get_args()); }
+    public function q() { return $this->create('q', func_get_args()); }
+    public function rp() { return $this->create('rp', func_get_args()); }
+    public function rt() { return $this->create('rt', func_get_args()); }
+    public function ruby() { return $this->create('ruby', func_get_args()); }
+    public function samp() { return $this->create('samp', func_get_args()); }
+    public function script() { return $this->create('script', func_get_args()); }
+    public function section() { return $this->create('section', func_get_args()); }
+    public function select() { return $this->create('select', func_get_args()); }
+    public function small() { return $this->create('small', func_get_args()); }
+    public function source() { return $this->create('source', func_get_args()); }
+    public function spacer() { return $this->create('spacer', func_get_args()); }
+    public function span() { return $this->create('span', func_get_args()); }
+    public function s() { return $this->create('s', func_get_args()); }
+    public function strike() { return $this->create('strike', func_get_args()); }
+    public function strong() { return $this->create('strong', func_get_args()); }
+    public function style() { return $this->create('style', func_get_args()); }
+    public function sub() { return $this->create('sub', func_get_args()); }
+    public function sup() { return $this->create('sup', func_get_args()); }
+    public function summary() { return $this->create('summary', func_get_args()); }
+    public function svg() { return $this->create('svg', func_get_args()); }
+    public function table() { return $this->create('table', func_get_args()); }
+    public function tbody() { return $this->create('tbody', func_get_args()); }
+    public function td() { return $this->create('td', func_get_args()); }
+    public function textarea() { return $this->create('textarea', func_get_args()); }
+    public function tfoot() { return $this->create('tfoot', func_get_args()); }
+    public function thead() { return $this->create('thead', func_get_args()); }
+    public function th() { return $this->create('th', func_get_args()); }
+    public function time() { return $this->create('time', func_get_args()); }
+    public function title() { return $this->create('title', func_get_args()); }
+    public function tr() { return $this->create('tr', func_get_args()); }
+    public function tt() { return $this->create('tt', func_get_args()); }
+    public function ul() { return $this->create('ul', func_get_args()); }
+    public function u() { return $this->create('u', func_get_args()); }
+    public function _var() { return $this->create('var', func_get_args()); }
+    public function video() { return $this->create('video', func_get_args()); }
+    public function wbr() { return $this->create('wbr', func_get_args()); }
+    public function xmp() { return $this->create('xmp', func_get_args()); }
 
 
     /**
