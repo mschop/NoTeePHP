@@ -8,6 +8,9 @@ class NodeFactory
     private $escaper;
     private $attributeValidator;
     private $debug;
+    private $attributeEvents = [];
+    private $classEvents = [];
+    private $tagEvents = [];
 
     /**
      * NodeFactory constructor.
@@ -40,12 +43,18 @@ class NodeFactory
             || !is_array($arguments[0])
             || reset($arguments[0]) instanceof Node
         ) {
-            return new DefaultNode($name, $this->escaper, $debugAttributes, static::flatten($arguments));
+            list($attributes, $children) = $this->triggerEvents($name, $debugAttributes, static::flatten($arguments));
+            return new DefaultNode($name, $this->escaper, $attributes, $children);
         }
 
         $attributes = array_shift($arguments);
         $this->validateAttributes($attributes);
-        return new DefaultNode($name, $this->escaper, array_merge($attributes, $debugAttributes), static::flatten($arguments));
+        list($attributes, $children) = $this->triggerEvents(
+            $name,
+            array_merge($attributes, $debugAttributes),
+            static::flatten($arguments)
+        );
+        return new DefaultNode($name, $this->escaper, $attributes, $children);
     }
 
     private function generateDebugSource()
@@ -84,6 +93,50 @@ class NodeFactory
         }
         return $result;
     }
+
+    private function triggerEvents($tagName, array $attributes, array $children)
+    {
+        $result = [$attributes, $children];
+
+        foreach($this->tagEvents as $tagEvent) {
+            if(strtolower($tagEvent[0]) === strtolower($tagName)) {
+                $result = call_user_func_array($tagEvent[1], $result);
+            }
+        }
+
+        foreach($this->classEvents as $classEvent) {
+            if(isset($attributes['class']) && in_array($classEvent[0], explode(' ', $attributes['class']))) {
+                $result = call_user_func_array($classEvent[1], $result);
+            }
+        }
+
+        foreach($this->attributeEvents as $attributeEvent) {
+            if(
+                isset($attributes[$attributeEvent[0]])
+                && $attributes[$attributeEvent[0]] === $attributeEvent[1]
+            ) {
+                $result = call_user_func_array($attributeEvent[2], $result);
+            }
+        }
+
+        return $result;
+    }
+
+    public function onClass($class, $callable)
+    {
+        $this->classEvents[] = [$class, $callable];
+    }
+
+    public function onAttr($key, $value, $callable)
+    {
+        $this->attributeEvents[] = [$key, $value, $callable];
+    }
+
+    public function onTag($tag, $callable)
+    {
+        $this->tagEvents[] = [$tag, $callable];
+    }
+
 
     public function a() { return $this->create('a', func_get_args()); }
     public function abbr() { return $this->create('abbr', func_get_args()); }
