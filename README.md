@@ -19,7 +19,8 @@ Advantages of NoTeePHP compared to template engines:
 
 Further great things about NoTeePHP:
 
-- immutable node tree (reuse every node in unlimited places)
+- immutable node tree (unlimited node reuse)
+- register events
 
 ## Setup
 
@@ -35,7 +36,7 @@ That's it.
 
 This is a tiny example:
 
-    $nf = new NodeFactory();
+    $nf = new NodeFactory('utf-8');
 
     function getItems use ($nf)()
     {
@@ -79,15 +80,22 @@ This would produce the following result:
 
 ## Security
 
-Template engines are prone to XSS attacks. For preventing XSS, a developer has to use the right escaping strategy
-for the context he is using an information. See https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 for more
-details on this topic.
+Many template engines do not offer escaping by default. The developer must remember to escape every information used in
+a template. This is called 'discipline based security'. The problem here is, that a developer escapes 100 times properly
+and then forgets it once. NoTeePHP has escaping by default.
 
-Most often the frontend developers and designers have no clue about security and therefore do not use proper escaping.
-Previously escaping an information does not help because you don't know, where in the template a variable could be
-used. Using the right escaping is for depends on, which quoting style you use for attributes. Not using any
-quotes at all is perfectly valid html. All these aspects get addressed by NoTeePHP. NoTeePHP does proper escaping by
-default or forces the user to do so.
+Other template engines like Twig offer escaping by default. But even in Twig you can have XSS vulnerabilies in some
+special cases. Imagine you want to create an anchor, changing get parameters based on user input.
+
+A naive developer could think that relying on Twigs escaping is enough. This could produce this code (yes, that's real
+code I've seen)
+
+    <a href="{{ user.name }}">click me</a>
+    
+Now an attacker could just create an account with the username "javascript:alert(1)" and you have the exploit.
+
+NoTeePHP creates an object tree instead of concatenating strings. Therefore it knows, in which context a variable is
+used and can therefore uses proper escaping or additional validation for variables.
 
 ## Less error-prone
 
@@ -99,3 +107,39 @@ Never again have enclosing tag errors or missing quotes. Always get well formatt
 Template engines compiles the templates to plain PHP. This PHP is most often hard to read and therefore hard to debug.
 With NoTeePHP you don't have such compile step. This simplifies setup, increases security and enables easy debugging
 by default.
+
+## Examples
+
+### Create a NodeFactory
+
+The NodeFactory class is the pivot of NoTeePHP.
+
+    $nf = new NodeFactory('utf-8'); // using the right encoding is security relevant
+    
+### Create Nodes
+
+    $node = $nf->div(
+        ['id' => 'someid'], // optional assoc array, containing all attributes
+        'some text, that will be escaped',
+        $nf->raw('some text, that will not be escaped'),
+        $this->span(), // nodes without children will be self-closing tags -> <span />
+        [ // children can be passed as arrays for using the result of other methods
+            $nf->span('text'),
+            $nf->span('text2')
+        ]
+    );
+
+### Events
+
+You can register events globally. Lets imagine you want to add an xsrf-token to every form:
+
+    $nf->onTag('form', function(array $attributes, array $children) use ($nf) {
+        $children[] = $nf->input(['type' => 'hidden', 'name' => 'xsrf-token', 'value' => '12345']);
+        return [$attributes, $children];
+    });
+
+The following events are available:
+
+- onTag
+- onAttr
+- onClass

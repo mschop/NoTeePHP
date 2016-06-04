@@ -14,6 +14,7 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
     public function before()
     {
         $this->nf = new NodeFactory('utf-8', new AttributeValidator(true, true));
+        $this->nf = new NodeFactory('utf-8');
     }
 
     public function test_complexStructure()
@@ -86,7 +87,7 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $nf = new NodeFactory('utf-8', new AttributeValidator(true, true), true);
         $root = $nf->span();
-        $this->assertEquals('<span data-source="' . __FILE__ . ':' . '88" />', (string)$root);
+        $this->assertEquals('<span data-source="' . __FILE__ . ':' . '89" />', (string)$root);
     }
 
     public function test_textAndRaw()
