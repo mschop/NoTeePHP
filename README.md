@@ -85,8 +85,8 @@ a template. This is called 'discipline based security'. The problem here is, tha
 and then forgets it once. NoTeePHP has escaping by default.
 
 Other template engines like Twig offer escaping by default. But even in Twig you can have XSS vulnerabilies in some
-special cases. Imagine you want to create an anchor. A naive developer could think that relying on Twigs escaping is
-enough. This could produce this code (yes, that's real code I've seen)
+special cases. Imagine you want to create an anchor, starting with a dynamic value. A naive developer could think that
+relying on Twigs escaping is enough:
 
     <a href="{{ user.name }}">click me</a>
     
@@ -114,7 +114,7 @@ The NodeFactory class is the pivot of NoTeePHP.
 
     $nf = new NodeFactory('utf-8'); // using the right encoding is security relevant
     
-### Create Nodes
+### Node creation
 
     $node = $nf->div(
         ['id' => 'someid'], // optional assoc array, containing all attributes
@@ -126,6 +126,8 @@ The NodeFactory class is the pivot of NoTeePHP.
             $nf->span('text2')
         ]
     );
+    
+    echo $node;
 
 ### Events
 
