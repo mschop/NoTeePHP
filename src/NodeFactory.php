@@ -15,19 +15,14 @@ class NodeFactory
     /**
      * NodeFactory constructor.
      * @param string $encoding
-     * @param AttributeValidator $attributeValidator
      * @param bool $debug
      */
     public function __construct(
         $encoding,
-        AttributeValidator $attributeValidator = null,
         $debug = false
     ) {
-        if($attributeValidator === null) {
-            $attributeValidator = new AttributeValidator(true, true);
-        }
         $this->escaper = new EscaperForNoTeeContext($encoding);
-        $this->attributeValidator = $attributeValidator;
+        $this->attributeValidator = new AttributeValidator(true, true);
         $this->debug = $debug;
     }
 

@@ -13,7 +13,6 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function before()
     {
-        $this->nf = new NodeFactory('utf-8', new AttributeValidator(true, true));
         $this->nf = new NodeFactory('utf-8');
     }
 
@@ -80,19 +79,19 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
     public function test_invalidEncoding_throwsException()
     {
         $this->setExpectedException('InvalidArgumentException');
-        new NodeFactory('utf--8', new AttributeValidator(true, true));
+        new NodeFactory('utf--8');
     }
 
     public function test_debugMode()
     {
-        $nf = new NodeFactory('utf-8', new AttributeValidator(true, true), true);
+        $nf = new NodeFactory('utf-8', true);
         $root = $nf->span();
-        $this->assertEquals('<span data-source="' . __FILE__ . ':' . '89" />', (string)$root);
+        $this->assertEquals('<span data-source="' . __FILE__ . ':' . '88" />', (string)$root);
     }
 
     public function test_textAndRaw()
     {
-        $nf = new NodeFactory('utf-8', new AttributeValidator(true, true), true);
+        $nf = new NodeFactory('utf-8', true);
         $node = $nf->text('test>');
         $this->assertEquals('test&gt;', (string)$node);
         $node = $nf->raw('test>');
