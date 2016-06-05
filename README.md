@@ -85,10 +85,8 @@ a template. This is called 'discipline based security'. The problem here is, tha
 and then forgets it once. NoTeePHP has escaping by default.
 
 Other template engines like Twig offer escaping by default. But even in Twig you can have XSS vulnerabilies in some
-special cases. Imagine you want to create an anchor, changing get parameters based on user input.
-
-A naive developer could think that relying on Twigs escaping is enough. This could produce this code (yes, that's real
-code I've seen)
+special cases. Imagine you want to create an anchor. A naive developer could think that relying on Twigs escaping is
+enough. This could produce this code (yes, that's real code I've seen)
 
     <a href="{{ user.name }}">click me</a>
     
@@ -143,3 +141,12 @@ The following events are available:
 - onTag
 - onAttr
 - onClass
+
+### Debugging
+
+If you need to know, where a specific node is coming from, enable debug mode for the NodeFactory:
+
+    $nf = new NodeFactory('utf-8', true);
+    
+Now every for every generated html node, an attribute "data-source" will contain the source file and line of the node.
+You should disable debug mode in production.
