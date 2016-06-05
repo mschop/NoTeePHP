@@ -32,7 +32,7 @@ class AttributeValidator
         if(
             $this->useValueValidation
             && array_key_exists($key, Attribute::$urlAttributes)
-            && !$value instanceof URLAttribute
+            && !$value instanceof AttributeValue
         ) {
             return false;
         }

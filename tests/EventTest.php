@@ -7,7 +7,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
 {
     public function test()
     {
-        $nf = new NodeFactory('utf-8', new AttributeValidator(true, true));
+        $nf = new NodeFactory('utf-8');
 
         $expected = $nf->form(
             ['class' => 'someclass anotherclass', 'id' => 'someid'],
