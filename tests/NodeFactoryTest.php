@@ -16,7 +16,7 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->nf = new NodeFactory('utf-8');
     }
 
-    public function test_complexStructure()
+    public function Test_ComplexStructure()
     {
 
         $node = $this->nf->div(
@@ -58,24 +58,6 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function test_construct_hrefAsString_throwsException()
-    {
-        $this->setExpectedException('InvalidArgumentException');
-        $this->nf->a(['href' => 'http://some.url.de']);
-    }
-
-    public function test_invalidAttributeValue_throwsException()
-    {
-        $this->setExpectedException('InvalidArgumentException');
-        $this->nf->a(['href' => 'invalid url']);
-    }
-
-    public function test_invalidAttributeName_throwsException()
-    {
-        $this->setExpectedException('InvalidArgumentException');
-        $this->nf->a(['_invalid>attribute<name' => new URLAttributeValue('google.de', [])]);
-    }
-
     public function test_invalidEncoding_throwsException()
     {
         $this->setExpectedException('InvalidArgumentException');
@@ -86,7 +68,7 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $nf = new NodeFactory('utf-8', true);
         $root = $nf->span();
-        $this->assertEquals('<span data-source="' . __FILE__ . ':' . '88" />', (string)$root);
+        $this->assertEquals('<span data-source="' . __FILE__ . ':' . '70" />', (string)$root);
     }
 
     public function test_textAndRaw()

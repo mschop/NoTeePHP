@@ -2,15 +2,36 @@
 
 namespace NoTee;
 
+use VDB\Uri\Uri;
+
 class NodeFactory
 {
 
     private $escaper;
-    private $attributeValidator;
     private $debug;
     private $attributeEvents = [];
     private $classEvents = [];
     private $tagEvents = [];
+
+    protected static $uriAttributes = [
+        'action' => true,
+        'archive' => true,
+        'cite' => true,
+        'classid' => true,
+        'codebase' => true,
+        'data' => true,
+        'formaction' => true,
+        'href' => true,
+        'icon' => true,
+        'longdesc' => true,
+        'manifest' => true,
+        'poster' => true,
+        'src' => true,
+        'usemap' => true,
+    ];
+
+    /** @var  UriValidator */
+    protected $uriValidator;
 
     /**
      * NodeFactory constructor.
@@ -22,8 +43,8 @@ class NodeFactory
         $debug = false
     ) {
         $this->escaper = new EscaperForNoTeeContext($encoding);
-        $this->attributeValidator = new AttributeValidator(true, true);
         $this->debug = $debug;
+        $this->uriValidator = new UriValidator();
     }
 
     /**
@@ -73,10 +94,29 @@ class NodeFactory
     private function validateAttributes(array $attributes)
     {
         foreach($attributes as $key => $value) {
-            if(!$this->attributeValidator->isValid($key, $value)) {
-                throw new \InvalidArgumentException('invalid attribute (key or value) ' . $key);
+            if(!$this->isValidAttributeKey($key)) {
+                throw new \InvalidArgumentException('invalid attribute name ' . $key);
+            }
+            if(!$this->isValidAttributeValue($key, $value)) {
+                throw new \InvalidArgumentException('invalid attribute value for ' . $key);
             }
         }
+    }
+
+    private function isValidAttributeKey($key)
+    {
+        if(!preg_match('/^[0-9a-z-_]*$/i', $key)) {
+            return false;
+        }
+        return true;
+    }
+
+    private function isValidAttributeValue($key, $value)
+    {
+        if(array_key_exists($key, static::$uriAttributes)) {
+            return $this->uriValidator->isValid($value);
+        }
+        return true;
     }
 
     /**

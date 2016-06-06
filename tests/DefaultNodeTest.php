@@ -38,31 +38,9 @@ class DefaultNodeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<p id="&quot;id" />', (string)$node);
     }
 
-    public function test_toString_shouldEscapeURLComponents()
-    {
-        $parameter = [
-            'searchRequest' => '"'
-        ];
-        $node = new DefaultNode('a', $this->getEscaper(), ['href' => new URLAttributeValue('http://www.some-domain.com', $parameter)]);
-        $this->assertEquals('<a href="http://www.some-domain.com?searchRequest=%22" />', (string)$node);
-    }
-
-    public function test_toString_shouldNotEscapeRawUrl()
-    {
-        $raw = new RawAttributeValue('"#');
-        $node = new DefaultNode('a', $this->getEscaper(), ['href' => $raw]);
-        $this->assertEquals('<a href=""#" />', (string)$node);
-    }
-
-    public function test_escapesAttributes()
-    {
-        $node = new DefaultNode('div', $this->getEscaper(), ['class' => '"classname']);
-        $this->assertEquals('<div class="&quot;classname" />', (string)$node);
-    }
-
     public function test_scriptTagNotSelfClosing()
     {
-        $node = new DefaultNode('script', $this->getEscaper(), ['src' => new RawAttributeValue('file.js')]);
+        $node = new DefaultNode('script', $this->getEscaper(), ['src' => 'file.js']);
         $this->assertEquals('<script src="file.js"></script>', (string)$node);
     }
 
