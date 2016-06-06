@@ -7,18 +7,15 @@ PHP HTML generation library.
 
 ## What is NoTeePHP
 
-NoTeePHP is a replacement for template engines that focuses on security and correctness. Instead of simply concatenating
-string, NoTeePHP creates an object tree that represents an html structure.
+NoTeePHP is an alternative to template engines that focuses on security and correctness.
 
-Advantages of NoTeePHP compared to template engines:
+Advantages of NoTeePHP:
 
 - more secure
 - less error-prone
 - easier setup (no compile step)
 - debuggable
-
-Further great things about NoTeePHP:
-
+- testable
 - immutable node tree (unlimited node reuse)
 - register events
 
@@ -81,8 +78,8 @@ This would produce the following result:
 ## Security
 
 Many template engines do not offer escaping by default. The developer must remember to escape every information used in
-a template. This is called 'discipline based security'. The problem here is, that a developer escapes 100 times properly
-and then forgets it once. NoTeePHP has escaping by default.
+a template. The problem is that a developer escapes 100 times properly and then forgets it once.
+NoTeePHP has escaping by default.
 
 Other template engines like Twig offer escaping by default. But even in Twig you can have XSS vulnerabilies in some
 special cases. Imagine you want to create an anchor, starting with a dynamic value. A naive developer could think that
@@ -93,7 +90,7 @@ relying on Twigs escaping is enough:
 Now an attacker could just create an account with the username "javascript:alert(1)" and you have the exploit.
 
 NoTeePHP creates an object tree instead of concatenating strings. Therefore it knows, in which context a variable is
-used and can therefore uses proper escaping or additional validation for variables.
+used and can therefore use proper escaping or additional validation for variables.
 
 ## Less error-prone
 
