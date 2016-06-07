@@ -9,7 +9,7 @@ use NoTee\Exceptions\PathOutdatedException;
 class TextNode implements Node
 {
 
-    private $text;
+    protected $text;
 
     public function __construct($text, Escaper $escaper)
     {

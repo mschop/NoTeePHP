@@ -14,7 +14,7 @@ namespace NoTee;
  */
 class EscaperForNoTeeContext implements Escaper
 {
-    private static $supportedEncodings = [
+    protected static $supportedEncodings = [
         'iso-8859-1',   'iso8859-1',    'iso-8859-5',   'iso8859-5',
         'iso-8859-15',  'iso8859-15',   'utf-8',        'cp866',
         'ibm866',       '866',          'cp1251',       'windows-1251',
@@ -26,7 +26,7 @@ class EscaperForNoTeeContext implements Escaper
         'eucjp-win',    'macroman'
     ];
 
-    private $encoding;
+    protected $encoding;
 
     public function __construct($encoding)
     {
