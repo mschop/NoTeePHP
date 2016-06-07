@@ -2,6 +2,7 @@
 
 namespace NoTee;
 
+use VDB\Uri\Exception\UriSyntaxException;
 use VDB\Uri\Uri;
 
 class NodeFactory
@@ -51,6 +52,8 @@ class NodeFactory
      * @param string $name
      * @param array $arguments
      * @return DefaultNode
+     * @throws \InvalidArgumentException
+     * @throws UriSyntaxException
      */
     public function create($name, array $arguments)
     {
@@ -80,6 +83,10 @@ class NodeFactory
         return new DefaultNode($name, $this->escaper, $attributes, $children);
     }
 
+    /**
+     * Get information on where a node has been created
+     * @return string
+     */
     protected function generateDebugSource()
     {
         $trace = debug_backtrace();
@@ -90,6 +97,7 @@ class NodeFactory
     /**
      * @param array $attributes
      * @throws \InvalidArgumentException
+     * @throws UriSyntaxException
      */
     protected function validateAttributes(array $attributes)
     {
@@ -103,6 +111,10 @@ class NodeFactory
         }
     }
 
+    /**
+     * @param string $key
+     * @return bool
+     */
     protected function isValidAttributeKey($key)
     {
         if(!preg_match('/^[0-9a-z-_]*$/i', $key)) {
@@ -111,6 +123,11 @@ class NodeFactory
         return true;
     }
 
+    /**
+     * @param string $key
+     * @param string $value
+     * @return bool
+     */
     protected function isValidAttributeValue($key, $value)
     {
         if(array_key_exists($key, static::$uriAttributes)) {
@@ -120,6 +137,8 @@ class NodeFactory
     }
 
     /**
+     * An api consumer can pass arrays coming from function calls as children to the method "create". Elements in this
+     * array are direct children of the node created with the method "create". Those must therefore be flattened.
      * @param array $arguments
      * @return array
      */
@@ -136,6 +155,12 @@ class NodeFactory
         return $result;
     }
 
+    /**
+     * @param string $tagName
+     * @param array $attributes
+     * @param array $children
+     * @return array
+     */
     protected function triggerEvents($tagName, array $attributes, array $children)
     {
         $result = [$attributes, $children];
@@ -164,16 +189,29 @@ class NodeFactory
         return $result;
     }
 
+    /**
+     * @param string $class
+     * @param callable $callable
+     */
     public function onClass($class, $callable)
     {
         $this->classEvents[] = [$class, $callable];
     }
 
+    /**
+     * @param string $key
+     * @param string $value
+     * @param callable $callable
+     */
     public function onAttr($key, $value, $callable)
     {
         $this->attributeEvents[] = [$key, $value, $callable];
     }
 
+    /**
+     * @param string $tag
+     * @param callable $callable
+     */
     public function onTag($tag, $callable)
     {
         $this->tagEvents[] = [$tag, $callable];

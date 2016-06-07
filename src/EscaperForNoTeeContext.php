@@ -28,6 +28,10 @@ class EscaperForNoTeeContext implements Escaper
 
     protected $encoding;
 
+    /**
+     * EscaperForNoTeeContext constructor.
+     * @param string $encoding
+     */
     public function __construct($encoding)
     {
         $encoding = strtolower($encoding);
@@ -40,14 +44,22 @@ class EscaperForNoTeeContext implements Escaper
 
     /*
      * I used ENT_COMPAT because escaping single quotes is only relevant, if attribute are written with single quotes.
-     * Since NoTeePHP does not use single quotes, using ENT_COMPAT is enaugh.
+     * Since NoTeePHP does not use single quotes, using ENT_COMPAT is enough.
      */
 
+    /**
+     * @param string $value
+     * @return string
+     */
     public function escapeHtml($value)
     {
         return htmlspecialchars($value, ENT_COMPAT, $this->encoding);
     }
 
+    /**
+     * @param string $value
+     * @return string
+     */
     public function escapeAttribute($value)
     {
         return htmlspecialchars($value, ENT_COMPAT, $this->encoding);

@@ -2,10 +2,6 @@
 
 namespace NoTee;
 
-
-use NoTee\Exceptions\InvalidOperationException;
-use NoTee\Exceptions\PathOutdatedException;
-
 class TextNode implements Node
 {
 
