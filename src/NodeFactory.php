@@ -7,11 +7,11 @@ use VDB\Uri\Uri;
 class NodeFactory
 {
 
-    private $escaper;
-    private $debug;
-    private $attributeEvents = [];
-    private $classEvents = [];
-    private $tagEvents = [];
+    protected $escaper;
+    protected $debug;
+    protected $attributeEvents = [];
+    protected $classEvents = [];
+    protected $tagEvents = [];
 
     protected static $uriAttributes = [
         'action' => true,
@@ -80,7 +80,7 @@ class NodeFactory
         return new DefaultNode($name, $this->escaper, $attributes, $children);
     }
 
-    private function generateDebugSource()
+    protected function generateDebugSource()
     {
         $trace = debug_backtrace();
         $callee = $trace[2];
@@ -91,7 +91,7 @@ class NodeFactory
      * @param array $attributes
      * @throws \InvalidArgumentException
      */
-    private function validateAttributes(array $attributes)
+    protected function validateAttributes(array $attributes)
     {
         foreach($attributes as $key => $value) {
             if(!$this->isValidAttributeKey($key)) {
@@ -103,7 +103,7 @@ class NodeFactory
         }
     }
 
-    private function isValidAttributeKey($key)
+    protected function isValidAttributeKey($key)
     {
         if(!preg_match('/^[0-9a-z-_]*$/i', $key)) {
             return false;
@@ -111,7 +111,7 @@ class NodeFactory
         return true;
     }
 
-    private function isValidAttributeValue($key, $value)
+    protected function isValidAttributeValue($key, $value)
     {
         if(array_key_exists($key, static::$uriAttributes)) {
             return $this->uriValidator->isValid($value);
@@ -123,7 +123,7 @@ class NodeFactory
      * @param array $arguments
      * @return array
      */
-    private static function flatten(array $arguments)
+    protected static function flatten(array $arguments)
     {
         $result = [];
         foreach($arguments as $argument) {
@@ -136,7 +136,7 @@ class NodeFactory
         return $result;
     }
 
-    private function triggerEvents($tagName, array $attributes, array $children)
+    protected function triggerEvents($tagName, array $attributes, array $children)
     {
         $result = [$attributes, $children];
 

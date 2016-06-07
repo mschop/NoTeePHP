@@ -9,7 +9,7 @@ use NoTee\Exceptions\PathOutdatedException;
 class RawNode implements Node
 {
 
-    private $raw;
+    protected $raw;
 
     public function __construct($value)
     {
