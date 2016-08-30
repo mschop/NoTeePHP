@@ -6,9 +6,6 @@ namespace NoTee;
 
 class DefaultNode implements Node
 {
-    public static $validateAttributes = true;
-    public static $validateAttributeNames = true;
-
     protected $tagName;
     protected $escaper;
     protected $attributes;
