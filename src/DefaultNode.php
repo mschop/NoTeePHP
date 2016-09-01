@@ -6,6 +6,11 @@ namespace NoTee;
 
 class DefaultNode implements Node
 {
+    protected static $voidTags = [
+        'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input',
+        'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'
+    ];
+
     protected $tagName;
     protected $escaper;
     protected $attributes;
@@ -35,7 +40,7 @@ class DefaultNode implements Node
     public function __toString()
     {
         $attributeString = !empty($this->attributes) ? ' ' . $this->getAttributeString() : '';
-        if(isset($this->children[0]) || $this->tagName === 'script') {
+        if(isset($this->children[0]) || !in_array($this->tagName, static::$voidTags)) {
             $result = '';
             /** @var Node $child */
             foreach($this->children as $child) {

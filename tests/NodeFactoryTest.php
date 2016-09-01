@@ -46,7 +46,7 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
             [$this->nf->a(), $this->nf->abbr()],
             $this->nf->span()
         );
-        $this->assertEquals('<div><a /><abbr /><span /></div>', $node->__toString());
+        $this->assertEquals('<div><a></a><abbr></abbr><span></span></div>', $node->__toString());
 
         $node = $this->nf->div(
             ['class' => 'hello'],
@@ -54,7 +54,7 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
             null,
             $this->nf->span('test')
         );
-        $this->assertEquals('<div class="hello"><a /><abbr /><span>test</span></div>', $node->__toString());
+        $this->assertEquals('<div class="hello"><a></a><abbr></abbr><span>test</span></div>', $node->__toString());
 
     }
 
@@ -68,7 +68,7 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $nf = new NodeFactory('utf-8', true);
         $root = $nf->span();
-        $this->assertEquals('<span data-source="' . __FILE__ . ':' . '70" />', (string)$root);
+        $this->assertEquals('<span data-source="' . __FILE__ . ':' . '70"></span>', (string)$root);
     }
 
     public function test_textAndRaw()
