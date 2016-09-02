@@ -13,7 +13,7 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
     public function test_EscapesAttributes()
     {
         $node = new DefaultNode('div', $this->getEscaper(), ['class' => '"classname']);
-        $this->assertEquals('<div class="&quot;classname" />', (string)$node);
+        $this->assertEquals('<div class="&quot;classname"></div>', (string)$node);
     }
 
     public function test_InvalidAttributeName_ThrowsException()
