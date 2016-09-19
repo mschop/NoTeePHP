@@ -368,4 +368,14 @@ class NodeFactory
         return new RawNode($text);
     }
 
+    /**
+     * @param string $doctype
+     * @param array $children
+     * @return Document
+     */
+    public function document($doctype, array $children)
+    {
+        return new Document($doctype, $children);
+    }
+
 }
