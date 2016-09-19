@@ -80,4 +80,19 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test>', (string)$node);
     }
 
+    public function testDocument()
+    {
+        $nf = new NodeFactory('utf-8');
+        $doc = $nf->document(Document::DOCTYPE_HTML5, [
+            $nf->html(
+                $nf->head(
+
+                ),
+                $nf->body(
+                    'test'
+                )
+            )
+        ]);
+        $this->assertEquals("<!DOCTYPE html>\n<html><head></head><body>test</body></html>", (string)$doc);
+    }
 }
