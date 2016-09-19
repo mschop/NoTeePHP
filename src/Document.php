@@ -10,23 +10,23 @@ class Document implements Node
     const DOCTYPE_HTML401_TRANSITIONAL = 'HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"';
 
     protected $doctype;
-    protected $children;
+    protected $htmlNode;
 
-    public function __construct($doctype, array $children)
+    /**
+     * Document constructor.
+     * @param string $doctype
+     * @param DefaultNode $htmlNode
+     */
+    public function __construct($doctype, DefaultNode $htmlNode)
     {
         $this->doctype = $doctype;
-        $this->children = $children;
+        $this->htmlNode = $htmlNode;
     }
 
     public function __toString()
     {
 
-        return '<!DOCTYPE ' . $this->doctype . ">\n" . implode(
-            '',
-            array_map(function(Node $node){
-                return (string)$node;
-            }, $this->children)
-        );
+        return '<!DOCTYPE ' . $this->doctype . ">\n" . (string)$this->htmlNode;
     }
 
 }
