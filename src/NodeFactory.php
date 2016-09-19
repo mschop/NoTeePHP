@@ -370,12 +370,12 @@ class NodeFactory
 
     /**
      * @param string $doctype
-     * @param array $children
+     * @param DefaultNode $html
      * @return Document
      */
-    public function document($doctype, array $children)
+    public function document($doctype, DefaultNode $html)
     {
-        return new Document($doctype, $children);
+        return new Document($doctype, $html);
     }
 
 }
