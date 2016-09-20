@@ -152,30 +152,44 @@ class NodeFactory
      */
     protected function triggerEvents(string $tagName, array $attributes, array $children) : array
     {
-        $result = [$attributes, $children];
+        list($attributes, $children) = $this->triggerTagEvents($tagName, $attributes, $children);
+        list($attributes, $children) = $this->triggerClassEvents($attributes, $children);
+        list($attributes, $children) = $this->triggerAttributeEvents($attributes, $children);
+        return [$attributes, $children];
+    }
 
+    protected function triggerTagEvents(string $tagName, array $attributes, array $children) : array
+    {
+        $lowerTagName = strtolower($tagName);
         foreach($this->tagEvents as $tagEvent) {
-            if(strtolower($tagEvent[0]) === strtolower($tagName)) {
-                $result = call_user_func_array($tagEvent[1], $result);
+            if(strtolower($tagEvent[0]) === $lowerTagName) {
+                list($attributes, $children) = call_user_func_array($tagEvent[1], [$attributes, $children]);
             }
         }
+        return [$attributes, $children];
+    }
 
+    protected function triggerClassEvents(array $attributes, array $children) : array
+    {
         foreach($this->classEvents as $classEvent) {
             if(isset($attributes['class']) && in_array($classEvent[0], explode(' ', $attributes['class']))) {
-                $result = call_user_func_array($classEvent[1], $result);
+                list($attributes, $children) = call_user_func_array($classEvent[1], [$attributes, $children]);
             }
         }
+        return [$attributes, $children];
+    }
 
+    protected function triggerAttributeEvents(array $attributes, array $children) : array
+    {
         foreach($this->attributeEvents as $attributeEvent) {
             if(
                 isset($attributes[$attributeEvent[0]])
                 && $attributes[$attributeEvent[0]] === $attributeEvent[1]
             ) {
-                $result = call_user_func_array($attributeEvent[2], $result);
+                list($attributes, $children) = call_user_func_array($attributeEvent[2], [$attributes, $children]);
             }
         }
-
-        return $result;
+        return [$attributes, $children];
     }
 
     public function onClass(string $class, callable $callable)
