@@ -23,11 +23,7 @@ class UriValidator
         'sftp'
     ];
 
-    /**
-     * @param $uri
-     * @return bool
-     */
-    public function isValid($uri)
+    public function isValid(string $uri) : bool
     {
         $uriObject = new Uri($uri);
         return in_array(strtolower($uriObject->getScheme()), static::$schemeWhitelist);

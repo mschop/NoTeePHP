@@ -17,14 +17,7 @@ class DefaultNode implements Node
     /** @var array-of-HtmlNode */
     protected $children;
 
-    /**
-     * DefaultNode constructor.
-     * @param string $tagName
-     * @param Escaper $escaper
-     * @param array $attributes
-     * @param array $children
-     */
-    public function __construct($tagName, Escaper $escaper, array $attributes = [], array $children = [])
+    public function __construct(string $tagName, Escaper $escaper, array $attributes = [], array $children = [])
     {
         $this->tagName = $tagName;
         $this->escaper = $escaper;
@@ -37,7 +30,7 @@ class DefaultNode implements Node
         $this->children = $children;
     }
 
-    public function __toString()
+    public function __toString() : string
     {
         $attributeString = !empty($this->attributes) ? ' ' . $this->getAttributeString() : '';
         if(isset($this->children[0]) || !in_array($this->tagName, static::$voidTags)) {
@@ -51,10 +44,7 @@ class DefaultNode implements Node
         return '<' . $this->tagName . $attributeString . ' />';
     }
 
-    /**
-     * @return string
-     */
-    public function getAttributeString()
+    public function getAttributeString() : string
     {
         $attributeString = '';
         $first = true;
@@ -66,13 +56,8 @@ class DefaultNode implements Node
         return $attributeString;
     }
 
-    /**
-     * @param string $value
-     * @return string
-     */
-    protected function escapeAttribute($value)
+    protected function escapeAttribute(string $value) : string
     {
         return $this->escaper->escapeAttribute($value);
     }
-
 }

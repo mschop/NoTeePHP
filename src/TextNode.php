@@ -7,12 +7,12 @@ class TextNode implements Node
 
     protected $text;
 
-    public function __construct($text, Escaper $escaper)
+    public function __construct(string $text, Escaper $escaper)
     {
         $this->text = $escaper->escapeHtml($text);
     }
 
-    public function __toString()
+    public function __toString() : string
     {
         return $this->text;
     }

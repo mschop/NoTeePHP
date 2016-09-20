@@ -31,6 +31,7 @@ class EscaperForNoTeeContext implements Escaper
     /**
      * EscaperForNoTeeContext constructor.
      * @param string $encoding
+     * @throws \InvalidArgumentException
      */
     public function __construct($encoding)
     {
@@ -47,20 +48,12 @@ class EscaperForNoTeeContext implements Escaper
      * Since NoTeePHP does not use single quotes, using ENT_COMPAT is enough.
      */
 
-    /**
-     * @param string $value
-     * @return string
-     */
-    public function escapeHtml($value)
+    public function escapeHtml(string $value) : string
     {
         return htmlspecialchars($value, ENT_COMPAT, $this->encoding);
     }
 
-    /**
-     * @param string $value
-     * @return string
-     */
-    public function escapeAttribute($value)
+    public function escapeAttribute(string $value) : string
     {
         return htmlspecialchars($value, ENT_COMPAT, $this->encoding);
     }
