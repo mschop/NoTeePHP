@@ -12,18 +12,13 @@ class Document implements Node
     protected $doctype;
     protected $htmlNode;
 
-    /**
-     * Document constructor.
-     * @param string $doctype
-     * @param DefaultNode $htmlNode
-     */
-    public function __construct($doctype, DefaultNode $htmlNode)
+    public function __construct(string $doctype, DefaultNode $htmlNode)
     {
         $this->doctype = $doctype;
         $this->htmlNode = $htmlNode;
     }
 
-    public function __toString()
+    public function __toString() : string
     {
 
         return '<!DOCTYPE ' . $this->doctype . ">\n" . (string)$this->htmlNode;

@@ -4,7 +4,7 @@
   "keywords": ["html", "template", "dom", "query", "api"],
   "license": "MIT",
   "require": {
-    "php": ">=5.4",
+    "php": ">=7.0",
     "vdb/uri": "~0.2"
   },
   "require-dev": {
