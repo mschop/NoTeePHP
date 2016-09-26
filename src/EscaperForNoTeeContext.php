@@ -1,7 +1,8 @@
 <?php
 
-namespace NoTee;
+declare(strict_types=1);
 
+namespace NoTee;
 
 
 /**
