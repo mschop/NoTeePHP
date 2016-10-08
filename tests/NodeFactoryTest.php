@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace NoTee;
 
 class NodeFactoryTest extends \PHPUnit_Framework_TestCase
@@ -68,7 +70,7 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $nf = new NodeFactory('utf-8', true);
         $root = $nf->span();
-        $this->assertEquals('<span data-source="' . __FILE__ . ':' . '70"></span>', (string)$root);
+        $this->assertEquals('<span data-source="' . __FILE__ . ':' . '72"></span>', (string)$root);
     }
 
     public function test_textAndRaw()

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace NoTee;
 
 use VDB\Uri\Exception\UriSyntaxException;

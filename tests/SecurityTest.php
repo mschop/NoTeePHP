@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace NoTee;
 
 class SecurityTest extends \PHPUnit_Framework_TestCase
