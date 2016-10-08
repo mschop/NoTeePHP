@@ -28,6 +28,6 @@ class UriValidator
     public function isValid(string $uri) : bool
     {
         $uriObject = new Uri($uri);
-        return in_array(strtolower($uriObject->getScheme()), static::$schemeWhitelist);
+        return $uriObject->getScheme() === null || in_array(strtolower($uriObject->getScheme()), static::$schemeWhitelist);
     }
 }
