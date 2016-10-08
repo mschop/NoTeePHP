@@ -68,6 +68,7 @@ class NodeFactory
             !isset($arguments[0])
             || !is_array($arguments[0])
             || reset($arguments[0]) instanceof Node
+            || reset($arguments[0]) === null
         ) {
             list($attributes, $children) = $this->triggerEvents($name, $debugAttributes, static::flatten($arguments));
             return new DefaultNode($name, $this->escaper, $attributes, $children);
