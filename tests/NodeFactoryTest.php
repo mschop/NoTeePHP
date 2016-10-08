@@ -98,4 +98,11 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals("<!DOCTYPE html>\n<html><head></head><body>test</body></html>", (string)$doc);
     }
+
+    public function test_issue57_firstItemInFirstParameterIsNull_shouldBeInterpretedAsNode()
+    {
+        $nf = new NodeFactory('utf-8');
+        $node = $nf->div([null, $nf->text('test')]);
+        $this->assertEquals('<div>test</div>', (string)$node);
+    }
 }
