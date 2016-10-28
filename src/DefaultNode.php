@@ -25,8 +25,8 @@ class DefaultNode implements Node
         $this->escaper = $escaper;
         $this->attributes = $attributes;
         foreach($children as &$child) {
-            if(is_string($child)) {
-                $child = new TextNode($child, $this->escaper);
+            if(!is_object($child)) {
+                $child = new TextNode((string)$child, $this->escaper);
             }
         }
         $this->children = $children;
