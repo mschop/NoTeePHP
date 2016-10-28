@@ -105,4 +105,11 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
         $node = $nf->div([null, $nf->text('test')]);
         $this->assertEquals('<div>test</div>', (string)$node);
     }
+
+    public function test_childNeitherObjectNorString()
+    {
+        $nf = new NodeFactory('utf-8');
+        $node = $nf->div('1', 1);
+        $this->assertEquals($nf->div('1', '1'), $node);
+    }
 }
