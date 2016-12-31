@@ -358,4 +358,9 @@ class NodeFactory
         return new Document($doctype, $html);
     }
 
+    public function wrapper(array $children)
+    {
+        return new WrapperNode(static::flatten($children), $this->escaper);
+    }
+
 }
