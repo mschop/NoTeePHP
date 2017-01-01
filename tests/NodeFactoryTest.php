@@ -116,13 +116,13 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
     public function test_wrapper()
     {
         $nf = new NodeFactory('utf-8');
-        $wrapper = $nf->wrapper([
+        $wrapper = $nf->wrapper(
             $nf->div('test'),
             [
                 $nf->div('test2'),
                 'test3'
             ]
-        ]);
+        );
         $this->assertEquals('<div>test</div><div>test2</div>test3', (string)$wrapper);
     }
 }
