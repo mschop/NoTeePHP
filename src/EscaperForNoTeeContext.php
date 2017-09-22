@@ -51,12 +51,12 @@ class EscaperForNoTeeContext implements Escaper
 
     public function escapeHtml(string $value) : string
     {
-        return htmlspecialchars($value, ENT_COMPAT, $this->encoding);
+        return htmlspecialchars($value, ENT_COMPAT, $this->encoding, false);
     }
 
     public function escapeAttribute(string $value) : string
     {
-        return htmlspecialchars($value, ENT_COMPAT, $this->encoding);
+        return htmlspecialchars($value, ENT_COMPAT, $this->encoding, false);
     }
 
 }
