@@ -3,7 +3,7 @@
 namespace NoTee;
 
 
-interface Escaper
+interface EscaperInterface
 {
     public function escapeHtml(string $value) : string;
     public function escapeAttribute(string $value) : string;

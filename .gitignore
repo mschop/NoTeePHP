@@ -1,3 +1,4 @@
 /vendor
-/humbuglog.txt
+/infection.log
 /.idea
+.phpunit.result.cache

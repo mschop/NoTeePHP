@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace NoTee;
 
-class NodeFactoryTest extends \PHPUnit_Framework_TestCase
+use NoTee\Nodes\DocumentNode;
+use PHPUnit\Framework\TestCase;
+
+class NodeFactoryTest extends TestCase
 {
 
     /** @var  NodeFactory */
@@ -15,7 +18,7 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function before()
     {
-        $this->nf = new NodeFactory('utf-8');
+        $this->nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
     }
 
     public function Test_ComplexStructure()
@@ -60,22 +63,23 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function test_invalidEncoding_throwsException()
-    {
-        $this->setExpectedException('InvalidArgumentException');
-        new NodeFactory('utf--8');
-    }
-
     public function test_debugMode()
     {
-        $nf = new NodeFactory('utf-8', true);
+        $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator(), true);
         $root = $nf->span();
-        $this->assertEquals('<span data-source="' . __FILE__ . ':' . '72"></span>', (string)$root);
+        $this->assertEquals('<span data-source="' . __FILE__ . ':' . '69"></span>', (string)$root);
+    }
+
+    public function test_debugModeWithExistingAttributes()
+    {
+        $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator(), true);
+        $root = $nf->span(['id' => 'hello-world']);
+        $this->assertEquals('<span id="hello-world" data-source="' . __FILE__ . ':' . '76"></span>', (string)$root);
     }
 
     public function test_textAndRaw()
     {
-        $nf = new NodeFactory('utf-8', true);
+        $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
         $node = $nf->text('test>');
         $this->assertEquals('test&gt;', (string)$node);
         $node = $nf->raw('test>');
@@ -84,9 +88,9 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testDocument()
     {
-        $nf = new NodeFactory('utf-8');
+        $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
         $doc = $nf->document(
-            Document::DOCTYPE_HTML5,
+            'html',
             $nf->html(
                 $nf->head(
 
@@ -101,21 +105,21 @@ class NodeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function test_issue57_firstItemInFirstParameterIsNull_shouldBeInterpretedAsNode()
     {
-        $nf = new NodeFactory('utf-8');
+        $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
         $node = $nf->div([null, $nf->text('test')]);
         $this->assertEquals('<div>test</div>', (string)$node);
     }
 
     public function test_childNeitherObjectNorString()
     {
-        $nf = new NodeFactory('utf-8');
+        $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
         $node = $nf->div('1', 1);
         $this->assertEquals($nf->div('1', '1'), $node);
     }
 
     public function test_wrapper()
     {
-        $nf = new NodeFactory('utf-8');
+        $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
         $wrapper = $nf->wrapper(
             $nf->div('test'),
             [

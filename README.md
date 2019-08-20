@@ -34,7 +34,7 @@ That's it.
 
 This is a tiny example:
 
-    $nf = new NodeFactory('utf-8');
+    $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
 
     function getItems use ($nf)()
     {
@@ -110,7 +110,8 @@ by default.
 
 The NodeFactory class is the pivot of NoTeePHP.
 
-    $nf = new NodeFactory('utf-8'); // using the right encoding is security relevant
+    // using the right encoding is security relevant
+    $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
     
 ### Node creation
 
@@ -129,24 +130,37 @@ The NodeFactory class is the pivot of NoTeePHP.
 
 ### Events
 
-You can register events globally. Lets imagine you want to add an xsrf-token to every form:
+If you need to modify the node tree in some cases, you can can register a subscriber to the node factory:
 
-    $nf->onTag('form', function(array $attributes, array $children) use ($nf) {
-        $children[] = $nf->input(['type' => 'hidden', 'name' => 'xsrf-token', 'value' => '12345']);
-        return [$attributes, $children];
-    });
-
-The following events are available:
-
-- onTag
-- onAttr
-- onClass
+    $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
+    
+    class CsrfTokenAdder implements SubscriberInterface
+    {
+        public function notify(NodeFactory $nodeFactory, DefaultNode $node): DefaultNode
+        {
+            if ($node->getTagName() !== 'form') return;
+            $attributes = $node->getAttributes();
+            $method = strtolower($attributes['method'] ?? 'get');
+            $children = $node->getChildren();
+            if (!isSecure($method)) {
+                $children[] = $nodeFactory->input(['type' => 'hidden', 'name' => 'csrf_token', 'value' => getCsrfToken()])
+            }
+            return new DefaultNode(
+                $node->getTagName(),
+                $node->getEscaper(),
+                $attributes,
+                $children
+            );
+        }
+    }
+    
+    $nf->subscribe(new CsrfTokenAdder());
 
 ### Debugging
 
 If you need to know, where a specific node is coming from, enable debug mode for the NodeFactory:
 
-    $nf = new NodeFactory('utf-8', true);
+    $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator(), true);
     
 Now every for every generated html node, an attribute "data-source" will contain the source file and line of the node.
 You should disable debug mode in production.

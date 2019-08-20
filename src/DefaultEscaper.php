@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace NoTee;
 
+use InvalidArgumentException;
 
 /**
  * Class SecureContextEscaper
@@ -13,9 +14,9 @@ namespace NoTee;
  *
  * @package NoTee
  */
-class EscaperForNoTeeContext implements Escaper
+class DefaultEscaper implements EscaperInterface
 {
-    protected static $supportedEncodings = [
+    protected const SUPPORTED_ENCODINGS = [
         'iso-8859-1',   'iso8859-1',    'iso-8859-5',   'iso8859-5',
         'iso-8859-15',  'iso8859-15',   'utf-8',        'cp866',
         'ibm866',       '866',          'cp1251',       'windows-1251',
@@ -27,36 +28,43 @@ class EscaperForNoTeeContext implements Escaper
         'eucjp-win',    'macroman'
     ];
 
-    protected $encoding;
+    protected string $encoding;
 
     /**
      * EscaperForNoTeeContext constructor.
      * @param string $encoding
      * @throws \InvalidArgumentException
      */
-    public function __construct($encoding)
+    public function __construct(string $encoding)
     {
-        $encoding = strtolower($encoding);
-        if(!in_array($encoding, static::$supportedEncodings)) {
-            throw new \InvalidArgumentException('Invalid encoding. Please use an encoding allowed for htmlspecialchars');
-        }
+        static::checkEncoding($encoding);
         $this->encoding = $encoding;
     }
 
-
-    /*
-     * I used ENT_COMPAT because escaping single quotes is only relevant, if attribute are written with single quotes.
-     * Since NoTeePHP does not use single quotes, using ENT_COMPAT is enough.
-     */
-
     public function escapeHtml(string $value) : string
     {
-        return htmlspecialchars($value, ENT_COMPAT, $this->encoding, false);
+        /*
+         * NoTeePHP knows the context of a text. Therefore we can be sure, that this escape function is not used for
+         * attributes. So we can use ENT_NOQUOTES, because we we only need to escape '<' and '>'.
+         */
+        return htmlspecialchars($value, ENT_NOQUOTES, $this->encoding, false);
     }
 
     public function escapeAttribute(string $value) : string
     {
+        // ENT_COMPAT because NoTeePHP always uses double quotes for attributes
         return htmlspecialchars($value, ENT_COMPAT, $this->encoding, false);
     }
 
+    /**
+     * @param string $encoding
+     * @throws InvalidArgumentException
+     */
+    protected static function checkEncoding(string $encoding)
+    {
+        $encoding = strtolower($encoding);
+        if(!in_array($encoding, static::SUPPORTED_ENCODINGS)) {
+            throw new \InvalidArgumentException('Invalid encoding. Please use an encoding allowed for htmlspecialchars');
+        }
+    }
 }

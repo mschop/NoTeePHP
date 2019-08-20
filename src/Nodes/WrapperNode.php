@@ -1,13 +1,16 @@
 <?php
 
-namespace NoTee;
+namespace NoTee\Nodes;
 
 
-class WrapperNode implements Node
+use NoTee\EscaperInterface;
+use NoTee\NodeInterface;
+
+class WrapperNode implements NodeInterface
 {
-    protected $children;
+    protected array $children;
 
-    public function __construct(array $children, Escaper $escaper)
+    public function __construct(array $children, EscaperInterface $escaper)
     {
         foreach($children as &$child) {
             if(!is_object($child)) {

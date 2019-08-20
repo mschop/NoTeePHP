@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace NoTee;
 
-class SecurityTest extends \PHPUnit_Framework_TestCase
+use InvalidArgumentException;
+use NoTee\Nodes\DefaultNode;
+use PHPUnit\Framework\TestCase;
+
+class SecurityTest extends TestCase
 {
 
     private function getEscaper()
     {
-        return new EscaperForNoTeeContext('utf-8');
+        return new DefaultEscaper('utf-8');
     }
 
     public function test_EscapesAttributes()
@@ -20,15 +24,15 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
 
     public function test_InvalidAttributeName_ThrowsException()
     {
-        $nf = new NodeFactory('utf-8');
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
+        $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
         $nf->a(['_invalid>attribute<name' => 'google.de']);
     }
 
     public function test_UriInjection()
     {
-        $nf = new NodeFactory('utf-8');
-        $this->setExpectedException('InvalidArgumentException');
+        $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
+        $this->expectException(InvalidArgumentException::class);
         $nf->a(
             ['href' => 'javascript: alert(1)']
         );
@@ -36,8 +40,8 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
 
     public function test_UriInjectionWithWhitespace()
     {
-        $nf = new NodeFactory('utf-8');
-        $this->setExpectedException('InvalidArgumentException');
+        $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
+        $this->expectException(InvalidArgumentException::class);
         $nf->a(['href' => '  javascript: alert(1)   ']);
     }
 }

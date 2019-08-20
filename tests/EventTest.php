@@ -5,32 +5,34 @@ declare(strict_types=1);
 namespace NoTee;
 
 
-class EventTest extends \PHPUnit_Framework_TestCase
+use NoTee\Nodes\DefaultNode;
+use PHPUnit\Framework\TestCase;
+
+class EventTestFormTagSubscriber implements SubscriberInterface
+{
+    public function notify(NodeFactory $nodeFactory, DefaultNode $node): DefaultNode
+    {
+        if ($node->getTagName() !== 'form') return $node;
+        $children = array_merge(
+            [$nodeFactory->input(['type' => 'hidden', 'value' => '12345', 'name' => 'xsrf_token'])],
+            $node->getChildren()
+        );
+        return new DefaultNode('form', $node->getEscaper(), $node->getAttributes(), $children);
+    }
+}
+
+class EventTest extends TestCase
 {
     public function test()
     {
-        $nf = new NodeFactory('utf-8');
+        $nf = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
 
         $expected = $nf->form(
-            ['class' => 'someclass anotherclass', 'id' => 'someid'],
+            ['class' => 'someclass', 'id' => 'someid'],
             $nf->input(['type' => 'hidden', 'value' => '12345', 'name' => 'xsrf_token']),
-            $nf->div('onAttr')
         );
 
-        $nf->onAttr('id', 'someid', function($attributes, $children) use ($nf) {
-            $children[] = $nf->div('onAttr');
-            return [$attributes, $children];
-        });
-
-        $nf->onClass('someclass', function($attributes, $children) {
-            $attributes['class'] = $attributes['class'] . ' anotherclass';
-            return [$attributes, $children];
-        });
-
-        $nf->onTag('form', function($attributes, $children) use ($nf){
-            $children[] = $nf->input(['type' => 'hidden', 'value' => '12345', 'name' => 'xsrf_token']);
-            return [$attributes, $children];
-        });
+        $nf->subscribe(new EventTestFormTagSubscriber());
 
         $node = $nf->form(
             ['class' => 'someclass', 'id' => 'someid']

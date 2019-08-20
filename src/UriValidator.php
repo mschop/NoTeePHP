@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace NoTee;
 
 
+use VDB\Uri\Exception\UriSyntaxException;
 use VDB\Uri\Uri;
 
 /**
@@ -14,9 +15,9 @@ use VDB\Uri\Uri;
  *
  * @package NoTee
  */
-class UriValidator
+class UriValidator implements UriValidatorInterface
 {
-    protected static $schemeWhitelist = [
+    protected const SCHEME_WHITELIST = [
         '',
         'http',
         'https',
@@ -27,7 +28,12 @@ class UriValidator
 
     public function isValid(string $uri) : bool
     {
-        $uriObject = new Uri($uri);
-        return $uriObject->getScheme() === null || in_array(strtolower($uriObject->getScheme()), static::$schemeWhitelist);
+        try {
+            $uriObject = new Uri($uri);
+        } catch(UriSyntaxException $ex) {
+            return false;
+        }
+        $scheme = mb_strtolower($uriObject->getScheme());
+        return $uriObject->getScheme() === null || in_array($scheme, static::SCHEME_WHITELIST);
     }
 }

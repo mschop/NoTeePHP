@@ -4,13 +4,13 @@
   "keywords": ["html", "template", "dom", "query", "api"],
   "license": "MIT",
   "require": {
-    "php": ">=7.0",
+    "php": "~7.4",
     "vdb/uri": "~0.2"
   },
   "require-dev": {
-    "satooshi/php-coveralls": "~2.0",
-    "phpunit/phpunit": "~4.8",
-    "humbug/humbug": "dev-master"
+    "php-coveralls/php-coveralls": "~2.0",
+    "infection/infection": "^0.13.4",
+    "phpunit/phpunit": "^8.3"
   },
   "authors": [
     {

@@ -3,7 +3,7 @@
 namespace NoTee;
 
 
-interface Node
+interface NodeInterface
 {
     public function __toString() : string;
 }
