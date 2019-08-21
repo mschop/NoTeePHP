@@ -51,7 +51,7 @@ abstract class AbstractNodeFactory
      * @return DefaultNode
      * @throws InvalidArgumentException
      */
-    protected function create(string $name, array $arguments): DefaultNode
+    public function create(string $name, array $arguments): DefaultNode
     {
         $attributes = [];
         if ($this->debug) $attributes['data-source'] = $this->generateDebugSource();
@@ -227,5 +227,13 @@ abstract class AbstractNodeFactory
     public function __call($name, $arguments): NodeInterface
     {
         return $this->create($name, $arguments);
+    }
+
+    /**
+     * @return EscaperInterface
+     */
+    public function getEscaper(): EscaperInterface
+    {
+        return $this->escaper;
     }
 }

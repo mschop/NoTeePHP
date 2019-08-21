@@ -164,3 +164,19 @@ If you need to know, where a specific node is coming from, enable debug mode for
     
 Now every for every generated html node, an attribute "data-source" will contain the source file and line of the node.
 You should disable debug mode in production.
+
+### Short Syntax
+
+You can also use a shorter syntax that relies on global state. As global state is ugly and not recommended in normal
+cases, this feature is not enabled by default. To enable it, you need to manually include the file `global.php`.
+
+    global $noTeePHP; // this global variable is require for including global.php
+    $noTeePHP = new NodeFactory(new DefaultEscaper('utf-8'), new UriValidator());
+    require '{pathToVendorDir}/mschop/NoTeePHP/global.php';
+    
+Now you can create nodes by simply calling function (which is shorter to write):
+
+    _div(
+        ['id' => 'some-id'],
+        _a(['href' => 'https://packagist.org/mschop/NoTeePHP', 'Link to the best lib on the world'])
+    )
